@@ -47,4 +47,6 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+@import './styles/app-toobar.css';
+</style>
