@@ -22,7 +22,8 @@ export default {
 
 <style>
 @import './styles/normalize.css';
-@import './styles/app.css';
 @import './styles/base.css';
+@import './styles/theme.css';
+@import './styles/app.css';
 @import './styles/page.css';
 </style>
