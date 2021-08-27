@@ -11,6 +11,7 @@ export const apiHttpClient = axios.create({
 /**
  * 设置本地存储
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setStroage = (key: string, value: any) => {
   localStorage.setItem(key, JSON.stringify(value));
 };
@@ -21,5 +22,5 @@ export const setStroage = (key: string, value: any) => {
 export const getStroage = (key: string) => {
   const data = localStorage.getItem(key);
 
-  return data ? JSON.parse(key) : null;
+  return data ? JSON.parse(data) : null;
 };
