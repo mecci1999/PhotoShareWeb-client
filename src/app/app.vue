@@ -6,12 +6,29 @@
 
 <script>
 import AppLayout from '@/app/layout/app-layout';
+import { mapMutations } from 'vuex';
+import { getStroage } from './app.service';
 
 export default {
   data() {
     return {
       layout: 'AppLayout',
     };
+  },
+
+  created() {
+    // 用户令牌
+    const token = getStroage('uid');
+
+    if (token) {
+      this.setToken(token);
+    }
+  },
+
+  methods: {
+    ...mapMutations({
+      setToken: 'auth/setToken',
+    }),
   },
 
   components: {
