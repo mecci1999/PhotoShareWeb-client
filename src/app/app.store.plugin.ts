@@ -8,6 +8,8 @@ export const LocalStorageStroePlugin: Plugin<RootState> = store => {
       case 'layout/setTheme':
         setStroage('theme', mutation.payload);
         break;
+      case 'auth/login/setLoginResponseData':
+        setStroage('uid', mutation.payload.token);
     }
   });
 };

@@ -48,7 +48,7 @@ export const authLoginStoreModule: Module<AuthLoginStoreState, RootState> = {
       state.loading = data;
     },
 
-    setLoginResponseState(state, data) {
+    setLoginResponseData(state, data) {
       state.loginResponseData = data;
     },
   },
@@ -62,7 +62,7 @@ export const authLoginStoreModule: Module<AuthLoginStoreState, RootState> = {
 
       try {
         const response = await apiHttpClient.post('/login', data);
-        commit('setLoginResponseState', response.data);
+        commit('setLoginResponseData', response.data);
         commit('setLoading', false);
 
         return response;
