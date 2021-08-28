@@ -5,6 +5,7 @@
     <div class="page-main">
       <slot></slot>
     </div>
+    <AppNotification></AppNotification>
   </div>
 </template>
 
@@ -13,6 +14,7 @@ import { defineComponent } from 'vue';
 import { mapGetters, mapMutations } from 'vuex';
 import PageHeader from '@/app/layout/components/page-header.vue';
 import PageAside from '@/app/layout/components/page-aside.vue';
+import AppNotification from '@/app/notification/app-notification.vue';
 import { getStroage } from '../app.service';
 
 export default defineComponent({
@@ -66,6 +68,7 @@ export default defineComponent({
   components: {
     PageHeader,
     PageAside,
+    AppNotification,
   },
 });
 </script>
