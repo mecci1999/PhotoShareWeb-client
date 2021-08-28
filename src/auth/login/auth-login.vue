@@ -8,9 +8,11 @@
         type="password"
         placeholder="密码"
       ></TextField>
-      <div class="field">
-        <button class="button large" @click="onClickLoginButton">登录</button>
-      </div>
+      <ButtonField
+        text="登录"
+        size="large"
+        @click="onClickLoginButton"
+      ></ButtonField>
     </div>
   </div>
 </template>
@@ -18,6 +20,7 @@
 <script>
 import { defineComponent } from 'vue';
 import TextField from '@/app/components/text-field.vue';
+import ButtonField from '@/app/components/button-field.vue';
 
 export default defineComponent({
   name: 'AuthLogin',
@@ -70,6 +73,7 @@ export default defineComponent({
    */
   components: {
     TextField,
+    ButtonField,
   },
 });
 </script>
