@@ -6,7 +6,7 @@
 
 <script>
 import AppLayout from '@/app/layout/app-layout';
-import { mapMutations } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 import { getStroage } from './app.service';
 
 export default {
@@ -22,12 +22,17 @@ export default {
 
     if (token) {
       this.setToken(token);
+      this.configApiHttpClientAuthHeader(token);
     }
   },
 
   methods: {
     ...mapMutations({
       setToken: 'auth/setToken',
+    }),
+
+    ...mapActions({
+      configApiHttpClientAuthHeader: 'auth/configApiHttpClientAuthHeader',
     }),
   },
 

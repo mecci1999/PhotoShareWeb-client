@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import { authstoreModule, AuthStoreState } from '../auth/auth.store';
+import { authStoreModule, AuthStoreState } from '../auth/auth.store';
 import { postStoreModule, PostStoreState } from '../post/post.store';
 import { LocalStorageStroePlugin } from './app.store.plugin';
 import { layoutStoreModule, LayoutStoreState } from './layout/layout.store';
@@ -22,7 +22,7 @@ const store = createStore({
   modules: {
     post: postStoreModule,
     layout: layoutStoreModule,
-    auth: authstoreModule,
+    auth: authStoreModule,
   },
 
   plugins: [LocalStorageStroePlugin],

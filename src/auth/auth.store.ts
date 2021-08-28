@@ -4,13 +4,14 @@ import {
   authLoginStoreModule,
   AuthLoginStoreState,
 } from './login/auth-login.store';
+import { apiHttpClient } from '../app/app.service';
 
 export interface AuthStoreState {
   login: AuthLoginStoreState;
   token: string | null;
 }
 
-export const authstoreModule: Module<AuthStoreState, RootState> = {
+export const authStoreModule: Module<AuthStoreState, RootState> = {
   /**
    * 命名空间
    */
@@ -44,7 +45,11 @@ export const authstoreModule: Module<AuthStoreState, RootState> = {
   /**
    * 动作
    */
-  actions: {},
+  actions: {
+    configApiHttpClientAuthHeader(_, data) {
+      apiHttpClient.defaults.headers.common['Authorization'] = `Bearer ${data}`;
+    },
+  },
 
   modules: {
     login: authLoginStoreModule,
