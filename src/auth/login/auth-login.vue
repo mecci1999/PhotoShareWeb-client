@@ -21,6 +21,7 @@
 import { defineComponent } from 'vue';
 import TextField from '@/app/components/text-field.vue';
 import ButtonField from '@/app/components/button-field.vue';
+import { mapActions, mapGetters } from 'vuex';
 
 export default defineComponent({
   name: 'AuthLogin',
@@ -50,7 +51,12 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {},
+  computed: {
+    ...mapGetters({
+      loading: 'auth/login/loading',
+      loginResponseData: 'auth/login/loginResponseData',
+    }),
+  },
 
   /**
    * 已创建
@@ -63,8 +69,21 @@ export default defineComponent({
    * 组件方法
    */
   methods: {
-    onClickLoginButton() {
-      console.log('login:', this.name, this.password);
+    ...mapActions({
+      login: 'auth/login/login',
+    }),
+
+    async onClickLoginButton() {
+      try {
+        const data = await this.login({
+          name: this.name,
+          password: this.password,
+        });
+
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 

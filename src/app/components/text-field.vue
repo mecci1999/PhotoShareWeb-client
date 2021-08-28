@@ -3,9 +3,9 @@
     <input
       class="input text"
       :type="type"
-      :value="modleValue"
+      :value="modelValue"
       :placeholder="placeholder"
-      @input="$emit('update:modleValue', $event.target.value)"
+      @input="$emit('update:modelValue', $event.target.value)"
     />
   </div>
 </template>
@@ -20,7 +20,7 @@ export default defineComponent({
    * 属性
    */
   props: {
-    modleValue: {
+    modelValue: {
       type: String,
     },
 
@@ -37,7 +37,7 @@ export default defineComponent({
   /**
    * 事件
    */
-  emits: ['update:modleValue'],
+  emits: ['update:modelValue'],
 
   /**
    * 数据
