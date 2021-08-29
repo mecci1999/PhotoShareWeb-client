@@ -65,4 +65,6 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+@import './styles/user-show.css';
+</style>
