@@ -97,5 +97,5 @@ export default defineComponent({
 </script>
 
 <style scoped>
-@import '../styles/user-avatar.css';
+@import './styles/user-avatar.css';
 </style>
