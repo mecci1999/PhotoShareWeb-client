@@ -65,24 +65,45 @@ export default defineComponent({
     //
   },
 
+  mounted() {
+    // 绑定事件
+    window.addEventListener('keydown', this.keyDownEnterLogin);
+  },
+
+  unmounted() {
+    window.removeEventListener('keydown', this.keyDownEnterLogin, false);
+  },
+
   /**
    * 组件方法
    */
   methods: {
+    async keyDownEnterLogin(event) {
+      // 如果是回车则执行登录
+      if (event.keyCode === 13 || event.keyCode === 100) {
+        await this.onClickLoginButton();
+      }
+    },
+
     ...mapActions({
       login: 'auth/login/login',
+      pushMessage: 'notification/pushMessage',
     }),
 
     async onClickLoginButton() {
       try {
-        const data = await this.login({
+        const response = await this.login({
           name: this.name,
           password: this.password,
         });
 
-        console.log(data);
+        this.pushMessage({
+          content: `欢迎回来， ${response.data.name}`,
+        });
       } catch (error) {
-        console.log(error);
+        this.pushMessage({
+          content: error.data.message,
+        });
       }
     },
   },
