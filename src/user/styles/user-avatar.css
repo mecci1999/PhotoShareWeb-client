@@ -1,0 +1,20 @@
+.user-avatar > .image {
+  border-radius: 50%;
+  width: 100%;
+  cursor: pointer;
+}
+
+.user-avatar.small {
+  width: 32px;
+  height: 32px;
+}
+
+.user-avatar.medium {
+  width: 32px;
+  height: 32px;
+}
+
+.user-avatar.large {
+  width: 32px;
+  height: 32px;
+}
