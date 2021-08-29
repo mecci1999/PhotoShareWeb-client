@@ -11,13 +11,13 @@
 }
 
 .user-avatar.medium {
-  width: 32px;
-  height: 32px;
+  width: 64px;
+  height: 64px;
 }
 
 .user-avatar.large {
-  width: 32px;
-  height: 32px;
+  width: 128px;
+  height: 128px;
 }
 
 .user-avatar.fade {
