@@ -9,7 +9,9 @@ export const LocalStorageStroePlugin: Plugin<RootState> = store => {
         setStroage('theme', mutation.payload);
         break;
       case 'auth/login/setLoginResponseData':
-        setStroage('uid', mutation.payload.token);
+        setStroage('nid', mutation.payload.token);
+        setStroage('uid', mutation.payload.id);
+        break;
     }
   });
 };

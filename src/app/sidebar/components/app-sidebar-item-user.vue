@@ -1,12 +1,13 @@
 <template>
   <div class="app-sidebar-item user">
-    <UserAvatar :user="{ id: 6, avatar: 1 }" link="login"></UserAvatar>
+    <UserAvatar :user="currentUser" link="login"></UserAvatar>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import UserAvatar from '@/user/components/user-avatar.vue';
+import { mapGetters } from 'vuex';
 
 export default defineComponent({
   name: 'AppSidebarItemUser',
@@ -26,7 +27,11 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {},
+  computed: {
+    ...mapGetters({
+      currentUser: 'user/currentUser',
+    }),
+  },
 
   /**
    * 已创建

@@ -18,11 +18,18 @@ export default {
 
   created() {
     // 用户令牌
-    const token = getStroage('uid');
+    const token = getStroage('nid');
 
     if (token) {
       this.setToken(token);
       this.configApiHttpClientAuthHeader(token);
+    }
+
+    // 当前用户
+    const currentUser = getStroage('uid');
+
+    if (currentUser) {
+      this.getCurrentUser(currentUser);
     }
   },
 
@@ -33,6 +40,8 @@ export default {
 
     ...mapActions({
       configApiHttpClientAuthHeader: 'auth/configApiHttpClientAuthHeader',
+
+      getCurrentUser: 'user/getCurrentUser',
     }),
   },
 
