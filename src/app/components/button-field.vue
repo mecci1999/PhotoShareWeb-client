@@ -1,5 +1,9 @@
 <template>
-  <button :class="['button', size]" @click="$emit('click')">{{ text }}</button>
+  <div class="field">
+    <button :class="['button', size]" @click="$emit('click')">
+      {{ text }}
+    </button>
+  </div>
 </template>
 
 <script>
