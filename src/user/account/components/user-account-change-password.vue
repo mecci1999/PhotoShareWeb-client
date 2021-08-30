@@ -1,10 +1,14 @@
 <template>
-  <div class="user-account-change-name">
+  <div class="user-account-change-password">
     <div class="form">
-      <h2 class="header">修改名字</h2>
-      <TextField v-model="newName" placeholder="请输入新的用户名"></TextField>
+      <h2 class="header">修改密码</h2>
       <TextField
-        v-if="newName"
+        v-model="newPassword"
+        placeholder="请输入新的用户密码"
+        type="password"
+      ></TextField>
+      <TextField
+        v-if="newPassword"
         v-model="password"
         placeholder="验证用户登录密码"
         type="password"
@@ -37,7 +41,7 @@ export default defineComponent({
    */
   data() {
     return {
-      newName: '',
+      newPassword: '',
       password: '',
     };
   },
@@ -68,8 +72,8 @@ export default defineComponent({
     }),
 
     async onClickSubmitButton() {
-      if (!this.newName) {
-        return this.pushMessage({ content: '请输入新的用户名' });
+      if (!this.newPassword) {
+        return this.pushMessage({ content: '请输入新的用户密码' });
       }
 
       try {
@@ -77,7 +81,7 @@ export default defineComponent({
           userId: this.currentUser.id,
           body: {
             update: {
-              name: this.newName,
+              password: this.newPassword,
             },
             validate: {
               password: this.password,
@@ -85,8 +89,8 @@ export default defineComponent({
           },
         });
 
-        this.pushMessage({ content: '成功修改了用户名！' });
-        this.newName = '';
+        this.pushMessage({ content: '成功修改了用户密码！' });
+        this.newPassword = '';
         this.password = '';
       } catch (error) {
         this.pushMessage({ content: error.data.message });
@@ -104,8 +108,4 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-.user-account-change-name {
-  padding-bottom: 32px;
-}
-</style>
+<style scoped></style>
