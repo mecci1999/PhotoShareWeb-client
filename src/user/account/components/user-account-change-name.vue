@@ -20,7 +20,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import TextField from '@/app/components/text-field.vue';
 import ButtonField from '@/app/components/button-field.vue';
 
@@ -45,7 +45,11 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {},
+  computed: {
+    ...mapGetters({
+      currentUser: 'user/currentUser',
+    }),
+  },
 
   /**
    * 已创建
@@ -60,11 +64,32 @@ export default defineComponent({
   methods: {
     ...mapActions({
       pushMessage: 'notification/pushMessage',
+      updateUserAccount: 'user/account/updateUserAccount',
     }),
 
     async onClickSubmitButton() {
       if (!this.newName) {
         return this.pushMessage({ content: '请输入新的用户名' });
+      }
+
+      try {
+        await this.updateUserAccount({
+          userId: this.currentUser.id,
+          body: {
+            update: {
+              name: this.newName,
+            },
+            validate: {
+              password: this.password,
+            },
+          },
+        });
+
+        this.pushMessage({ content: '成功修改了用户名！' });
+        this.newName = '';
+        this.password = '';
+      } catch (error) {
+        this.pushMessage({ content: error.data.message });
       }
     },
   },
