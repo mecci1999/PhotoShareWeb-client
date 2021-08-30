@@ -8,6 +8,10 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'UserLiked',
 
+  title() {
+    return '用户喜欢';
+  },
+
   /**
    * 属性
    */

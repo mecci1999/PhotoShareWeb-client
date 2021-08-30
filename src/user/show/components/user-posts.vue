@@ -8,6 +8,10 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'UserPosts',
 
+  title() {
+    return '用户作品';
+  },
+
   /**
    * 属性
    */
