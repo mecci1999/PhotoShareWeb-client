@@ -2,6 +2,11 @@
   <div class="user-account-set-avatar">
     <div class="form">
       <h2 class="header">设置头像</h2>
+      <div class="field" v-if="avatarPreviewImage">
+        <div class="user-avatar large">
+          <img :src="avatarPreviewImage" class="image" />
+        </div>
+      </div>
       <div class="fields">
         <FileField
           text="选择文件"
@@ -37,7 +42,9 @@ export default defineComponent({
    * 数据
    */
   data() {
-    return {};
+    return {
+      avatarPreviewImage: '',
+    };
   },
 
   /**
@@ -61,7 +68,19 @@ export default defineComponent({
     },
 
     onChangeAvatarFileField(files) {
-      console.log(files);
+      if (files.length) {
+        this.createAvatarPreviewImage(files[0]);
+      }
+    },
+
+    createAvatarPreviewImage(file) {
+      const fileReader = new FileReader();
+
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = event => {
+        this.avatarPreviewImage = event.target.result;
+      };
     },
   },
 
