@@ -2,19 +2,26 @@
   <div class="user-account-set-avatar">
     <div class="form">
       <h2 class="header">设置头像</h2>
-      <div class="field" v-if="avatarPreviewImage">
+      <div class="field" v-if="avatarFile">
         <div class="user-avatar large">
           <img :src="avatarPreviewImage" class="image" />
         </div>
       </div>
       <div class="fields">
         <FileField
-          text="选择文件"
+          :text="avatarFileFieldText"
           size="large"
           name="avatar"
           fileType="image/*"
           @change="onChangeAvatarFileField"
         ></FileField>
+        <ButtonField
+          v-if="avatarFile"
+          text="取消"
+          size="large"
+          type="outline"
+          @click="onClickCancelButton"
+        ></ButtonField>
         <ButtonField
           text="提交"
           size="large"
@@ -55,6 +62,9 @@ export default defineComponent({
     ...mapGetters({
       avatarPreviewImage: 'user/account/avatarPreviewImage',
     }),
+    avatarFileFieldText() {
+      return this.avatarFile ? '重新选择' : '选择头像';
+    },
   },
 
   /**
@@ -82,6 +92,7 @@ export default defineComponent({
         await this.createAvatar(this.avatarFile);
 
         this.pushMessage({ content: '成功设置了头像！' });
+        this.avatarFile = '';
       } catch (error) {
         this.pushMessage({ content: '设置头像出了问题！' });
       }
@@ -102,6 +113,11 @@ export default defineComponent({
       fileReader.onload = event => {
         this.setAvatarPreviewImage(event.target.result);
       };
+    },
+
+    onClickCancelButton() {
+      this.setAvatarPreviewImage = '';
+      this.avatarFile = null;
     },
   },
 
