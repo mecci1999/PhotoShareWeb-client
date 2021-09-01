@@ -1,11 +1,37 @@
 import { Module } from 'vuex';
 import { apiHttpClient } from '../../app/app.service';
 import { RootState } from '../../app/app.store';
-import { PostItem } from '../post.store';
+import { User } from '../../user/show/user-show.store';
+
+export interface PostListItem {
+  id: number;
+  title: string;
+  content: string;
+  user: User;
+  totalComments: number;
+  totalLikes: number;
+  files: {
+    id: number;
+    width: number;
+    height: number;
+    orientation: string;
+    size: {
+      thumbnail: string;
+      medium: string;
+      large: string;
+    };
+  };
+  tags: [
+    {
+      id: number;
+      name: string;
+    },
+  ];
+}
 
 export interface PostIndexStoreState {
   loading: boolean;
-  posts: Array<PostItem>;
+  posts: Array<PostListItem>;
 }
 
 export const postIndexStoreModule: Module<PostIndexStoreState, RootState> = {
