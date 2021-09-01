@@ -1,7 +1,7 @@
 <template>
   <div :class="userNameClasses">
     <div class="user-name-text">
-      <router-link :to="userNameLinkTo" class="link">{{
+      <router-link :to="userNameLinkTo" class="link" @click="$emit('click')">{{
         user.name
       }}</router-link>
     </div>
@@ -26,6 +26,8 @@ export default defineComponent({
       type: String,
     },
   },
+
+  emits: ['click'],
 
   /**
    * 数据
