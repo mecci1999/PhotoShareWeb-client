@@ -62,26 +62,29 @@ export default defineComponent({
    * 已创建
    */
   created() {
-    //
+    // 按下Enter键进行用户登录
+    if (window) {
+      window.addEventListener('keyup', this.onKeyUpEnterLogin);
+    }
   },
 
-  mounted() {
-    // 绑定事件
-    window.addEventListener('keydown', this.keyDownEnterLogin);
-  },
-
+  /**
+   * 取消挂载
+   */
   unmounted() {
-    window.removeEventListener('keydown', this.keyDownEnterLogin, false);
+    if (window) {
+      window.removeEventListener('keyup', this.onKeyUpEnterLogin);
+    }
   },
 
   /**
    * 组件方法
    */
   methods: {
-    async keyDownEnterLogin(event) {
+    onKeyUpEnterLogin(event) {
       // 如果是回车则执行登录
-      if (event.keyCode === 13 || event.keyCode === 100) {
-        await this.onClickLoginButton();
+      if (event.key === 'Enter') {
+        this.onClickLoginButton();
       }
     },
 
