@@ -48,3 +48,8 @@
   color: var(--primary-text-color);
   background: var(--light-background);
 }
+
+.user-menu-footer {
+  padding-top: 16px;
+  padding-bottom: 24px;
+}
