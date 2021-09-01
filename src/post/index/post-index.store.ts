@@ -54,7 +54,7 @@ export const postIndexStoreModule: Module<PostIndexStoreState, RootState> = {
 
         if (file) {
           const { id: fileId } = file;
-          const fileBaseUrl = `${API_BASE_URL}/files/${fileId}/sever`;
+          const fileBaseUrl = `${API_BASE_URL}/files/${fileId}/serve`;
 
           file = {
             ...file,
