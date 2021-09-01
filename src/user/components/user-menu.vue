@@ -1,6 +1,6 @@
 <template>
   <div class="user-menu">
-    <CloseButton></CloseButton>
+    <CloseButton @click="$emit('close')"></CloseButton>
   </div>
 </template>
 
@@ -15,6 +15,11 @@ export default defineComponent({
    * 属性
    */
   props: {},
+
+  /**
+   * 事件
+   */
+  emits: ['close'],
 
   /**
    * 数据
@@ -32,13 +37,31 @@ export default defineComponent({
    * 已创建
    */
   created() {
-    //
+    // 监听window的keyup事件
+    if (window) {
+      window.addEventListener('keyup', this.onKeyUpWindow);
+    }
+  },
+
+  /**
+   * 取消挂载
+   */
+  unmounted() {
+    if (window) {
+      window.removeEventListener('keyup', this.onKeyUpWindow);
+    }
   },
 
   /**
    * 组件方法
    */
-  methods: {},
+  methods: {
+    onKeyUpWindow(event) {
+      if (event.key === 'Escape') {
+        this.$emit('close');
+      }
+    },
+  },
 
   /**
    * 使用组件
