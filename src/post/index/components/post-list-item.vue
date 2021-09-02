@@ -1,7 +1,10 @@
 <template>
   <div :class="postListItemClasses">
     <PostListItemMedia :item="item"></PostListItemMedia>
-    <PostListItemContent :item="item"></PostListItemContent>
+    <PostListItemContent
+      :item="item"
+      v-if="showPostListItemContent"
+    ></PostListItemContent>
   </div>
 </template>
 
@@ -23,6 +26,10 @@ export default defineComponent({
 
     postListItemClasses() {
       return ['post-list-item', this.item.file.orientation, this.layout];
+    },
+
+    showPostListItemContent() {
+      return !this.layout.includes('-minimal');
     },
   },
 
