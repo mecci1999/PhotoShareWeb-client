@@ -17,6 +17,9 @@ export const LocalStorageStroePlugin: Plugin<RootState> = store => {
           setStroage('uid', mutation.payload.id);
         }
         break;
+      case 'post/index/setLayout':
+        setStroage('post-list-layout', mutation.payload);
+        break;
     }
   });
 };
