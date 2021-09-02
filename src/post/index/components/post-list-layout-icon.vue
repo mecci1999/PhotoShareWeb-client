@@ -59,4 +59,6 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+@import './styles/post-list-layout-icon.css';
+</style>
