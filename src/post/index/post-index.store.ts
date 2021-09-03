@@ -81,6 +81,10 @@ export const postIndexStoreModule: Module<PostIndexStoreState, RootState> = {
     layout(state) {
       return state.layout;
     },
+
+    hasMore(state) {
+      return state.totalPages - state.nextPage >= 0;
+    },
   },
 
   mutations: {

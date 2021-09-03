@@ -18,6 +18,12 @@ import PostListItem from './post-list-item.vue';
 import PostListItemSkeleton from './post-list-item-skeleton.vue';
 
 export default defineComponent({
+  data() {
+    return {
+      prevScrollTop: 0,
+    };
+  },
+
   async created() {
     await this.getPosts();
 
@@ -30,6 +36,18 @@ export default defineComponent({
     } else {
       this.setLayout('flow');
     }
+
+    if (window) {
+      window.addEventListener('scroll', this.onScrollWindow);
+      window.scrollTo({ top: 0 });
+    }
+  },
+
+  // 取消挂载
+  unmounted() {
+    if (window) {
+      window.removeEventListener('scroll', this.onScrollWindow);
+    }
   },
 
   computed: {
@@ -37,6 +55,7 @@ export default defineComponent({
       loading: 'post/index/loading',
       posts: 'post/index/posts',
       layout: 'post/index/layout',
+      hasMore: 'post/index/hasMore',
     }),
 
     postListClasses() {
@@ -52,6 +71,26 @@ export default defineComponent({
     ...mapMutations({
       setLayout: 'post/index/setLayout',
     }),
+
+    onScrollWindow() {
+      if (document) {
+        const {
+          scrollTop,
+          scrollHeight,
+          clientHeight,
+        } = document.documentElement;
+
+        const height = clientHeight + scrollTop + 200;
+        const touchDown = scrollHeight - height < 0;
+        const scrollDown = scrollTop > this.prevScrollTop;
+
+        if (scrollDown && touchDown && !this.loading && this.hasMore) {
+          this.getPosts();
+        }
+
+        this.prevScrollTop = scrollTop;
+      }
+    },
   },
 
   components: {
