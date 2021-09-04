@@ -1,0 +1,8 @@
+.post-show-media {
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.post-show-media > .image {
+  width: 100%;
+}
