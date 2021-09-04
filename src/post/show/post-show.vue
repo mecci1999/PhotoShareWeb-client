@@ -2,6 +2,7 @@
   <div :class="postShowClasses" v-if="showPost">
     <PostShowMedia :post="post" @click="onClickPostShowMedia"></PostShowMedia>
     <PostShowHeader :post="post"></PostShowHeader>
+    <PostShowContent :post="post"></PostShowContent>
   </div>
 </template>
 
@@ -11,6 +12,7 @@ import { defineComponent } from 'vue';
 import PostShowMedia from './components/post-show-media.vue';
 import { getStroage } from '@/app/app.service';
 import PostShowHeader from './components/post-show-header.vue';
+import PostShowContent from './components/post-show-content.vue';
 
 export default defineComponent({
   title() {
@@ -67,6 +69,7 @@ export default defineComponent({
   components: {
     PostShowMedia,
     PostShowHeader,
+    PostShowContent,
   },
 });
 </script>
