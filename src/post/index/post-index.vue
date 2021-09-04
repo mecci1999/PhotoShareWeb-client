@@ -4,7 +4,6 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { mapGetters } from 'vuex';
 import PostList from './components/post-list';
 
 export default defineComponent({
