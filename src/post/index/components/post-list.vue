@@ -21,11 +21,15 @@ export default defineComponent({
   data() {
     return {
       prevScrollTop: 0,
+      sort: '',
     };
   },
 
   async created() {
-    await this.getPosts();
+    this.sort =
+      this.$route.name === 'postIndexPopular' ? 'mostComment' : 'lastest';
+
+    await this.getPosts({ sort: this.sort });
 
     // 从本地存储中，获取内容页面布局数据
     const layout = getStroage('post-list-layout');
@@ -85,7 +89,7 @@ export default defineComponent({
         const scrollDown = scrollTop > this.prevScrollTop;
 
         if (scrollDown && touchDown && !this.loading && this.hasMore) {
-          this.getPosts();
+          this.getPosts({ sort: this.sort });
         }
 
         this.prevScrollTop = scrollTop;
