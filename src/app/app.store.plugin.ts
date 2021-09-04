@@ -20,6 +20,9 @@ export const LocalStorageStroePlugin: Plugin<RootState> = store => {
       case 'post/index/setLayout':
         setStroage('post-list-layout', mutation.payload);
         break;
+      case 'post/show/setLayout':
+        setStroage('post-show-layout', mutation.payload);
+        break;
     }
   });
 };
