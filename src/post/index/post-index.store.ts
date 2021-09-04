@@ -93,9 +93,9 @@ export const postIndexStoreModule: Module<PostIndexStoreState, RootState> = {
       return state.totalPages - state.nextPage >= 0;
     },
 
-    isMostCommentsQueryString(state) {
-      return state.queryString === 'sort=mostComment' ? '热门' : '';
-    },
+    // isMostCommentsQueryString(state) {
+    //   return state.queryString === 'sort=mostComment' ? '热门' : '';
+    // },
   },
 
   mutations: {

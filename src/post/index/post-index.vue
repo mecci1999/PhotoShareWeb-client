@@ -9,13 +9,13 @@ import PostList from './components/post-list';
 
 export default defineComponent({
   title() {
-    return `${this.isMostCommentsQueryString}内容列表`;
-  },
-
-  computed: {
-    ...mapGetters({
-      isMostCommentsQueryString: 'post/index/isMostCommentsQueryString',
-    }),
+    let title;
+    if (this.$route.name === 'postIndexPopular') {
+      title = '热门';
+    } else {
+      title = '最近';
+    }
+    return title;
   },
 
   components: {
