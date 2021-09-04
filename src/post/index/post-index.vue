@@ -4,11 +4,18 @@
 
 <script>
 import { defineComponent } from 'vue';
+import { mapGetters } from 'vuex';
 import PostList from './components/post-list';
 
 export default defineComponent({
   title() {
-    return '内容列表';
+    return `${this.isMostCommentsQueryString}内容列表`;
+  },
+
+  computed: {
+    ...mapGetters({
+      isMostCommentsQueryString: 'post/index/isMostCommentsQueryString',
+    }),
   },
 
   components: {
