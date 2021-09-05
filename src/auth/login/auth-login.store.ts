@@ -74,9 +74,10 @@ export const authLoginStoreModule: Module<AuthLoginStoreState, RootState> = {
 
         return response;
       } catch (error) {
+        const _error = error as any;
         commit('setLoading', false);
 
-        throw error.response;
+        throw _error.response;
       }
     },
   },

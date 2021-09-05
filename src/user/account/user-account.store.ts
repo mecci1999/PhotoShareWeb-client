@@ -64,8 +64,9 @@ export const userAccountStoreModule: Module<
 
         return response;
       } catch (error) {
+        const _error = error as any;
         commit('setLoading', false);
-        throw error.response;
+        throw _error.response;
       }
     },
 
@@ -80,9 +81,10 @@ export const userAccountStoreModule: Module<
 
         return response;
       } catch (error) {
+        const _error = error as any;
         commit('setLoading', false);
 
-        throw error.response;
+        throw _error.response;
       }
     },
   },

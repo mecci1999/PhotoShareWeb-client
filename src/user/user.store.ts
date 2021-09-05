@@ -61,7 +61,9 @@ export const userStoreModule: Module<UserStoreState, RootState> = {
 
         return response;
       } catch (error) {
-        throw error.response;
+        const _error = error as any;
+
+        throw _error.response;
       }
     },
   },

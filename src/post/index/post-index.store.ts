@@ -1,6 +1,6 @@
 import { StringifiableRecord } from 'query-string';
 import { Module } from 'vuex';
-import { API_BASE_URL, POSTS_PER_PAGE } from '../../app/app.config';
+import { POSTS_PER_PAGE } from '../../app/app.config';
 import { apiHttpClient, queryStringProcess } from '../../app/app.service';
 import { RootState } from '../../app/app.store';
 import { User } from '../../user/show/user-show.store';
@@ -122,8 +122,9 @@ export const postIndexStoreModule: Module<PostIndexStoreState, RootState> = {
 
         return response;
       } catch (error) {
+        const _error = error as any;
         commit('setLoading', false);
-        throw error;
+        throw _error.response;
       }
     },
 

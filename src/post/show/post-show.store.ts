@@ -86,9 +86,11 @@ export const postShowStoreModule: Module<PostShowStoreState, RootState> = {
 
         return response;
       } catch (error) {
+        const _error = error as any;
+
         commit('setLoading', false);
 
-        throw error;
+        throw _error.response;
       }
     },
   },

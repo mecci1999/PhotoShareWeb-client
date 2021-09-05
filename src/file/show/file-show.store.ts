@@ -2,18 +2,16 @@ import { Module } from 'vuex';
 import { RootState } from '@/app/app.store';
 import { apiHttpClient } from '@/app/app.service';
 
-export interface User {
-  id: number;
-  name: string;
-  avatar: number | null;
+export interface FileMetadata {
+  data: null;
 }
 
-export interface UserShowStoreState {
+export interface FileShowStoreState {
   loading: boolean;
-  user: User | null;
+  fileMetadata: FileMetadata | null;
 }
 
-export const userShowStoreModule: Module<UserShowStoreState, RootState> = {
+export const fileShowStoreModule: Module<FileShowStoreState, RootState> = {
   /**
    * 命名空间
    */
@@ -24,8 +22,8 @@ export const userShowStoreModule: Module<UserShowStoreState, RootState> = {
    */
   state: {
     loading: false,
-    user: null,
-  } as UserShowStoreState,
+    fileMetadata: null,
+  } as FileShowStoreState,
 
   /**
    * 获取器
@@ -35,8 +33,8 @@ export const userShowStoreModule: Module<UserShowStoreState, RootState> = {
       return state.loading;
     },
 
-    user(state) {
-      return state.user;
+    fileMetadata(state) {
+      return state.fileMetadata;
     },
   },
 
@@ -48,8 +46,8 @@ export const userShowStoreModule: Module<UserShowStoreState, RootState> = {
       state.loading = data;
     },
 
-    setUser(state, data) {
-      state.user = data;
+    setFileMetadata(state, data) {
+      state.fileMetadata = data;
     },
   },
 
@@ -57,12 +55,12 @@ export const userShowStoreModule: Module<UserShowStoreState, RootState> = {
    * 动作
    */
   actions: {
-    async getUserById({ commit }, userId) {
+    async getFileById({ commit }, fileId) {
       commit('setLoading', true);
 
       try {
-        const response = await apiHttpClient.get(`/users/${userId}`);
-        commit('setUser', response.data);
+        const response = await apiHttpClient.get(`/files/${fileId}/metadata`);
+        commit('setFileMetadata', response.data);
         commit('setLoading', false);
 
         return response;
