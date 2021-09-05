@@ -27,3 +27,22 @@ export const postFileProcess = (post: Post) => {
 
   return post;
 };
+
+/**
+ * 处理列表过滤器
+ */
+export const filterProcess = (filterObject: { [name: string]: string }) => {
+  const allowedFilterNames = ['tag', 'user', 'action'];
+
+  Object.keys(filterObject).forEach(filterName => {
+    const allowed = allowedFilterNames.some(
+      allowedFilterName => allowedFilterName === filterName,
+    );
+
+    if (!allowed) {
+      delete filterObject[filterName];
+    }
+  });
+
+  return filterObject;
+};
