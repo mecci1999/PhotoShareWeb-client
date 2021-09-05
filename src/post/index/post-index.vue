@@ -1,5 +1,5 @@
 <template>
-  <PostList />
+  <PostList :sort="sort" :filter="filter" />
 </template>
 
 <script>
@@ -7,6 +7,16 @@ import { defineComponent } from 'vue';
 import PostList from './components/post-list';
 
 export default defineComponent({
+  props: {
+    sort: {
+      type: String,
+    },
+
+    filter: {
+      type: Object,
+    },
+  },
+
   title() {
     let title;
     if (this.$route.name === 'postIndexPopular') {

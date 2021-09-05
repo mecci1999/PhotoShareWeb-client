@@ -18,17 +18,23 @@ import PostListItem from './post-list-item.vue';
 import PostListItemSkeleton from './post-list-item-skeleton.vue';
 
 export default defineComponent({
+  props: {
+    sort: {
+      type: String,
+    },
+
+    filter: {
+      type: Object,
+    },
+  },
+
   data() {
     return {
       prevScrollTop: 0,
-      sort: '',
     };
   },
 
   async created() {
-    this.sort =
-      this.$route.name === 'postIndexPopular' ? 'mostComment' : 'lastest';
-
     await this.getPosts({ sort: this.sort });
 
     // 从本地存储中，获取内容页面布局数据
