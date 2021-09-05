@@ -111,9 +111,9 @@ export const fileShowStoreModule: Module<FileShowStoreState, RootState> = {
           {
             title: '曝光',
             value:
-              ExposureTime > 1
+              ExposureTime >= 1
                 ? `${ExposureTime}s`
-                : `1/${Math.round(1 / ExposureTime)}`,
+                : `1/${Math.round(1 / ExposureTime)}s`,
           },
           {
             title: '感光',

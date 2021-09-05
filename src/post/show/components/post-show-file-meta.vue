@@ -1,6 +1,7 @@
 <template>
   <div class="post-show-file-meta">
     <PostShowFileMetaKit :kit="kit"></PostShowFileMetaKit>
+    <PostShowFileMetaSpecs :specs="specs"></PostShowFileMetaSpecs>
   </div>
 </template>
 
@@ -8,6 +9,7 @@
 import { defineComponent } from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 import PostShowFileMetaKit from './post-show-file-meta-kit.vue';
+import PostShowFileMetaSpecs from './post-show-file-meta-specs.vue';
 
 export default defineComponent({
   name: 'PostShowFileMeta',
@@ -61,6 +63,7 @@ export default defineComponent({
    */
   components: {
     PostShowFileMetaKit,
+    PostShowFileMetaSpecs,
   },
 });
 </script>
