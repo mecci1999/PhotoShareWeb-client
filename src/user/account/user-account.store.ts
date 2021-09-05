@@ -64,6 +64,7 @@ export const userAccountStoreModule: Module<
 
         return response;
       } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const _error = error as any;
         commit('setLoading', false);
         throw _error.response;
@@ -81,6 +82,7 @@ export const userAccountStoreModule: Module<
 
         return response;
       } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const _error = error as any;
         commit('setLoading', false);
 

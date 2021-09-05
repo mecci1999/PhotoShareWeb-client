@@ -74,6 +74,7 @@ export const authLoginStoreModule: Module<AuthLoginStoreState, RootState> = {
 
         return response;
       } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const _error = error as any;
         commit('setLoading', false);
 

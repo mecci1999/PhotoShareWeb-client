@@ -35,7 +35,10 @@ export const fileStoreModule: Module<FileStoreState, RootState> = {
    */
   actions: {},
 
+  /**
+   * 模块
+   */
   modules: {
-    fileShowStoreModule,
+    show: fileShowStoreModule,
   },
 };
