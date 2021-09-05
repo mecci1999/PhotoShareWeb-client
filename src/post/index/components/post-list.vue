@@ -34,8 +34,17 @@ export default defineComponent({
     };
   },
 
+  /**
+   * 监视
+   */
+  watch: {
+    filter() {
+      this.getPosts({ sort: this.sort, filter: this.filter });
+    },
+  },
+
   async created() {
-    await this.getPosts({ sort: this.sort });
+    await this.getPosts({ sort: this.sort, filter: this.filter });
 
     // 从本地存储中，获取内容页面布局数据
     const layout = getStroage('post-list-layout');
@@ -95,7 +104,7 @@ export default defineComponent({
         const scrollDown = scrollTop > this.prevScrollTop;
 
         if (scrollDown && touchDown && !this.loading && this.hasMore) {
-          this.getPosts({ sort: this.sort });
+          this.getPosts({ sort: this.sort, filtre: this.filter });
         }
 
         this.prevScrollTop = scrollTop;
