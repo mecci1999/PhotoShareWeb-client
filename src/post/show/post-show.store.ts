@@ -1,4 +1,5 @@
 import { Module } from 'vuex';
+import appRouter from '../../app/app.router';
 import { apiHttpClient } from '../../app/app.service';
 import { RootState } from '../../app/app.store';
 import { User } from '../../user/show/user-show.store';
@@ -59,6 +60,23 @@ export const postShowStoreModule: Module<PostShowStoreState, RootState> = {
     layout(state) {
       return state.layout;
     },
+
+    // 当前内容在内容列表中的位置
+    currentPostIndex(state, _, rootState) {
+      return rootState.post.index.posts.findIndex(
+        item => item.id === state.post.id,
+      );
+    },
+
+    // 本页面的上一个内容页面
+    prevPost(_, getters, rootState) {
+      return rootState.post.index.posts[getters.currentPostIndex - 1];
+    },
+
+    // 本页面的下一个内容页面
+    nextPost(_, getters, rootState) {
+      return rootState.post.index.posts[getters.currentPostIndex + 1];
+    },
   },
 
   mutations: {
@@ -91,6 +109,44 @@ export const postShowStoreModule: Module<PostShowStoreState, RootState> = {
 
         commit('setLoading', false);
 
+        throw _error.response;
+      }
+    },
+
+    async goGetPrevPost({ getters, dispatch }) {
+      try {
+        const response = await dispatch('getPostById', getters.prevPost.id);
+
+        if (getters.prevPost) {
+          appRouter.replace({
+            name: 'postShow',
+            params: { postId: getters.prevPost.id },
+          });
+        }
+
+        return response;
+      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const _error = error as any;
+        throw _error.response;
+      }
+    },
+
+    async goGetNextPost({ getters, dispatch }) {
+      try {
+        const response = await dispatch('getPostById', getters.nextPost.id);
+
+        if (getters.nextPost) {
+          appRouter.replace({
+            name: 'postShow',
+            params: { postId: getters.nextPost.id },
+          });
+        }
+
+        return response;
+      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const _error = error as any;
         throw _error.response;
       }
     },
