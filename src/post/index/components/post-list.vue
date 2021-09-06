@@ -104,7 +104,7 @@ export default defineComponent({
         const scrollDown = scrollTop > this.prevScrollTop;
 
         if (scrollDown && touchDown && !this.loading && this.hasMore) {
-          this.getPosts({ sort: this.sort, filtre: this.filter });
+          this.getPosts({ sort: this.sort, filter: this.filter });
         }
 
         this.prevScrollTop = scrollTop;

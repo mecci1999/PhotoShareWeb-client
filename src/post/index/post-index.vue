@@ -1,10 +1,16 @@
 <template>
+  <PostListFilters
+    v-if="filterItems.length"
+    :filters="filterItems"
+  ></PostListFilters>
   <PostList :sort="sort" :filter="filter" />
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import PostList from './components/post-list';
+import { mapGetters } from 'vuex';
+import PostList from './components/post-list.vue';
+import PostListFilters from './components/post-list-filters.vue';
 
 export default defineComponent({
   props: {
@@ -15,6 +21,12 @@ export default defineComponent({
     filter: {
       type: Object,
     },
+  },
+
+  computed: {
+    ...mapGetters({
+      filterItems: 'post/index/filterItems',
+    }),
   },
 
   title() {
@@ -29,6 +41,7 @@ export default defineComponent({
 
   components: {
     PostList,
+    PostListFilters,
   },
 });
 </script>
