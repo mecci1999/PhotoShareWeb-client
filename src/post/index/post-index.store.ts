@@ -148,7 +148,14 @@ export const postIndexStoreModule: Module<PostIndexStoreState, RootState> = {
 
   actions: {
     async getPosts({ commit, dispatch, state }, options: GetPostsOptions = {}) {
-      const getPostsQueryString = await dispatch('getPostsPreProcess', options);
+      let getPostsQueryString = '';
+
+      // 进行判断，参数是否为空对象时，做出相应的处理
+      if (Object.keys(options).length) {
+        getPostsQueryString = await dispatch('getPostsPreProcess', options);
+      } else {
+        getPostsQueryString = state.queryString;
+      }
 
       try {
         const response = await apiHttpClient.get(
