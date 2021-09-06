@@ -5,6 +5,7 @@
         <PostListLayoutSwitcher></PostListLayoutSwitcher>
       </div>
     </transition>
+    <PostShowNavigator></PostShowNavigator>
     <AppToolbarItemSearch></AppToolbarItemSearch>
   </div>
 </template>
@@ -14,6 +15,7 @@ import { defineComponent } from 'vue';
 import { mapGetters } from 'vuex';
 import AppToolbarItemSearch from '@/app/toolbar/components/app-toolbar-item-search.vue';
 import PostListLayoutSwitcher from '@/post/index/components/post-list-layout-switcher.vue';
+import PostShowNavigator from '@/post/show/components/post-show-navigator.vue';
 
 export default defineComponent({
   name: 'AppToolbar',
@@ -54,7 +56,11 @@ export default defineComponent({
   /**
    * 使用组件
    */
-  components: { AppToolbarItemSearch, PostListLayoutSwitcher },
+  components: {
+    AppToolbarItemSearch,
+    PostListLayoutSwitcher,
+    PostShowNavigator,
+  },
 });
 </script>
 
