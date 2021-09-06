@@ -77,6 +77,21 @@ export const postShowStoreModule: Module<PostShowStoreState, RootState> = {
     nextPost(_, getters, rootState) {
       return rootState.post.index.posts[getters.currentPostIndex + 1];
     },
+
+    // 可以去到上一个位置内容页面
+    canNavigateBack(_, getters, rootState) {
+      return (
+        rootState.post.index.posts.length > 0 && getters.currentPostIndex !== 0
+      );
+    },
+
+    // 可以去到下一个位置内容页面
+    canNavigateForward(_, getters, rootState) {
+      return (
+        rootState.post.index.posts.length > 0 &&
+        rootState.post.index.posts.length !== getters.currentPostIndex + 1
+      );
+    },
   },
 
   mutations: {
@@ -114,6 +129,8 @@ export const postShowStoreModule: Module<PostShowStoreState, RootState> = {
     },
 
     async goGetPrevPost({ getters, dispatch }) {
+      if (!getters.canNavigateBack) return;
+
       try {
         const response = await dispatch('getPostById', getters.prevPost.id);
 
@@ -133,6 +150,8 @@ export const postShowStoreModule: Module<PostShowStoreState, RootState> = {
     },
 
     async goGetNextPost({ getters, dispatch }) {
+      if (!getters.canNavigateForward) return;
+
       try {
         const response = await dispatch('getPostById', getters.nextPost.id);
 
