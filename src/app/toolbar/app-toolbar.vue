@@ -5,7 +5,9 @@
         <PostListLayoutSwitcher></PostListLayoutSwitcher>
       </div>
     </transition>
-    <PostShowNavigator></PostShowNavigator>
+    <div class="app-toolbar-item navigator" v-if="showPostShowNavigator">
+      <PostShowNavigator></PostShowNavigator>
+    </div>
     <AppToolbarItemSearch></AppToolbarItemSearch>
   </div>
 </template>
@@ -38,6 +40,7 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       showPostListLayoutSwitcher: 'toolbar/showPostListLayoutSwitcher',
+      showPostShowNavigator: 'toolbar/showPostShowNavigator',
     }),
   },
 
