@@ -1,13 +1,15 @@
 <template>
   <div class="app-toolbar">
-    <transition class="app-toolbar-item-layout">
+    <transition name="app-toolbar-item-layout">
       <div class="app-toolbar-item layout" v-if="showPostListLayoutSwitcher">
         <PostListLayoutSwitcher></PostListLayoutSwitcher>
       </div>
     </transition>
-    <div class="app-toolbar-item navigator" v-if="showPostShowNavigator">
-      <PostShowNavigator></PostShowNavigator>
-    </div>
+    <transition name="app-toolbar-item-navigator">
+      <div class="app-toolbar-item navigator" v-if="showPostShowNavigator">
+        <PostShowNavigator></PostShowNavigator>
+      </div>
+    </transition>
     <AppToolbarItemSearch></AppToolbarItemSearch>
   </div>
 </template>
