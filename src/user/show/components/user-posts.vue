@@ -1,9 +1,12 @@
 <template>
-  <div class="user-posts">UserPosts</div>
+  <div class="user-posts">
+    <PostList :sort="sort" :filter="filter"></PostList>
+  </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import PostList from '@/post/index/components/post-list.vue';
 
 export default defineComponent({
   name: 'UserPosts',
@@ -15,7 +18,15 @@ export default defineComponent({
   /**
    * 属性
    */
-  props: {},
+  props: {
+    sort: {
+      type: String,
+    },
+
+    filter: {
+      type: Object,
+    },
+  },
 
   /**
    * 数据
@@ -44,7 +55,9 @@ export default defineComponent({
   /**
    * 使用组件
    */
-  components: {},
+  components: {
+    PostList,
+  },
 });
 </script>
 
