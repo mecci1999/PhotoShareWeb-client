@@ -1,9 +1,13 @@
 <template>
-  <div class="page-side-sheet">PageSideSheet</div>
+  <div class="page-side-sheet" v-if="sideSheetComponent">
+    <component :is="sideSheetComponent"></component>
+  </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import { mapGetters } from 'vuex';
+import UserCommentSideSheet from '@/user/comment/components/user-comment-side-sheet.vue';
 
 export default defineComponent({
   name: 'PageSideSheet',
@@ -23,7 +27,11 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {},
+  computed: {
+    ...mapGetters({
+      sideSheetComponent: 'layout/sideSheetComponent',
+    }),
+  },
 
   /**
    * 已创建
@@ -40,7 +48,9 @@ export default defineComponent({
   /**
    * 使用组件
    */
-  components: {},
+  components: {
+    UserCommentSideSheet,
+  },
 });
 </script>
 
