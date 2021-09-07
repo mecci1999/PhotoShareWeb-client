@@ -4,6 +4,7 @@
     <PageAside></PageAside>
     <div class="page-main">
       <slot></slot>
+      <PageSideSheet></PageSideSheet>
     </div>
     <AppNotification></AppNotification>
   </div>
@@ -16,6 +17,7 @@ import PageHeader from '@/app/layout/components/page-header.vue';
 import PageAside from '@/app/layout/components/page-aside.vue';
 import AppNotification from '@/app/notification/app-notification.vue';
 import { getStroage } from '../app.service';
+import PageSideSheet from './components/page-side-sheet.vue';
 
 export default defineComponent({
   name: 'AppLayout',
@@ -69,6 +71,7 @@ export default defineComponent({
     PageHeader,
     PageAside,
     AppNotification,
+    PageSideSheet,
   },
 });
 </script>
