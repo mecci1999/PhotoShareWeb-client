@@ -51,7 +51,19 @@ export default defineComponent({
    * 已创建
    */
   created() {
-    //
+    // 监听左右按键，实现翻页效果
+    if (window) {
+      window.addEventListener('keyup', this.onKeyUpWindow);
+    }
+  },
+
+  /**
+   * 取消挂载
+   */
+  unmounted() {
+    if (window) {
+      window.removeEventListener('keyup', this.onKeyUpWindow);
+    }
   },
 
   /**
@@ -61,6 +73,7 @@ export default defineComponent({
     ...mapActions({
       goGetPrevPost: 'post/show/goGetPrevPost',
       goGetNextPost: 'post/show/goGetNextPost',
+      pushMessage: 'notification/pushMessage',
     }),
 
     onClickBackButton() {
@@ -69,6 +82,25 @@ export default defineComponent({
 
     onClickForwardButton() {
       this.goGetNextPost();
+    },
+
+    onKeyUpWindow(event) {
+      switch (event.key) {
+        case 'ArrowLeft':
+          if (this.canNavigateBack) {
+            this.goGetPrevPost();
+          } else {
+            this.pushMessage({ content: '前面没有内容了' });
+          }
+          break;
+        case 'ArrowRight':
+          if (this.canNavigateForward) {
+            this.goGetNextPost();
+          } else {
+            this.pushMessage({ content: '后面没有内容了' });
+          }
+          break;
+      }
     },
   },
 
