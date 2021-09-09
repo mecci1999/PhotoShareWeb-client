@@ -22,7 +22,9 @@
       </div>
       <div class="action">
         <div class="icon">
-          <AppIcon name="comment"></AppIcon>
+          <button class="button basic" @click="onClickCommentButton">
+            <AppIcon name="comment"></AppIcon>
+          </button>
         </div>
         <div class="text">{{ item.totalComments }}</div>
       </div>
@@ -32,6 +34,7 @@
 
 <script>
 import { defineComponent } from 'vue';
+import { mapGetters, mapMutations } from 'vuex';
 import UserAvatar from '@/user/components/user-avatar.vue';
 import UserName from '@/user/components/user-name.vue';
 import AppIcon from '@/app/components/app-icon.vue';
@@ -62,6 +65,10 @@ export default defineComponent({
     itemLinkTo() {
       return { name: 'postShow', params: { postId: this.item.id } };
     },
+
+    ...mapGetters({
+      sideSheetComponent: 'layout/sideSheetComponent',
+    }),
   },
 
   /**
@@ -74,7 +81,22 @@ export default defineComponent({
   /**
    * 组件方法
    */
-  methods: {},
+  methods: {
+    ...mapMutations({
+      setSideSheetComponent: 'layout/setSideSheetComponent',
+      setSideSheetProps: 'layout/setSideSheetProps',
+      resetSideSheet: 'layout/resetSideSheet',
+    }),
+
+    onClickCommentButton() {
+      if (this.sideSheetComponent) {
+        this.resetSideSheet();
+      } else {
+        this.setSideSheetComponent('CommentSideSheet');
+        this.setSideSheetProps({ filter: { post: this.item.id } });
+      }
+    },
+  },
 
   /**
    * 使用组件
