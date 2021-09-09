@@ -3,12 +3,16 @@
     <div class="thumbnail">
       <UserAvatar :user="item.user" link="user"></UserAvatar>
     </div>
+    <div class="content">
+      <CommentListItemMeta :item="item"></CommentListItemMeta>
+    </div>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import UserAvatar from '@/user/components/user-avatar.vue';
+import CommentListItemMeta from './comment-lite-item-meta.vue';
 
 export default defineComponent({
   name: 'CommentListItem',
@@ -51,6 +55,7 @@ export default defineComponent({
    */
   components: {
     UserAvatar,
+    CommentListItemMeta,
   },
 });
 </script>
