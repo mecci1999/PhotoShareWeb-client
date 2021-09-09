@@ -74,7 +74,7 @@ export default defineComponent({
       if (this.sideSheetComponent) {
         this.resetSideSheet();
       } else {
-        this.setSideSheetComponent('UserCommentSideSheet');
+        this.setSideSheetComponent('CommentSideSheet');
       }
     },
   },

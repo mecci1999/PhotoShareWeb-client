@@ -10,7 +10,7 @@
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations } from 'vuex';
-import UserCommentSideSheet from '@/user/comment/components/user-comment-side-sheet.vue';
+import CommentSideSheet from '@/comment/components/comment-side-sheet.vue';
 import CloseButton from '@/app/components/close-button.vue';
 
 export default defineComponent({
@@ -79,7 +79,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
-    UserCommentSideSheet,
+    CommentSideSheet,
     CloseButton,
   },
 });
