@@ -1,7 +1,13 @@
 import { Module } from 'vuex';
 import { RootState } from '@/app/app.store';
+import {
+  commentIndexStoreModule,
+  CommentIndexStoreState,
+} from './index/comment-index.store';
 
-export interface CommentStoreState {}
+export interface CommentStoreState {
+  index: CommentIndexStoreState;
+}
 
 export const commentStoreModule: Module<CommentStoreState, RootState> = {
   /**
@@ -28,4 +34,11 @@ export const commentStoreModule: Module<CommentStoreState, RootState> = {
    * 动作
    */
   actions: {},
+
+  /**
+   * 模块
+   */
+  modules: {
+    index: commentIndexStoreModule,
+  },
 };
