@@ -12,3 +12,11 @@ export const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
  * 内容分页
  */
 export const POSTS_PER_PAGE = parseInt(process.env.VUE_APP_POSTS_PER_PAGE, 10);
+
+/**
+ * 评论分页
+ */
+export const COMMENTS_PRE_PAGE = parseInt(
+  process.env.VUE_APP_COMMENTS_PRE_PAGE,
+  10,
+);
