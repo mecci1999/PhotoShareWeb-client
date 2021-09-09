@@ -116,7 +116,7 @@ export const commentIndexStoreModule: Module<
 
       if (Object.keys(options).length) {
         getCommentsQueryString = await dispatch(
-          'getCommentPreProcess',
+          'getCommentsPreProcess',
           options,
         );
       } else {
