@@ -6,6 +6,7 @@ import {
 } from '../comment/comment.store';
 import { fileStoreModule, FileStoreState } from '../file/file.store';
 import { postStoreModule, PostStoreState } from '../post/post.store';
+import { replyStoreModule, ReplyStoreState } from '../reply/reply.store';
 import { userStoreModule, UserStoreState } from '../user/user.store';
 import { LocalStorageStroePlugin } from './app.store.plugin';
 import { layoutStoreModule, LayoutStoreState } from './layout/layout.store';
@@ -28,6 +29,7 @@ export interface RootState {
   toolbar: AppToolbarStoreState;
   file: FileStoreState;
   comment: CommentStoreState;
+  reply: ReplyStoreState;
 }
 
 /**
@@ -47,6 +49,7 @@ const store = createStore({
     toolbar: appToolbarStoreModule,
     file: fileStoreModule,
     comment: commentStoreModule,
+    reply: replyStoreModule,
   },
 
   plugins: [LocalStorageStroePlugin],
