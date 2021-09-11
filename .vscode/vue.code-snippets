@@ -231,7 +231,7 @@
       "        const _error = error as any;",
       "        commit('setLoading', false);",
       "",
-      "        throw error.response;",
+      "        throw _error.response;",
       "      }",
       "    }, ",
       "  },",
