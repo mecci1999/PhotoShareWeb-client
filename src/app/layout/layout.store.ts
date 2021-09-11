@@ -4,6 +4,7 @@ import { RootState } from '@/app/app.store';
 export interface LayoutStoreState {
   theme: string;
   sideSheetComponent: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sideSheetProps: any;
 }
 
