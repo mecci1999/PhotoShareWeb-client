@@ -1,11 +1,16 @@
 <template>
   <div class="reply-list">
-    <div v-for="reply in list" :key="reply.id">{{ reply.content }}</div>
+    <ReplyListItem
+      v-for="reply in list"
+      :key="reply.id"
+      :item="reply"
+    ></ReplyListItem>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import ReplyListItem from './reply-list-item.vue';
 
 export default defineComponent({
   name: 'ReplyList',
@@ -46,7 +51,9 @@ export default defineComponent({
   /**
    * 使用组件
    */
-  components: {},
+  components: {
+    ReplyListItem,
+  },
 });
 </script>
 
