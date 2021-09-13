@@ -59,7 +59,7 @@ export const commentCreateStoreModule: Module<
       const { postId, content } = options;
 
       try {
-        const response = await apiHttpClient.post(`comments`, {
+        const response = await apiHttpClient.post(`/comments`, {
           postId,
           content,
         });
