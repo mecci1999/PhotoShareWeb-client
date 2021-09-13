@@ -1,11 +1,12 @@
 <template>
   <div class="comment-create">
-    CommentCreate
+    <TextareaField />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import TextareaField from '@/app/components/textarea-field.vue';
 
 export default defineComponent({
   name: 'CommentCreate',
@@ -25,26 +26,25 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {
-  },
+  computed: {},
 
   /**
    * 已创建
    */
   created() {
-  // 
+    //
   },
 
   /**
    * 组件方法
    */
-  methods: {
-  },
+  methods: {},
 
   /**
    * 使用组件
    */
   components: {
+    TextareaField,
   },
 });
 </script>
