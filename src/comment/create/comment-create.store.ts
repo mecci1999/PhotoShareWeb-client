@@ -48,6 +48,7 @@ export const commentCreateStoreModule: Module<
    * 动作
    */
   actions: {
+    // eslint-disable-next-line
     async createComment({ commit }, options: CreateCommentOptions = {}) {
       commit('setLoading', true);
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="textarea-field">
+  <div class="textarea-field field">
     <textarea
       class="input textarea"
       :value="modelValue"
