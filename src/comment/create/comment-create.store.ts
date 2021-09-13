@@ -7,7 +7,8 @@ export interface CommentCreateStoreState {
 }
 
 export interface CreateCommentOptions {
-  data?: null;
+  postId?: number;
+  content?: string;
 }
 
 export const commentCreateStoreModule: Module<
@@ -49,12 +50,28 @@ export const commentCreateStoreModule: Module<
    */
   actions: {
     // eslint-disable-next-line
-    async createComment({ commit }, options: CreateCommentOptions = {}) {
+    async createComment(
+      { commit, dispatch },
+      options: CreateCommentOptions = {},
+    ) {
       commit('setLoading', true);
 
+      const { postId, content } = options;
+
       try {
-        const response = await apiHttpClient.get(`comments`);
+        const response = await apiHttpClient.post(`comments`, {
+          postId,
+          content,
+        });
         commit('setLoading', false);
+
+        commit('comment/index/setNextPage', 1, { root: true });
+
+        dispatch(
+          'comment/index/getComments',
+          { filter: { post: postId } },
+          { root: true },
+        );
 
         return response;
       } catch (error) {
