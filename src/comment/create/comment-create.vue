@@ -115,7 +115,7 @@ export default defineComponent({
     },
 
     onClickSubmitButton() {
-      if (this.content === '') {
+      if (!this.content.trim()) {
         this.pushMessage({ content: '评论内容不能为空' });
         return;
       }
