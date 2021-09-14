@@ -184,6 +184,8 @@ export const commentIndexStoreModule: Module<
       commit('setTotalPages', totalPages);
 
       commit('setNextPage');
+
+      commit('layout/setSideSheetTouchDown', false, { root: true });
     },
   },
 };
