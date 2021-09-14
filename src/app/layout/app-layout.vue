@@ -74,7 +74,7 @@ export default defineComponent({
         clientHeight,
       } = this.$refs.pageSideSheet.$el;
 
-      if (scrollTop + clientHeight === scrollHeight) {
+      if (scrollTop + clientHeight + 100 >= scrollHeight) {
         this.setSideSheetTouchDown(true);
       }
     },
