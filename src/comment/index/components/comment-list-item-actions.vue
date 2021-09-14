@@ -47,7 +47,7 @@ export default defineComponent({
   /**
    * 事件
    */
-  emits: ['toggle-replies'],
+  emits: ['toggle-replies', 'editing'],
 
   /**
    * 数据

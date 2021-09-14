@@ -25,6 +25,8 @@ export default defineComponent({
     },
   },
 
+  emits: ['updated'],
+
   /**
    * 数据
    */
@@ -50,14 +52,29 @@ export default defineComponent({
    * 组件方法
    */
   methods: {
-    ...mapActions({}),
+    ...mapActions({
+      updateComment: 'comment/edit/updateComment',
+      pushMessage: 'notification/pushMessage',
+    }),
 
     onClickCancelButton() {
       this.commentContent = this.comment.content;
     },
 
     async onClickUpdateButton() {
-      console.log('update');
+      // 如果更新内容为空白就直接return
+      if (!this.commentContent.trim()) return;
+
+      try {
+        await this.updateComment({
+          commentId: this.comment.id,
+          content: this.commentContent,
+        });
+
+        this.$emit('updated', this.commentContent);
+      } catch (error) {
+        this.pushMessage({ content: error.data.message });
+      }
     },
   },
 
