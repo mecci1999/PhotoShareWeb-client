@@ -16,7 +16,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 import AppIcon from '@/app/components/app-icon.vue';
 
 export default defineComponent({
@@ -86,12 +86,31 @@ export default defineComponent({
    * 组件方法
    */
   methods: {
+    ...mapMutations({
+      removeCommentItem: 'comment/index/removeCommentItem',
+    }),
+
+    ...mapActions({
+      pushMessage: 'notification/pushMessage',
+      getComments: 'comment/index/getComments',
+      deleteComment: 'comment/destroy/deleteComment',
+    }),
+
     onClickTotalRepliesButton() {
       this.showReplies = !this.showReplies;
       this.$emit('toggle-replies', this.showReplies);
     },
 
-    onClickDeleteButton() {
+    async onClickDeleteButton() {
+      if (this.confimDelete) {
+        try {
+          await this.deleteComment({ commentId: this.item.id });
+          this.removeCommentItem(this.item.id);
+        } catch (error) {
+          this.pushMessage({ content: error.data.message });
+        }
+      }
+
       this.confimDelete = !this.confimDelete;
     },
   },

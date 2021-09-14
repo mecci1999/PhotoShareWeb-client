@@ -65,5 +65,6 @@ export default defineComponent({
   position: fixed;
   bottom: 64px;
   right: 64px;
+  z-index: 9999;
 }
 </style>

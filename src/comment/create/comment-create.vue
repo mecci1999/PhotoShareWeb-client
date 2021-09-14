@@ -103,6 +103,10 @@ export default defineComponent({
     },
 
     onClickSubmitButton() {
+      if (this.content === '') {
+        this.pushMessage({ content: '评论内容不能为空' });
+        return;
+      }
       this.submitComment();
     },
 
