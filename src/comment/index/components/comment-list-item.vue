@@ -13,6 +13,8 @@
         :item="item"
         @toggle-replies="onToggleReplies"
         :showOperation="showOperation"
+        @editing="onEditingComment"
+        :isEditing="isEditing"
       ></CommentListItemActions>
       <ReplyIndex :comment="item" v-if="showReplies"></ReplyIndex>
     </div>
@@ -46,6 +48,7 @@ export default defineComponent({
     return {
       showReplies: false,
       showOperation: false,
+      isEditing: false,
     };
   },
 
@@ -71,6 +74,10 @@ export default defineComponent({
 
     onClickCommentListItemContent() {
       this.showOperation = !this.showOperation;
+    },
+
+    onEditingComment() {
+      this.isEditing = !this.isEditing;
     },
   },
 
