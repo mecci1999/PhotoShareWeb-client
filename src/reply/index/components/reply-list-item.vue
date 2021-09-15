@@ -5,7 +5,11 @@
     </div>
     <div class="content">
       <ReplyListItemMeta :item="item"></ReplyListItemMeta>
-      <ReplyListItemContent :item="item"></ReplyListItemContent>
+      <ReplyListItemContent
+        :item="item"
+        @click="onClickReplyListItemContent"
+      ></ReplyListItemContent>
+      <ReplyListItemActions :item="item" :showOperation="showOperation" />
     </div>
   </div>
 </template>
@@ -15,6 +19,7 @@ import { defineComponent } from 'vue';
 import UserAvatar from '@/user/components/user-avatar.vue';
 import ReplyListItemMeta from './reply-list-item-meta.vue';
 import ReplyListItemContent from './reply-list-item-content.vue';
+import ReplyListItemActions from '@/reply/index/components/reply-list-item-actions.vue';
 
 export default defineComponent({
   name: 'ReplyListItem',
@@ -32,7 +37,9 @@ export default defineComponent({
    * 数据
    */
   data() {
-    return {};
+    return {
+      showOperation: false,
+    };
   },
 
   /**
@@ -50,12 +57,17 @@ export default defineComponent({
   /**
    * 组件方法
    */
-  methods: {},
+  methods: {
+    onClickReplyListItemContent() {
+      this.showOperation = !this.showOperation;
+    },
+  },
 
   /**
    * 使用组件
    */
   components: {
+    ReplyListItemActions,
     UserAvatar,
     ReplyListItemMeta,
     ReplyListItemContent,
