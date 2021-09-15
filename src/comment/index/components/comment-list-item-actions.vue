@@ -6,6 +6,11 @@
         <AppIcon :name="totalRepliesIconName"></AppIcon>
       </button>
     </div>
+    <div class="action">
+      <button class="button basic" @click="onClickReplyButton">
+        {{ replyButtonText }}
+      </button>
+    </div>
     <div class="action" v-if="showOwnCommentOperation">
       <button class="button basic" @click="onClickDeleteButton">
         {{ deleteButtonText }}
@@ -42,12 +47,16 @@ export default defineComponent({
     isEditing: {
       type: Boolean,
     },
+
+    isReplying: {
+      type: Boolean,
+    },
   },
 
   /**
    * 事件
    */
-  emits: ['toggle-replies', 'editing'],
+  emits: ['toggle-replies', 'editing', 'replying'],
 
   /**
    * 数据
@@ -85,6 +94,10 @@ export default defineComponent({
 
     updateButtonText() {
       return this.isEditing ? '取消编辑' : '编辑';
+    },
+
+    replyButtonText() {
+      return this.isReplying ? '取消回复' : '回复';
     },
   },
 
@@ -129,6 +142,10 @@ export default defineComponent({
 
     onClickUpdateButton() {
       this.$emit('editing');
+    },
+
+    onClickReplyButton() {
+      this.$emit('replying');
     },
   },
 

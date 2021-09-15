@@ -21,6 +21,8 @@
         :showOperation="showOperation"
         @editing="onEditingComment"
         :isEditing="isEditing"
+        @replying="onReplyingComment"
+        :isReplying="isReplying"
       ></CommentListItemActions>
       <ReplyIndex :comment="item" v-if="showReplies"></ReplyIndex>
     </div>
@@ -56,6 +58,7 @@ export default defineComponent({
       showReplies: false,
       showOperation: false,
       isEditing: false,
+      isReplying: false,
       comment: this.item,
     };
   },
@@ -91,6 +94,10 @@ export default defineComponent({
     onUpdatedComment(data) {
       this.comment.content = data;
       this.isEditing = false;
+    },
+
+    onReplyingComment() {
+      this.isReplying = !this.isReplying;
     },
   },
 
