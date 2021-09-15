@@ -6,13 +6,21 @@
     <div class="content">
       <ReplyListItemMeta :item="item"></ReplyListItemMeta>
       <ReplyListItemContent
-        :item="item"
+        :item="reply"
         @click="onClickReplyListItemContent"
+        v-if="!isEditing"
       ></ReplyListItemContent>
+      <CommentEdit
+        v-if="isEditing"
+        :comment="item"
+        @updated="onUpdatedReply"
+      ></CommentEdit>
       <ReplyListItemActions
         :item="item"
         :showOperation="showOperation"
         :comment="comment"
+        :isEditing="isEditing"
+        @editing="onEditingReply"
       />
     </div>
   </div>
@@ -24,6 +32,7 @@ import UserAvatar from '@/user/components/user-avatar.vue';
 import ReplyListItemMeta from './reply-list-item-meta.vue';
 import ReplyListItemContent from './reply-list-item-content.vue';
 import ReplyListItemActions from '@/reply/index/components/reply-list-item-actions.vue';
+import CommentEdit from '@/comment/edit/comment-edit.vue';
 
 export default defineComponent({
   name: 'ReplyListItem',
@@ -47,6 +56,8 @@ export default defineComponent({
   data() {
     return {
       showOperation: false,
+      isEditing: false,
+      reply: this.item,
     };
   },
 
@@ -69,6 +80,15 @@ export default defineComponent({
     onClickReplyListItemContent() {
       this.showOperation = !this.showOperation;
     },
+
+    onEditingReply() {
+      this.isEditing = !this.isEditing;
+    },
+
+    onUpdatedReply(data) {
+      this.reply.content = data;
+      this.isEditing = false;
+    },
   },
 
   /**
@@ -79,6 +99,7 @@ export default defineComponent({
     UserAvatar,
     ReplyListItemMeta,
     ReplyListItemContent,
+    CommentEdit,
   },
 });
 </script>
