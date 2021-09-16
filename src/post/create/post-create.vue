@@ -34,6 +34,7 @@ export default defineComponent({
     return {
       title: '',
       content: '',
+      postId: null,
     };
   },
 
@@ -43,7 +44,22 @@ export default defineComponent({
   computed: {
     ...mapGetters({}),
     submitButtonText() {
-      return '发布';
+      return this.postId ? '更新' : '发布';
+    },
+  },
+
+  /**
+   * 监视
+   */
+  watch: {
+    $route(to, from) {
+      const { post: postId } = to.query;
+
+      if (postId) {
+        this.getPost(postId);
+      } else {
+        this.reset();
+      }
     },
   },
 
@@ -51,7 +67,11 @@ export default defineComponent({
    * 已创建
    */
   created() {
-    //
+    const { post: postId } = this.$route.query;
+
+    if (postId) {
+      this.getPost(postId);
+    }
   },
 
   /**
@@ -61,6 +81,7 @@ export default defineComponent({
     ...mapActions({
       createPost: 'post/create/createPost',
       pushMessage: 'notification/pushMessage',
+      getPostById: 'post/show/getPostById',
     }),
 
     onClickSubmitButton() {
@@ -74,20 +95,42 @@ export default defineComponent({
 
     async submitCreatePost() {
       try {
-        await this.createPost({
+        const response = await this.createPost({
           data: {
             title: this.title,
             content: this.content,
           },
         });
 
-        this.title = '';
-        this.content = '';
+        this.postId = response.data.insertId;
 
-        this.pushMessage({ content: '成功创建内容' });
+        this.$router.push({
+          name: 'postCreate',
+          query: { post: this.postId },
+        });
       } catch (error) {
         this.pushMessage({ content: error.data.message });
       }
+    },
+
+    async getPost(postId) {
+      try {
+        const response = await this.getPostById(postId);
+
+        const { title, content } = response.data;
+
+        this.postId = postId;
+        this.title = title;
+        this.content = content;
+      } catch (error) {
+        this.pushMessage({ content: error.data.message });
+      }
+    },
+
+    reset() {
+      this.title = '';
+      this.content = '';
+      this.postId = null;
     },
   },
 
