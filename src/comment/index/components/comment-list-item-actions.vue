@@ -6,7 +6,7 @@
         <AppIcon :name="totalRepliesIconName"></AppIcon>
       </button>
     </div>
-    <div class="action">
+    <div class="action" v-if="!item.repliedComment">
       <button class="button basic" @click="onClickReplyButton">
         {{ replyButtonText }}
       </button>
