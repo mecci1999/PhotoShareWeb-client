@@ -1,17 +1,16 @@
 import { Module } from 'vuex';
 import { RootState } from '../app/app.store';
 import {
-  postCreateStoreModule,
-  PostCreateStoreState,
-} from './create/post-create.store';
-import {
   postIndexStoreModule,
   PostIndexStoreState,
 } from './index/post-index.store';
+
 import {
   postShowStoreModule,
   PostShowStoreState,
 } from './show/post-show.store';
+
+import { PostCreateStoreState, postCreateStoreModule } from '@/post/create/post-create.store';
 
 export interface PostItem {
   id: number;

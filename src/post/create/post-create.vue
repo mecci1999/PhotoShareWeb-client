@@ -17,6 +17,7 @@
 import { defineComponent } from 'vue';
 import TextField from '@/app/components/text-field.vue';
 import TextareaField from '@/app/components/textarea-field.vue';
+import { mapGetters, mapActions } from 'vuex';
 
 export default defineComponent({
   name: 'PostCreate',
@@ -40,6 +41,7 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
+    ...mapGetters({}),
     submitButtonText() {
       return '发布';
     },
@@ -56,9 +58,36 @@ export default defineComponent({
    * 组件方法
    */
   methods: {
+    ...mapActions({
+      createPost: 'post/create/createPost',
+      pushMessage: 'notification/pushMessage',
+    }),
+
     onClickSubmitButton() {
-      console.log(this.title);
-      console.log(this.content);
+      if (!this.title.trim()) {
+        this.pushMessage({ content: '内容标题不能为空' });
+        return;
+      }
+
+      this.submitCreatePost();
+    },
+
+    async submitCreatePost() {
+      try {
+        await this.createPost({
+          data: {
+            title: this.title,
+            content: this.content,
+          },
+        });
+
+        this.title = '';
+        this.content = '';
+
+        this.pushMessage({ content: '成功创建内容' });
+      } catch (error) {
+        this.pushMessage({ content: error.data.message });
+      }
     },
   },
 
