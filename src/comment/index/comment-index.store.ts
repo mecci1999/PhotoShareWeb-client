@@ -219,6 +219,8 @@ export const commentIndexStoreModule: Module<
       commit('setNextPage');
 
       commit('layout/setSideSheetTouchDown', false, { root: true });
+
+      commit('user/show/setTouchdown', false, { root: true });
     },
   },
 };

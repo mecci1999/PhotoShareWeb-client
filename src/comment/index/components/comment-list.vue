@@ -48,6 +48,7 @@ export default defineComponent({
       comments: 'comment/index/comments',
       hasMore: 'comment/index/hasMore',
       sideSheetTouchDown: 'layout/sideSheetTouchDown',
+      userShowTouchdown: 'user/show/touchdown',
     }),
   },
 
@@ -72,6 +73,16 @@ export default defineComponent({
           this.getComments({ filter: this.filter });
         } catch (error) {
           this.pushMessage({ content: error.data.message });
+        }
+      }
+    },
+
+    userShowTouchdown(newValue) {
+      if (newValue && this.hasMore && !this.loading) {
+        try {
+          this.getComments({ filter: this.filter });
+        } catch (error) {
+          this.pushMessage(error.data.message);
         }
       }
     },
