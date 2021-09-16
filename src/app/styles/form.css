@@ -23,11 +23,13 @@
   margin-bottom: 8px;
 }
 
-.field > .input.text {
+.field > .input.text,
+.field.bordered > .input.textarea {
   border-bottom: 1px solid var(--line-color);
 }
 
-.field > .input.text:focus {
+.field > .input.text:focus,
+.field.bordered > .input.textarea:focus {
   border-bottom: 1px solid var(--highlight-line-color);
 }
 
