@@ -1,7 +1,13 @@
 <template>
   <div class="comment-list-item-content">
     <div class="quote" v-if="item.repliedComment">
-      {{ item.repliedComment.content }}
+      <div class="thumbnail">
+        <UserAvatar :user="repliedCommentUser" link="user"></UserAvatar>
+      </div>
+      <div class="replied-user">
+        <UserName :user="repliedCommentUser"></UserName>
+      </div>
+      <div class="replied-content">{{ item.repliedComment.content }}</div>
     </div>
     <div class="content">{{ item.content }}</div>
     <div class="meta" v-if="item.post">
@@ -14,6 +20,8 @@
 
 <script>
 import { defineComponent } from 'vue';
+import UserAvatar from '@/user/components/user-avatar.vue';
+import UserName from '@/user/components/user-name.vue';
 
 export default defineComponent({
   name: 'CommentListItemContent',
@@ -46,6 +54,14 @@ export default defineComponent({
         },
       };
     },
+
+    repliedCommentUser() {
+      return {
+        id: this.item.repliedComment.userId,
+        name: this.item.repliedComment.name,
+        avatar: this.item.repliedComment.avatar,
+      };
+    },
   },
 
   /**
@@ -63,7 +79,10 @@ export default defineComponent({
   /**
    * 使用组件
    */
-  components: {},
+  components: {
+    UserAvatar,
+    UserName,
+  },
 });
 </script>
 
