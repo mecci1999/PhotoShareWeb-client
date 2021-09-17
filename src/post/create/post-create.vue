@@ -52,6 +52,7 @@ export default defineComponent({
    * 监视
    */
   watch: {
+    // eslint-disable-next-line
     $route(to, from) {
       const { post: postId } = to.query;
 
@@ -82,6 +83,7 @@ export default defineComponent({
       createPost: 'post/create/createPost',
       pushMessage: 'notification/pushMessage',
       getPostById: 'post/show/getPostById',
+      updatePost: 'post/edit/updatePost',
     }),
 
     onClickSubmitButton() {
@@ -90,7 +92,11 @@ export default defineComponent({
         return;
       }
 
-      this.submitCreatePost();
+      if (this.postId) {
+        this.submitUpdatePost();
+      } else {
+        this.submitCreatePost();
+      }
     },
 
     async submitCreatePost() {
@@ -131,6 +137,22 @@ export default defineComponent({
       this.title = '';
       this.content = '';
       this.postId = null;
+    },
+
+    async submitUpdatePost() {
+      try {
+        await this.updatePost({
+          postId: this.postId,
+          data: {
+            title: this.title,
+            content: this.content,
+          },
+        });
+
+        this.pushMessage({ content: '内容更新完成' });
+      } catch (error) {
+        this.pushMessage({ content: error.data.message });
+      }
     },
   },
 
