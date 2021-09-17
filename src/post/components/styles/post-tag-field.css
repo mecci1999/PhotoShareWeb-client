@@ -1,0 +1,22 @@
+/* post-tag-field */
+.post-tag-field {
+  margin-bottom: 32px;
+}
+
+.post-tag-field > .content {
+  position: relative;
+}
+
+.post-tag-field > .content > .field {
+  margin-bottom: 16px;
+}
+
+.post-tag-field > .content > .button {
+  position: absolute;
+  top: 4px;
+  right: 0;
+}
+
+.post-tag-field > .meta {
+  display: flex;
+}
