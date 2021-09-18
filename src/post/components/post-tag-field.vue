@@ -11,7 +11,12 @@
       </button>
     </div>
     <div class="meta" v-if="tags">
-      <PostTag v-for="tag in tags" :key="tag.id" :tag="tag"></PostTag>
+      <PostTag
+        v-for="tag in tags"
+        :key="tag.id"
+        :tag="tag"
+        useDeleteButton
+      ></PostTag>
     </div>
   </div>
 </template>

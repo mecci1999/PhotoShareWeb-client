@@ -57,8 +57,8 @@ export default defineComponent({
       }
 
       return {
-        color,
-        size: this.size + 'px',
+        color: this.color,
+        fontSize: this.size + 'px',
         width: this.size + 'px',
       };
     },
