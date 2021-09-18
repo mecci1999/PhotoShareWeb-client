@@ -50,14 +50,14 @@ export default defineComponent({
     appIconStyles() {
       let color;
 
-      if (color) {
+      if (this.color) {
         color = this.color;
       } else {
         color = this.theme === 'dark' ? '#585858' : '#000000';
       }
 
       return {
-        color: this.color,
+        color,
         fontSize: this.size + 'px',
         width: this.size + 'px',
       };

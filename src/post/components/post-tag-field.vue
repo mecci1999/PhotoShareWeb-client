@@ -16,6 +16,7 @@
         :key="tag.id"
         :tag="tag"
         useDeleteButton
+        @delete="onDeletePostTag"
       ></PostTag>
     </div>
   </div>
@@ -74,6 +75,7 @@ export default defineComponent({
     ...mapActions({
       createPostTag: 'post/edit/createPostTag',
       pushMessage: 'notification/pushMessage',
+      deletePostTag: 'post/edit/deletePostTag',
     }),
 
     onClickAddButton() {
@@ -96,6 +98,14 @@ export default defineComponent({
         this.pushMessage({ content: `成功给内容添加 [${this.name}] 标签` });
 
         this.name = '';
+      } catch (error) {
+        this.pushMessage({ content: error.data.message });
+      }
+    },
+
+    async onDeletePostTag(tagId) {
+      try {
+        await this.deletePostTag({ postId: this.postId, tagId });
       } catch (error) {
         this.pushMessage({ content: error.data.message });
       }
