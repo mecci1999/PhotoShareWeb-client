@@ -4,6 +4,9 @@ import { apiHttpClient } from '@/app/app.service';
 
 export interface PostCreateStoreState {
   loading: boolean;
+  title: string;
+  content: string;
+  postId: number | null;
 }
 
 export interface CreatePostData {
@@ -26,6 +29,9 @@ export const postCreateStoreModule: Module<PostCreateStoreState, RootState> = {
    */
   state: {
     loading: false,
+    title: '',
+    content: '',
+    postId: null,
   } as PostCreateStoreState,
 
   /**
@@ -35,6 +41,18 @@ export const postCreateStoreModule: Module<PostCreateStoreState, RootState> = {
     loading(state) {
       return state.loading;
     },
+
+    title(state) {
+      return state.title;
+    },
+
+    content(state) {
+      return state.content;
+    },
+
+    postId(state) {
+      return state.postId;
+    },
   },
 
   /**
@@ -43,6 +61,18 @@ export const postCreateStoreModule: Module<PostCreateStoreState, RootState> = {
   mutations: {
     setLoading(state, data) {
       state.loading = data;
+    },
+
+    setTitle(state, data) {
+      state.title = data;
+    },
+
+    setContent(state, data) {
+      state.content = data;
+    },
+
+    setPostId(state, data) {
+      state.postId = data;
     },
   },
 
@@ -57,7 +87,10 @@ export const postCreateStoreModule: Module<PostCreateStoreState, RootState> = {
 
       try {
         const response = await apiHttpClient.post(`/posts`, data);
+
         commit('setLoading', false);
+
+        commit('setPostId', response.data.insertId);
 
         return response;
       } catch (error) {
