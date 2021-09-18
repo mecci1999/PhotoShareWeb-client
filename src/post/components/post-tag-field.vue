@@ -1,7 +1,11 @@
 <template>
   <div class="post-tag-field">
     <div class="content">
-      <TextField placeholder="标签" v-model="name" @keyup="onKeyUpEnterTag" />
+      <TextField
+        placeholder="标签"
+        v-model="name"
+        @keyup.enter="onKeyUpEnterTag"
+      />
       <button class="button basic" @click="onClickAddButton">
         <AppIcon name="add" />
       </button>
@@ -56,14 +60,35 @@ export default defineComponent({
    */
   methods: {
     ...mapMutations({}),
-    ...mapActions({}),
+
+    ...mapActions({
+      createPostTag: 'post/edit/createPostTag',
+      pushMessage: 'notification/pushMessage',
+    }),
 
     onClickAddButton() {
-      console.log('add');
+      this.onSubmitCreatePostTag();
     },
 
     onKeyUpEnterTag() {
-      console.log('enter');
+      this.onSubmitCreatePostTag();
+    },
+
+    async onSubmitCreatePostTag() {
+      try {
+        await this.createPostTag({
+          postId: this.postId,
+          data: {
+            name: this.name,
+          },
+        });
+
+        this.pushMessage({ content: `成功给内容添加 [${this.name}] 标签` });
+
+        this.name = '';
+      } catch (error) {
+        this.pushMessage({ content: error.data.message });
+      }
     },
   },
 

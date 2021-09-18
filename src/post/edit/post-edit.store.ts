@@ -16,6 +16,16 @@ export interface UpdatePostOptions {
   data?: UpdatePostData;
 }
 
+export interface TagItem {
+  id?: number;
+  name?: string;
+}
+
+export interface CreatePostTagOptions {
+  postId?: number;
+  data?: TagItem;
+}
+
 export const postEditStoreModule: Module<PostEditStoreState, RootState> = {
   /**
    * 命名空间
@@ -58,6 +68,26 @@ export const postEditStoreModule: Module<PostEditStoreState, RootState> = {
 
       try {
         const response = await apiHttpClient.patch(`posts/${postId}`, data);
+        commit('setLoading', false);
+
+        return response;
+      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const _error = error as any;
+
+        commit('setLoading', false);
+
+        throw _error.response;
+      }
+    },
+
+    async createPostTag({ commit }, options: CreatePostTagOptions = {}) {
+      commit('setLoading', true);
+
+      const { data, postId } = options;
+
+      try {
+        const response = await apiHttpClient.post(`posts/${postId}/tag`, data);
         commit('setLoading', false);
 
         return response;
