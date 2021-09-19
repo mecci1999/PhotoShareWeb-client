@@ -3,9 +3,7 @@
     <PostTitleField />
     <PostContentField />
     <PostTagField :postId="postId" />
-    <button class="button large" @click="onClickSubmitButton">
-      {{ submitButtonText }}
-    </button>
+    <PostActions @update="submitUpdatePost" @create="submitCreatePost" />
   </div>
 </template>
 
@@ -15,6 +13,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
 import PostTagField from '@/post/components/post-tag-field.vue';
 import PostTitleField from '@/post/components/post-title-field.vue';
 import PostContentField from '@/post/components/post-content-field.vue';
+import PostActions from '@/post/components/post-actions.vue';
 
 export default defineComponent({
   name: 'PostCreate',
@@ -41,10 +40,6 @@ export default defineComponent({
       postId: 'post/create/postId',
       post: 'post/show/post',
     }),
-
-    submitButtonText() {
-      return this.postId ? '更新' : '发布';
-    },
   },
 
   /**
@@ -90,19 +85,6 @@ export default defineComponent({
       getPostById: 'post/show/getPostById',
       updatePost: 'post/edit/updatePost',
     }),
-
-    onClickSubmitButton() {
-      if (!this.title.trim()) {
-        this.pushMessage({ content: '内容标题不能为空' });
-        return;
-      }
-
-      if (this.postId) {
-        this.submitUpdatePost();
-      } else {
-        this.submitCreatePost();
-      }
-    },
 
     async submitCreatePost() {
       try {
@@ -164,6 +146,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    PostActions,
     PostContentField,
     PostTitleField,
     PostTagField,
