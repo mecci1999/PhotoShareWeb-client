@@ -34,6 +34,7 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       title: 'post/create/title',
+      unsaved: 'post/create/unsaved',
     }),
 
     postTitle: {
@@ -64,7 +65,9 @@ export default defineComponent({
     }),
 
     onDirtyText() {
-      this.setUnsaved(true);
+      if (!this.unsaved) {
+        this.setUnsaved(true);
+      }
     },
   },
 

@@ -55,6 +55,18 @@ export default defineComponent({
         this.reset();
       }
     },
+
+    title() {
+      if (!this.title) {
+        this.setUnsaved(false);
+      }
+    },
+
+    content() {
+      if (!this.content) {
+        this.setUnsaved(false);
+      }
+    },
   },
 
   /**
@@ -127,6 +139,7 @@ export default defineComponent({
       this.setContent('');
       this.setPostId(null);
       this.setTags(null);
+      this.setUnsaved(false);
     },
 
     async submitUpdatePost() {

@@ -5,8 +5,7 @@
       :type="type"
       :value="modelValue"
       :placeholder="placeholder"
-      @input="$emit('update:modelValue', $event.target.value.trim())"
-      @change="onChangeText"
+      @input="onChangeText"
     />
   </div>
 </template>
@@ -71,6 +70,8 @@ export default defineComponent({
       }
 
       this.value = value;
+
+      this.$emit('update:modelValue', event.target.value.trim());
     },
   },
 

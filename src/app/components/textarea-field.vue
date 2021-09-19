@@ -5,8 +5,7 @@
       :value="modelValue"
       :placeholder="placeholder"
       :rows="rows"
-      @input="$emit('update:modelValue', $event.target.value.trim())"
-      @change="onChangeTextarea"
+      @input="onChangeTextarea"
     ></textarea>
   </div>
 </template>
@@ -68,6 +67,8 @@ export default defineComponent({
       }
 
       this.value = value;
+
+      this.$emit('update:modelValue', event.target.value.trim());
     },
   },
 
