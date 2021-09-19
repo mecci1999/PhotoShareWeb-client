@@ -2,7 +2,7 @@
   <div class="post-create">
     <PostTitleField />
     <PostContentField />
-    <PostTagField :postId="postId" />
+    <PostTagField :postId="postId" v-if="postId" />
     <PostActions @update="submitUpdatePost" @create="submitCreatePost" />
   </div>
 </template>
@@ -126,6 +126,7 @@ export default defineComponent({
       this.setTitle('');
       this.setContent('');
       this.setPostId(null);
+      this.setTags(null);
     },
 
     async submitUpdatePost() {
