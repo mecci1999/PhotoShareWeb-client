@@ -77,6 +77,7 @@ export default defineComponent({
       setTitle: 'post/create/setTitle',
       setContent: 'post/create/setContent',
       setPostId: 'post/create/setPostId',
+      setUnsaved: 'post/create/setUnsaved',
     }),
 
     ...mapActions({
@@ -99,6 +100,8 @@ export default defineComponent({
           name: 'postCreate',
           query: { post: this.postId },
         });
+
+        this.setUnsaved(false);
       } catch (error) {
         this.pushMessage({ content: error.data.message });
       }
@@ -136,6 +139,8 @@ export default defineComponent({
         });
 
         this.pushMessage({ content: '内容更新完成' });
+
+        this.setUnsaved(false);
       } catch (error) {
         this.pushMessage({ content: error.data.message });
       }

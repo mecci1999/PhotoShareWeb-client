@@ -1,6 +1,6 @@
 <template>
   <div class="post-actions">
-    <button class="button large" @click="onClickSubmitButton">
+    <button :class="submitButtonClasses" @click="onClickSubmitButton">
       {{ submitButtonText }}
     </button>
   </div>
@@ -16,7 +16,11 @@ export default defineComponent({
   /**
    * 属性
    */
-  props: {},
+  props: {
+    size: {
+      type: String,
+    },
+  },
 
   /**
    * 数据
@@ -34,10 +38,15 @@ export default defineComponent({
     ...mapGetters({
       postId: 'post/create/postId',
       title: 'post/create/title',
+      unsaved: 'post/create/unsaved',
     }),
 
     submitButtonText() {
       return this.postId ? '更新' : '发布';
+    },
+
+    submitButtonClasses() {
+      return ['button', this.size, { outline: this.unsaved }];
     },
   },
 
