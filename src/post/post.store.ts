@@ -14,10 +14,13 @@ import {
   PostCreateStoreState,
   postCreateStoreModule,
 } from '@/post/create/post-create.store';
+
 import {
   postEditStoreModule,
   PostEditStoreState,
 } from './edit/post-edit.store';
+
+import { PostDestroyStoreState, postDestroyStoreModule } from '@/post/destroy/post-destroy.store';
 
 export interface PostItem {
   id: number;
@@ -26,6 +29,7 @@ export interface PostItem {
 }
 
 export interface PostStoreState {
+  destroy: PostDestroyStoreState;
   edit: PostEditStoreState;
   create: PostCreateStoreState;
   index: PostIndexStoreState;
@@ -36,6 +40,7 @@ export const postStoreModule: Module<PostStoreState, RootState> = {
   namespaced: true,
 
   modules: {
+    destroy: postDestroyStoreModule,
     edit: postEditStoreModule,
     create: postCreateStoreModule,
     index: postIndexStoreModule,

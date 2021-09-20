@@ -8,6 +8,7 @@
       @create="submitCreatePost"
       size="large"
       :useDeleteButton="postId ? true : false"
+      @delete="onDeletePost"
     />
   </div>
 </template>
@@ -102,6 +103,7 @@ export default defineComponent({
       pushMessage: 'notification/pushMessage',
       getPostById: 'post/show/getPostById',
       updatePost: 'post/edit/updatePost',
+      deletePost: 'post/destroy/deletePost',
     }),
 
     async submitCreatePost() {
@@ -160,6 +162,18 @@ export default defineComponent({
         this.pushMessage({ content: '内容更新完成' });
 
         this.setUnsaved(false);
+      } catch (error) {
+        this.pushMessage({ content: error.data.message });
+      }
+    },
+
+    async onDeletePost() {
+      try {
+        await this.deletePost({ postId: this.postId });
+
+        this.$router.push({ name: 'postCreate' });
+
+        this.pushMessage({ content: '成功删除内容' });
       } catch (error) {
         this.pushMessage({ content: error.data.message });
       }
