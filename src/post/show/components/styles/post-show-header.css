@@ -6,8 +6,14 @@
 }
 
 .post-show-header > .content > .text {
-  font-size: 26px;
+  display: flex;
   margin-bottom: 16px;
+  align-items: center;
+}
+
+.post-show-header > .content > .text > .title {
+  font-size: 26px;
+  margin-right: 16px;
 }
 
 .post-show-header > .content > .meta,

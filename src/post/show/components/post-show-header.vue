@@ -1,7 +1,10 @@
 <template>
   <div class="post-show-header">
     <div class="content">
-      <div class="text">{{ post.title }}</div>
+      <div class="text">
+        <div class="title">{{ post.title }}</div>
+        <PostShowEdit :post="post"></PostShowEdit>
+      </div>
       <div class="meta">
         <UserName :user="post.user"></UserName>
       </div>
@@ -16,6 +19,7 @@
 import { defineComponent } from 'vue';
 import UserAvatar from '@/user/components/user-avatar.vue';
 import UserName from '@/user/components/user-name.vue';
+import PostShowEdit from '@/post/show/components/post-show-edit.vue';
 
 export default defineComponent({
   name: 'PostShowHeader',
@@ -59,6 +63,7 @@ export default defineComponent({
   components: {
     UserAvatar,
     UserName,
+    PostShowEdit,
   },
 });
 </script>

@@ -1,0 +1,4 @@
+/* post-show-edit */
+.post-show-edit > .button:last-child {
+  margin-right: 0;
+}
