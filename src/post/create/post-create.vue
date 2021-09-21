@@ -1,5 +1,6 @@
 <template>
   <div class="post-create">
+    <FileCreate />
     <PostTitleField />
     <PostContentField />
     <PostTagField :postId="postId" v-if="postId" />
@@ -22,6 +23,7 @@ import PostTitleField from '@/post/components/post-title-field.vue';
 import PostContentField from '@/post/components/post-content-field.vue';
 import PostActions from '@/post/components/post-actions.vue';
 import PostMeta from '@/post/components/post-meta.vue';
+import FileCreate from '@/file/create/file-create.vue';
 
 export default defineComponent({
   name: 'PostCreate',
@@ -190,6 +192,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    FileCreate,
     PostMeta,
     PostActions,
     PostContentField,
