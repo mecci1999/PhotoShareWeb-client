@@ -87,7 +87,7 @@ export const fileCreateStoreModule: Module<FileCreateStoreState, RootState> = {
       commit('setLoading', true);
 
       try {
-        const response = await apiHttpClient.post(`files`);
+        const response = await apiHttpClient.post(`/files`);
         commit('setLoading', false);
 
         return response;

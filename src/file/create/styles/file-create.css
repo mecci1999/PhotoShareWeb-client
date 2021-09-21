@@ -6,6 +6,6 @@
   background: var(--skeleton-background);
 }
 
-.file-create.actions {
+.file-create.active {
   padding-top: 0;
 }

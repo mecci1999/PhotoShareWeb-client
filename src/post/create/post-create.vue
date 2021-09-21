@@ -100,6 +100,8 @@ export default defineComponent({
       setContent: 'post/create/setContent',
       setPostId: 'post/create/setPostId',
       setUnsaved: 'post/create/setUnsaved',
+      setSelectedFile: 'file/create/setSelectedFile',
+      setPreviewImage: 'file/create/setPreviewImage',
     }),
 
     ...mapActions({
@@ -136,12 +138,16 @@ export default defineComponent({
       try {
         await this.getPostById(postId);
 
-        const { title, content, tags } = this.post;
+        const { title, content, tags, file } = this.post;
 
         this.setTitle(title);
         this.setContent(content);
         this.setPostId(postId);
         this.setTags(tags);
+
+        if (file) {
+          this.setPreviewImage(file.size.large);
+        }
       } catch (error) {
         this.pushMessage({ content: error.data.message });
       }
@@ -153,6 +159,8 @@ export default defineComponent({
       this.setPostId(null);
       this.setTags(null);
       this.setUnsaved(false);
+      this.setSelectedFile(null);
+      this.setPreviewImage(null);
     },
 
     async submitUpdatePost() {
