@@ -1,13 +1,6 @@
 <template>
   <div class="post-show-actions">
-    <div class="action">
-      <div class="icon">
-        <AppIcon name="favorite"></AppIcon>
-      </div>
-      <div class="text">
-        {{ post.totalLikes }}
-      </div>
-    </div>
+    <PostLikeAction class="action" :post="post"></PostLikeAction>
     <div class="action">
       <div class="icon">
         <button class="button basic" @click="onClickCommentButton">
@@ -25,6 +18,7 @@
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations } from 'vuex';
 import AppIcon from '@/app/components/app-icon.vue';
+import PostLikeAction from '@/post/components/post-like-action.vue';
 
 export default defineComponent({
   name: 'PostShowActions',
@@ -93,6 +87,7 @@ export default defineComponent({
    */
   components: {
     AppIcon,
+    PostLikeAction,
   },
 });
 </script>

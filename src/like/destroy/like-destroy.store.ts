@@ -72,6 +72,14 @@ export const likeDestroyStoreModule: Module<
           { root: true },
         );
 
+        commit('post/show/setPostLiked', { postId, liked: 0 }, { root: true });
+
+        commit(
+          'post/show/setPostTotalLikes',
+          { postId, actionType: 'decrease' },
+          { root: true },
+        );
+
         return response;
       } catch (error) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

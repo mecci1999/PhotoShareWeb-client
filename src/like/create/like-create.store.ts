@@ -69,6 +69,14 @@ export const likeCreateStoreModule: Module<LikeCreateStoreState, RootState> = {
           { root: true },
         );
 
+        commit('post/show/setPostLiked', { postId, liked: 1 }, { root: true });
+
+        commit(
+          'post/show/setPostTotalLikes',
+          { postId, actionType: 'increase' },
+          { root: true },
+        );
+
         return response;
       } catch (error) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
