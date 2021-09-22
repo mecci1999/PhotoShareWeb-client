@@ -6,12 +6,15 @@ import {
   likeCreateStoreModule,
 } from './create/like-create.store';
 
-import { LikeDestroyStoreState, likeDestroyStoreModule } from '@/like/destroy/like-destroy.store';
+import {
+  LikeDestroyStoreState,
+  likeDestroyStoreModule,
+} from '@/like/destroy/like-destroy.store';
 
 export interface LikeStoreState {
   destroy: LikeDestroyStoreState;
   name: string;
-  like: LikeCreateStoreState;
+  create: LikeCreateStoreState;
 }
 
 export const likeStoreModule: Module<LikeStoreState, RootState> = {
@@ -47,6 +50,6 @@ export const likeStoreModule: Module<LikeStoreState, RootState> = {
    */
   modules: {
     destroy: likeDestroyStoreModule,
-    like: likeCreateStoreModule,
+    create: likeCreateStoreModule,
   },
 };
