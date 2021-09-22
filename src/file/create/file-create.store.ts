@@ -32,7 +32,7 @@ export const fileCreateStoreModule: Module<FileCreateStoreState, RootState> = {
    * 数据
    */
   state: {
-    uploadProgress: 0,
+    uploadProgress: 5,
     previewImage: '',
     selectedFile: null,
     loading: false,
