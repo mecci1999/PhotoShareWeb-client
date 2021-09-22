@@ -183,6 +183,7 @@ export default defineComponent({
             title: this.title,
             content: this.content,
           },
+          file: this.selectedFile,
         });
 
         this.pushMessage({ content: '内容更新完成' });
@@ -214,12 +215,6 @@ export default defineComponent({
 
       if (!this.title) {
         this.setTitle(file.name.split('.')[0]);
-      }
-
-      if (this.postId) {
-        this.submitCreateFile();
-      } else {
-        this.submitCreatePost();
       }
     },
 

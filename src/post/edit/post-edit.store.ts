@@ -1,6 +1,7 @@
 import { Module } from 'vuex';
 import { RootState } from '@/app/app.store';
 import { apiHttpClient } from '@/app/app.service';
+import { File } from '../../file/create/file-create.store';
 
 export interface PostEditStoreState {
   loading: boolean;
@@ -15,6 +16,7 @@ export interface UpdatePostData {
 export interface UpdatePostOptions {
   postId?: number;
   data?: UpdatePostData;
+  file?: File;
 }
 
 export interface TagItem {
@@ -76,13 +78,27 @@ export const postEditStoreModule: Module<PostEditStoreState, RootState> = {
    * 动作
    */
   actions: {
-    async updatePost({ commit }, options: UpdatePostOptions = {}) {
+    async updatePost({ commit, dispatch }, options: UpdatePostOptions = {}) {
       commit('setLoading', true);
 
-      const { data, postId } = options;
+      const { data, postId, file } = options;
 
       try {
         const response = await apiHttpClient.patch(`posts/${postId}`, data);
+
+        if (file) {
+          dispatch(
+            'file/create/createFile',
+            {
+              postId,
+              file,
+            },
+            {
+              root: true,
+            },
+          );
+        }
+
         commit('setLoading', false);
 
         return response;
