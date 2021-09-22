@@ -5,6 +5,7 @@ import {
   CommentStoreState,
 } from '../comment/comment.store';
 import { fileStoreModule, FileStoreState } from '../file/file.store';
+import { likeStoreModule, LikeStoreState } from '../like/like.store';
 import { postStoreModule, PostStoreState } from '../post/post.store';
 import { replyStoreModule, ReplyStoreState } from '../reply/reply.store';
 import { userStoreModule, UserStoreState } from '../user/user.store';
@@ -30,6 +31,7 @@ export interface RootState {
   file: FileStoreState;
   comment: CommentStoreState;
   reply: ReplyStoreState;
+  like: LikeStoreState;
 }
 
 /**
@@ -50,6 +52,7 @@ const store = createStore({
     file: fileStoreModule,
     comment: commentStoreModule,
     reply: replyStoreModule,
+    like: likeStoreModule,
   },
 
   plugins: [LocalStorageStroePlugin],
