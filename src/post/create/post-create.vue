@@ -11,7 +11,7 @@
       :useDeleteButton="postId ? true : false"
       @delete="onDeletePost"
     />
-    <PostMeta :post="post" v-if="postId && post" />
+    <PostMeta :post="postCache" v-if="postCache" />
   </div>
 </template>
 
@@ -37,7 +37,9 @@ export default defineComponent({
    * 数据
    */
   data() {
-    return {};
+    return {
+      postCache: null,
+    };
   },
 
   /**
@@ -76,6 +78,12 @@ export default defineComponent({
     content() {
       if (!this.content) {
         this.setUnsaved(false);
+      }
+    },
+
+    post(newValue) {
+      if (newValue) {
+        this.postCache = newValue;
       }
     },
   },
@@ -164,6 +172,7 @@ export default defineComponent({
       this.setUnsaved(false);
       this.setSelectedFile(null);
       this.setPreviewImage(null);
+      this.postCache = null;
     },
 
     async submitUpdatePost() {
