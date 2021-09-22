@@ -57,6 +57,18 @@ export const likeCreateStoreModule: Module<LikeCreateStoreState, RootState> = {
         const response = await apiHttpClient.post(`/posts/${postId}/like`);
         commit('setLoading', false);
 
+        commit(
+          'post/index/setPostItemLiked',
+          { postId, liked: 1 },
+          { root: true },
+        );
+
+        commit(
+          'post/index/setPostItemTotalLikes',
+          { postId, actionType: 'increase' },
+          { root: true },
+        );
+
         return response;
       } catch (error) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

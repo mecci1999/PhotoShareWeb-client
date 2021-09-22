@@ -13,6 +13,7 @@ export interface PostListItem {
   user: User;
   totalComments: number;
   totalLikes: number;
+  liked: number;
   file: {
     id: number;
     width: number;
@@ -145,6 +146,37 @@ export const postIndexStoreModule: Module<PostIndexStoreState, RootState> = {
       const filter = filterProcess(data);
 
       state.filter = filter;
+    },
+
+    setPostItemLiked(state, data) {
+      const { postId, liked } = data;
+
+      state.posts = state.posts.map(post => {
+        if (post.id === postId) {
+          post.liked = liked;
+        }
+
+        return post;
+      });
+    },
+
+    setPostItemTotalLikes(state, data) {
+      const { postId, actionType } = data;
+
+      state.posts = state.posts.map(post => {
+        if (post.id === postId) {
+          switch (actionType) {
+            case 'increase':
+              post.totalLikes++;
+              break;
+            case 'decrease':
+              post.totalLikes--;
+              break;
+          }
+        }
+
+        return post;
+      });
     },
   },
 

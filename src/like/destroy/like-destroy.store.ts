@@ -60,6 +60,18 @@ export const likeDestroyStoreModule: Module<
         const response = await apiHttpClient.delete(`/posts/${postId}/like`);
         commit('setLoading', false);
 
+        commit(
+          'post/index/setPostItemLiked',
+          { postId, liked: 0 },
+          { root: true },
+        );
+
+        commit(
+          'post/index/setPostItemTotalLikes',
+          { postId, actionType: 'decrease' },
+          { root: true },
+        );
+
         return response;
       } catch (error) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
