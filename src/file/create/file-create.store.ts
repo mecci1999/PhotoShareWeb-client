@@ -32,7 +32,7 @@ export const fileCreateStoreModule: Module<FileCreateStoreState, RootState> = {
    * 数据
    */
   state: {
-    uploadProgress: 5,
+    uploadProgress: 0,
     previewImage: '',
     selectedFile: null,
     loading: false,
@@ -97,6 +97,7 @@ export const fileCreateStoreModule: Module<FileCreateStoreState, RootState> = {
 
       const formData = new FormData();
 
+      // eslint-disable-next-line
       formData.append('file', file as any);
 
       try {
