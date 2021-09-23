@@ -1,6 +1,7 @@
 <template>
   <div :class="managePostListItemClasses">
     <ManagePostListItemMedia :item="item" />
+    <ManagePostListItemContent :item="item" />
   </div>
 </template>
 
@@ -8,6 +9,7 @@
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import ManagePostListItemMedia from '@/manage/post/components/manage-post-list-item-media.vue';
+import ManagePostListItemContent from '@/manage/post/components/manage-post-list-item-content.vue';
 
 export default defineComponent({
   name: 'ManagePostListItem',
@@ -58,6 +60,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    ManagePostListItemContent,
     ManagePostListItemMedia,
   },
 });

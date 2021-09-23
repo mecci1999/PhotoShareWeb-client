@@ -9,7 +9,7 @@
 
 .manage-post-list-item-media::after {
   display: block;
-  content: ' ';
+  content: '';
   padding-top: 100%;
 }
 
