@@ -1,15 +1,13 @@
 <template>
   <div class="manage-post-list">
-    <div v-for="post in posts" :key="post.id">
-      <img :src="post.file.size.thumbnail" style="width: 100%" />
-      {{ post.user.name }}
-    </div>
+    <ManagePostListItem v-for="post in posts" :key="post.id" :item="post" />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import ManagePostListItem from '@/manage/post/components/manage-post-list-item.vue';
 
 export default defineComponent({
   name: 'ManagePostList',
@@ -73,7 +71,9 @@ export default defineComponent({
   /**
    * 使用组件
    */
-  components: {},
+  components: {
+    ManagePostListItem,
+  },
 });
 </script>
 
