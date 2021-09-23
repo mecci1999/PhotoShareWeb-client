@@ -1,0 +1,6 @@
+/* manage-post-list */
+.manage-post-list {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
