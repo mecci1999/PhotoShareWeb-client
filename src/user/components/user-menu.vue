@@ -88,6 +88,13 @@ export default defineComponent({
             },
             text: '账户',
           },
+          {
+            linkTo: {
+              name: 'managePost',
+              params: { userId: this.currentUser.id },
+            },
+            text: '管理',
+          },
         ],
       ];
     },
