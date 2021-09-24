@@ -1,6 +1,6 @@
 <template>
   <transition name="page-side-sheet">
-    <div class="page-side-sheet" v-if="sideSheetComponent">
+    <div class="page-side-sheet" v-if="isSideSheetActive">
       <CloseButton @click="onClickCloseButton"></CloseButton>
       <component :is="sideSheetComponent"></component>
     </div>
@@ -9,7 +9,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import CommentSideSheet from '@/comment/components/comment-side-sheet.vue';
 import CloseButton from '@/app/components/close-button.vue';
 
@@ -34,6 +34,7 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       sideSheetComponent: 'layout/sideSheetComponent',
+      isSideSheetActive: 'layout/isSideSheetActive',
     }),
   },
 
@@ -64,13 +65,17 @@ export default defineComponent({
       resetSideSheet: 'layout/resetSideSheet',
     }),
 
+    ...mapActions({
+      closeSideSheet: 'layout/closeSideSheet',
+    }),
+
     onClickCloseButton() {
-      this.resetSideSheet();
+      this.closeSideSheet();
     },
 
     onKeyUpWindow(event) {
       if (event.key === 'Escape') {
-        this.resetSideSheet();
+        this.closeSideSheet();
       }
     },
   },
