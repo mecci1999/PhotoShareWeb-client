@@ -16,7 +16,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 import AppIcon from '@/app/components/app-icon.vue';
 import PostLikeAction from '@/post/components/post-like-action.vue';
 
@@ -52,6 +52,8 @@ export default defineComponent({
    * 已创建
    */
   created() {
+    this.setSideSheetComponent('CommentSideSheet');
+
     if (this.sideSheetComponent) {
       this.setSideSheetProps({
         filter: { post: this.post.id },
@@ -69,16 +71,12 @@ export default defineComponent({
       setSideSheetProps: 'layout/setSideSheetProps',
     }),
 
-    onClickCommentButton() {
-      if (this.sideSheetComponent) {
-        this.resetSideSheet();
-      } else {
-        this.setSideSheetComponent('CommentSideSheet');
+    ...mapActions({
+      switchSideSheet: 'layout/switchSideSheet',
+    }),
 
-        this.setSideSheetProps({
-          filter: { post: this.post.id },
-        });
-      }
+    onClickCommentButton() {
+      this.switchSideSheet();
     },
   },
 

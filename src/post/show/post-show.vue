@@ -69,6 +69,7 @@ export default defineComponent({
       layout: 'post/show/layout',
       sideSheetComponent: 'layout/sideSheetComponent',
       posts: 'post/index/posts',
+      isSideSheetActive: 'layout/isSideSheetActive',
     }),
 
     showPost() {
@@ -76,7 +77,7 @@ export default defineComponent({
     },
 
     postShowClasses() {
-      return ['post-show', this.layout, { aside: this.sideSheetComponent }];
+      return ['post-show', this.layout, { aside: this.isSideSheetActive }];
     },
   },
 
