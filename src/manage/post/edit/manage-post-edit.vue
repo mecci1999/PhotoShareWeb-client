@@ -1,15 +1,14 @@
 <template>
-  <div class="manage-post-side-sheet">
-    <ManagePostEdit />
+  <div class="manage-post-edit">
+    ManagePostEdit
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import ManagePostEdit from '@/manage/post/edit/manage-post-edit.vue';
 
 export default defineComponent({
-  name: 'ManagePostSideSheet',
+  name: 'ManagePostEdit',
 
   /**
    * 属性
@@ -26,29 +25,30 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {},
+  computed: {
+  },
 
   /**
    * 已创建
    */
   created() {
-    //
+  // 
   },
 
   /**
    * 组件方法
    */
-  methods: {},
+  methods: {
+  },
 
   /**
    * 使用组件
    */
   components: {
-    ManagePostEdit,
   },
 });
 </script>
 
 <style scoped>
-@import './styles/manage-post-side-sheet.css';
+@import './styles/manage-post-edit.css';
 </style>
