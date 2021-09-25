@@ -1,7 +1,9 @@
 import { Module } from 'vuex';
 import { RootState } from '@/app/app.store';
+import { ManageSelectStoreState, manageSelectStoreModule } from '@/manage/stores/manage-select.store';
 
 export interface ManageStoreState {
+  select: ManageSelectStoreState;
   name: string;
 }
 
@@ -43,5 +45,6 @@ export const manageStoreModule: Module<ManageStoreState, RootState> = {
    * 模块
    */
   modules: {
+    select: manageSelectStoreModule,
   },
 };
