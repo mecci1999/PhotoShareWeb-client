@@ -1,1 +1,6 @@
 /* manage-post-side-sheet */
+.manage-post-side-sheet {
+  padding: 16px;
+  margin-top: 40px;
+  height: calc(100% - 90px);
+}
