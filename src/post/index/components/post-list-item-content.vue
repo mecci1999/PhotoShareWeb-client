@@ -15,25 +15,21 @@
     </div>
     <div class="actions">
       <PostLikeAction class="action" :post="item" />
-      <div class="action">
-        <div class="icon">
-          <button class="button basic" @click="onClickCommentButton">
-            <AppIcon name="comment"></AppIcon>
-          </button>
-        </div>
-        <div class="text">{{ item.totalComments }}</div>
-      </div>
+      <PostCommentAction
+        class="action"
+        :post="item"
+        actionType="switch"
+      ></PostCommentAction>
     </div>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import { mapGetters, mapMutations } from 'vuex';
 import UserAvatar from '@/user/components/user-avatar.vue';
 import UserName from '@/user/components/user-name.vue';
-import AppIcon from '@/app/components/app-icon.vue';
 import PostLikeAction from '@/post/components/post-like-action.vue';
+import PostCommentAction from '@/post/components/post-comment-action.vue';
 
 export default defineComponent({
   name: 'PostListItemContent',
@@ -61,10 +57,6 @@ export default defineComponent({
     itemLinkTo() {
       return { name: 'postShow', params: { postId: this.item.id } };
     },
-
-    ...mapGetters({
-      sideSheetComponent: 'layout/sideSheetComponent',
-    }),
   },
 
   /**
@@ -77,22 +69,7 @@ export default defineComponent({
   /**
    * 组件方法
    */
-  methods: {
-    ...mapMutations({
-      setSideSheetComponent: 'layout/setSideSheetComponent',
-      setSideSheetProps: 'layout/setSideSheetProps',
-      resetSideSheet: 'layout/resetSideSheet',
-    }),
-
-    onClickCommentButton() {
-      if (this.sideSheetComponent) {
-        this.resetSideSheet();
-      } else {
-        this.setSideSheetComponent('CommentSideSheet');
-        this.setSideSheetProps({ filter: { post: this.item.id } });
-      }
-    },
-  },
+  methods: {},
 
   /**
    * 使用组件
@@ -101,7 +78,7 @@ export default defineComponent({
     PostLikeAction,
     UserAvatar,
     UserName,
-    AppIcon,
+    PostCommentAction,
   },
 });
 </script>
