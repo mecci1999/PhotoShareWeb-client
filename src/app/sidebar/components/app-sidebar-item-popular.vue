@@ -2,6 +2,7 @@
   <div class="app-sidebar-item popular">
     <router-link class="link" :to="{ name: 'postIndexPopular' }">
       <AppIcon name="local_fire_department"></AppIcon>
+      <div class="text">热门</div>
     </router-link>
   </div>
 </template>

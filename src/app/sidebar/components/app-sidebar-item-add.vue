@@ -2,6 +2,7 @@
   <div class="app-sidebar-item add">
     <router-link class="link" :to="{ name: 'postCreate' }">
       <AppIcon name="add_a_photo"></AppIcon>
+      <div class="text">发布</div>
     </router-link>
   </div>
 </template>
