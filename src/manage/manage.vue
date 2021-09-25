@@ -6,6 +6,7 @@
 
 <script>
 import { defineComponent } from 'vue';
+import { mapGetters, mapActions } from 'vuex';
 
 export default defineComponent({
   name: 'Manage',
@@ -25,19 +26,44 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {},
+  computed: {
+    ...mapGetters({
+      hasSelected: 'manage/select/hasSelected',
+    }),
+  },
 
   /**
    * 已创建
    */
   created() {
-    //
+    if (window) {
+      window.addEventListener('keydown', this.onKeyDownWindow);
+    }
+  },
+
+  unmounted() {
+    if (window) {
+      window.removeEventListener('keydown', this.onKeyDownWindow);
+    }
   },
 
   /**
    * 组件方法
    */
-  methods: {},
+  methods: {
+    ...mapActions({
+      manageSelectedItems: 'manage/select/manageSelectedItems',
+    }),
+
+    onKeyDownWindow(event) {
+      if (this.hasSelected || event.key === 'Escape') {
+        this.manageSelectedItems({
+          resourcrType: 'post',
+          actionType: 'reset',
+        });
+      }
+    },
+  },
 
   /**
    * 使用组件
