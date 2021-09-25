@@ -6,6 +6,7 @@
 
 <script>
 import { defineComponent } from 'vue';
+import { mapMutations } from 'vuex';
 import ManagePostList from '@/manage/post/components/manage-post-list.vue';
 
 export default defineComponent({
@@ -36,13 +37,17 @@ export default defineComponent({
    * 已创建
    */
   created() {
-    //
+    this.setSideSheetComponent('ManagePostSideSheet');
   },
 
   /**
    * 组件方法
    */
-  methods: {},
+  methods: {
+    ...mapMutations({
+      setSideSheetComponent: 'layout/setSideSheetComponent',
+    }),
+  },
 
   /**
    * 使用组件
