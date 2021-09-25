@@ -10,6 +10,9 @@
         <PostShowNavigator></PostShowNavigator>
       </div>
     </transition>
+    <transition name="app-toolbar-item-side-sheet">
+      <AppToolbarItemSideSheet v-if="showSideSheetItem" />
+    </transition>
     <AppToolbarItemSearch></AppToolbarItemSearch>
   </div>
 </template>
@@ -20,6 +23,7 @@ import { mapGetters } from 'vuex';
 import AppToolbarItemSearch from '@/app/toolbar/components/app-toolbar-item-search.vue';
 import PostListLayoutSwitcher from '@/post/index/components/post-list-layout-switcher.vue';
 import PostShowNavigator from '@/post/show/components/post-show-navigator.vue';
+import AppToolbarItemSideSheet from '@/toolbar/components/app-toolbar-item-side-sheet.vue';
 
 export default defineComponent({
   name: 'AppToolbar',
@@ -43,6 +47,7 @@ export default defineComponent({
     ...mapGetters({
       showPostListLayoutSwitcher: 'toolbar/showPostListLayoutSwitcher',
       showPostShowNavigator: 'toolbar/showPostShowNavigator',
+      showSideSheetItem: 'toolbar/showSideSheetItem',
     }),
   },
 
@@ -62,6 +67,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    AppToolbarItemSideSheet,
     AppToolbarItemSearch,
     PostListLayoutSwitcher,
     PostShowNavigator,
