@@ -1,15 +1,15 @@
 <template>
-  <div class="manage-post-edit">
-    <ManagePostEditSelected />
+  <div class="manage-selected-status">
+    ManageSelectedStatus
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import ManagePostEditSelected from '@/manage/post/edit/manage-post-edit-selected.vue';
+import { mapGetters } from 'vuex';
 
 export default defineComponent({
-  name: 'ManagePostEdit',
+  name: 'ManageSelectedStatus',
 
   /**
    * 属性
@@ -26,29 +26,31 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {},
+  computed: {
+    ...mapGetters({}),
+  },
 
   /**
    * 已创建
    */
   created() {
-    //
+  // 
   },
 
   /**
    * 组件方法
    */
-  methods: {},
+  methods: {
+  },
 
   /**
    * 使用组件
    */
   components: {
-    ManagePostEditSelected,
   },
 });
 </script>
 
 <style scoped>
-@import './styles/manage-post-edit.css';
+@import './styles/manage-selected-status.css';
 </style>

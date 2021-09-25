@@ -1,15 +1,16 @@
 <template>
-  <div class="manage-post-edit">
-    <ManagePostEditSelected />
+  <div class="manage-post-edit-selected-list">
+    <ManagePostEditSelectedListItem />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import ManagePostEditSelected from '@/manage/post/edit/manage-post-edit-selected.vue';
+import { mapGetters } from 'vuex';
+import ManagePostEditSelectedListItem from '@/manage/post/edit/components/manage-post-edit-selected-list-item.vue';
 
 export default defineComponent({
-  name: 'ManagePostEdit',
+  name: 'ManagePostEditSelectedList',
 
   /**
    * 属性
@@ -26,7 +27,9 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {},
+  computed: {
+    ...mapGetters({}),
+  },
 
   /**
    * 已创建
@@ -44,11 +47,11 @@ export default defineComponent({
    * 使用组件
    */
   components: {
-    ManagePostEditSelected,
+    ManagePostEditSelectedListItem,
   },
 });
 </script>
 
 <style scoped>
-@import './styles/manage-post-edit.css';
+@import './styles/manage-post-edit-selected-list.css';
 </style>
