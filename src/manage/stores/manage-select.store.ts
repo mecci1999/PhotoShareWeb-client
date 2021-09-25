@@ -71,7 +71,19 @@ export const manageSelectStoreModule: Module<
   /**
    * 动作
    */
-  actions: {},
+  actions: {
+    getSelectedPosts({ state, commit, rootGetters }) {
+      const selectedPosts = state.selectedItems.map(item =>
+        rootGetters['post/index/posts'].find(
+          (post: PostListItem) => post.id === item,
+        ),
+      );
+
+      commit('setSelectedPosts', selectedPosts);
+
+      return selectedPosts;
+    },
+  },
 
   /**
    * 模块
