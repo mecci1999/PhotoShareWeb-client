@@ -95,6 +95,8 @@ export default defineComponent({
     },
 
     onKeyUpWindow(event) {
+      if (event.metaKey || event.ctrlKey) return;
+
       switch (event.key) {
         case 'b':
           if (this.posts.length) {
