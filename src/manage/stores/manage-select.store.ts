@@ -8,6 +8,12 @@ export interface ManageSelectStoreState {
   name: string;
 }
 
+export interface ManageSelectedItemsOptions {
+  resourceType: string;
+  item: number;
+  actionType: string;
+}
+
 export const manageSelectStoreModule: Module<
   ManageSelectStoreState,
   RootState
@@ -82,6 +88,40 @@ export const manageSelectStoreModule: Module<
       commit('setSelectedPosts', selectedPosts);
 
       return selectedPosts;
+    },
+
+    manageSelectedItems(
+      { commit, state, dispatch },
+      options: ManageSelectedItemsOptions,
+    ) {
+      // 解构数据
+      const { resourceType, item, actionType } = options;
+
+      let items: Array<number>;
+
+      switch (actionType) {
+        case 'add':
+          items = [...state.selectedItems, item];
+          break;
+        case 'remove':
+          items = state.selectedItems.filter(
+            selectedItem => selectedItem !== item,
+          );
+        case 'reset':
+          items = [];
+          break;
+        default:
+          items = [item];
+          break;
+      }
+
+      commit('setSelectedItems', items);
+
+      switch (resourceType) {
+        case 'post':
+          dispatch('getSelectedPosts');
+          break;
+      }
     },
   },
 
