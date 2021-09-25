@@ -107,6 +107,7 @@ export const manageSelectStoreModule: Module<
           items = state.selectedItems.filter(
             selectedItem => selectedItem !== item,
           );
+          break;
         case 'reset':
           items = [];
           break;
