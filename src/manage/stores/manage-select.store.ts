@@ -59,6 +59,10 @@ export const manageSelectStoreModule: Module<
     hasSelected(state) {
       return state.selectedItems.length ? true : false;
     },
+
+    currentEditedPost(state) {
+      return state.selectedPosts[state.selectedPosts.length - 1];
+    },
   },
 
   /**

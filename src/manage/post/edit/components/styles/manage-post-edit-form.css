@@ -1,1 +1,4 @@
 /* manage-post-edit-form */
+.manage-post-edit-form .input {
+  background: var(--page-side-sheet-background) !important;
+}
