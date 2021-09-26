@@ -56,7 +56,7 @@ export default defineComponent({
     }),
 
     onKeyDownWindow(event) {
-      if (this.hasSelected || event.key === 'Escape') {
+      if (this.hasSelected && event.key === 'Escape') {
         this.manageSelectedItems({
           resourcrType: 'post',
           actionType: 'reset',
