@@ -8,21 +8,21 @@
     ></TextField>
     <TextareaField
       class="bordered"
-      :rows="1"
+      :rows="2"
       v-model="currentEditedPost.content"
       placeholder="描述"
       @dirty="onDirty"
       v-if="isSingleSelect"
     ></TextareaField>
     <div class="actions">
-      <SubmitButton text="更新" :unsaved="unsaved" />
+      <SubmitButton text="更新" :unsaved="unsaved" @submit="onSubmitButton" />
     </div>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import TextField from '@/app/components/text-field.vue';
 import TextareaField from '@/app/components/textarea-field.vue';
 import SubmitButton from '@/app/components/submit-button';
@@ -51,6 +51,7 @@ export default defineComponent({
     ...mapGetters({
       currentEditedPost: 'manage/select/currentEditedPost',
       isSingleSelect: 'manage/select/isSingleSelect',
+      getEditedPost: 'manage/select/getEditedPost',
     }),
   },
 
@@ -65,8 +66,37 @@ export default defineComponent({
    * 组件方法
    */
   methods: {
+    ...mapActions({
+      updatePost: 'post/edit/updatePost',
+      pushMessage: 'notification/pushMessage',
+    }),
+
     onDirty() {
       this.unsaved = true;
+    },
+
+    async onSubmitButton() {
+      if (
+        this.currentEditedPost.title === this.getEditedPost.title ||
+        this.currentEditedPost.content === this.getEditedPost.content
+      ) {
+        this.pushMessage({ content: '内容没有发生改变，请继续修改内容' });
+        this.unsaved = false;
+        return;
+      }
+
+      try {
+        await this.updatePost({
+          postId: this.currentEditedPost.id,
+          data: this.currentEditedPost,
+        });
+
+        this.unsaved = false;
+
+        this.pushMessage({ content: '更新内容成功' });
+      } catch (error) {
+        this.pushMessage({ content: error.data.message });
+      }
     },
   },
 
