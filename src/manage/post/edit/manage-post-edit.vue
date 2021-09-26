@@ -2,6 +2,7 @@
   <div class="manage-post-edit">
     <PageSideSheetStatus v-if="!hasSelected" content="请选择要编辑的项目" />
     <ManagePostEditSelected v-if="hasSelected" />
+    <ManagePostEditForm v-if="hasSelected"></ManagePostEditForm>
   </div>
 </template>
 
@@ -10,6 +11,7 @@ import { defineComponent } from 'vue';
 import { mapGetters } from 'vuex';
 import ManagePostEditSelected from '@/manage/post/edit/manage-post-edit-selected.vue';
 import PageSideSheetStatus from '@/app/layout/components/page-side-sheet-status.vue';
+import ManagePostEditForm from '@/manage/post/edit/components/manage-post-edit-form.vue';
 
 export default defineComponent({
   name: 'ManagePostEdit',
@@ -53,6 +55,7 @@ export default defineComponent({
   components: {
     PageSideSheetStatus,
     ManagePostEditSelected,
+    ManagePostEditForm,
   },
 });
 </script>
