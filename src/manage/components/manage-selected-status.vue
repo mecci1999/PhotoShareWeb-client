@@ -1,6 +1,6 @@
 <template>
   <div class="manage-selected-status">
-    ManageSelectedStatus
+    <div class="content">已选择 {{ selectedItems.length }} 个项目</div>
   </div>
 </template>
 
@@ -27,27 +27,27 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      selectedItems: 'manage/select/selectedItems',
+    }),
   },
 
   /**
    * 已创建
    */
   created() {
-  // 
+    //
   },
 
   /**
    * 组件方法
    */
-  methods: {
-  },
+  methods: {},
 
   /**
    * 使用组件
    */
-  components: {
-  },
+  components: {},
 });
 </script>
 
