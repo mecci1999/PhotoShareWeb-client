@@ -63,10 +63,6 @@ export const manageSelectStoreModule: Module<
     currentEditedPost(state) {
       return state.selectedPosts[state.selectedPosts.length - 1];
     },
-
-    getEditedPost(state) {
-      return state.selectedPosts[state.selectedPosts.length - 1];
-    },
   },
 
   /**
