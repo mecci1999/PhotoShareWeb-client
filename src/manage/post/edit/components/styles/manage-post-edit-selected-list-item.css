@@ -1,1 +1,17 @@
 /* manage-post-edit-selected-list-item */
+.manage-post-edit-selected-list-item {
+  position: relative;
+}
+
+.manage-post-edit-selected-list-item > .thumbnail::after {
+  display: block;
+  content: '';
+  padding-top: 100%;
+}
+
+.manage-post-edit-selected-list-item > .thumbnail > .image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+}

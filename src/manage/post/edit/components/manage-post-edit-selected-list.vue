@@ -1,6 +1,10 @@
 <template>
   <div class="manage-post-edit-selected-list">
-    <ManagePostEditSelectedListItem />
+    <ManagePostEditSelectedListItem
+      v-for="post in selectedPosts"
+      :key="post.id"
+      :item="post"
+    />
   </div>
 </template>
 
@@ -28,7 +32,9 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      selectedPosts: 'manage/select/selectedPosts',
+    }),
   },
 
   /**
