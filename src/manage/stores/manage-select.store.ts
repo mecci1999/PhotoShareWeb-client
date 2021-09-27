@@ -128,6 +128,39 @@ export const manageSelectStoreModule: Module<
           break;
       }
     },
+
+    async deleteSelectedPosts({ commit, dispatch, getters }) {
+      const posts = getters.selectedPosts as Array<PostListItem>;
+
+      if (!posts.length) return;
+
+      for (const post of posts) {
+        try {
+          await dispatch(
+            'post/destroy/deletePost',
+            { postId: post.id },
+            { root: true },
+          );
+
+          await dispatch('manageSelectedItems', {
+            resourceType: 'post',
+            item: post.id,
+            actionType: 'remove',
+          });
+
+          commit('post/index/removePostItem', post, { root: true });
+        } catch (error) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const _error = error as any;
+
+          dispatch(
+            'notification/pushMessage',
+            { content: _error.data.message },
+            { root: true },
+          );
+        }
+      }
+    },
   },
 
   /**

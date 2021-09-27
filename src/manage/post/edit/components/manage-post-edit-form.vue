@@ -15,7 +15,7 @@
       v-if="isSingleSelect"
     ></TextareaField>
     <div class="actions">
-      <DeleteButton></DeleteButton>
+      <DeleteButton @delete="onDeleteButton"></DeleteButton>
       <SubmitButton text="更新" :unsaved="unsaved" @submit="onSubmitButton" />
     </div>
   </div>
@@ -75,6 +75,7 @@ export default defineComponent({
     ...mapActions({
       updatePost: 'post/edit/updatePost',
       pushMessage: 'notification/pushMessage',
+      deleteSelectedPosts: 'manage/select/deleteSelectedPosts',
     }),
 
     onDirty() {
@@ -102,6 +103,10 @@ export default defineComponent({
       } catch (error) {
         this.pushMessage({ content: error.data.message });
       }
+    },
+
+    onDeleteButton() {
+      this.deleteSelectedPosts();
     },
   },
 
