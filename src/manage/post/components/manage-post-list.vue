@@ -84,7 +84,11 @@ export default defineComponent({
       const { clientHeight: componentHeight } = this.$refs.managePostList;
 
       // 做出判断
-      if (componentHeight < documentHeight && this.hasMore && !this.loading) {
+      if (
+        componentHeight < documentHeight + 200 &&
+        this.hasMore &&
+        !this.loading
+      ) {
         this.getPosts({ filter: this.filter });
       }
     }
