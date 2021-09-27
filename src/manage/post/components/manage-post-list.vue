@@ -60,6 +60,7 @@ export default defineComponent({
     if (window) {
       window.addEventListener('scroll', this.onScrollWindow);
       window.scroll({ top: 0 });
+      window.addEventListener('keydown', this.onKeyDownWindow);
     }
   },
 
@@ -69,6 +70,7 @@ export default defineComponent({
   unmounted() {
     if (window) {
       window.removeEventListener('scroll', this.onScrollWindow);
+      window.removeEventListener('keydown', this.onKeyDownWindow);
     }
   },
 
@@ -107,6 +109,7 @@ export default defineComponent({
     ...mapMutations({}),
     ...mapActions({
       getPosts: 'post/index/getPosts',
+      deleteSelectedPosts: 'manage/select/deleteSelectedPosts',
     }),
 
     onScrollWindow() {
@@ -126,6 +129,12 @@ export default defineComponent({
         }
 
         this.prevScrollTop = scrollTop;
+      }
+    },
+
+    onKeyDownWindow(event) {
+      if ((event.metaKey || event.ctrlKey) && event.key === 'Backspace') {
+        this.deleteSelectedPosts();
       }
     },
   },
