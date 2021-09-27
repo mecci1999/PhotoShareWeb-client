@@ -10,7 +10,7 @@
         <AppIcon name="add" />
       </button>
     </div>
-    <div class="meta" v-if="tags">
+    <div class="meta" v-if="hasTags">
       <transition-group name="post-tag">
         <PostTag
           v-for="tag in tags"
@@ -58,6 +58,7 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       tags: 'post/edit/tags',
+      hasTags: 'post/edit/hasTags',
     }),
   },
 

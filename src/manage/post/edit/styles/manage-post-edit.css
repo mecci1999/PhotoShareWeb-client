@@ -1,4 +1,6 @@
 /* manage-post-edit */
 .manage-post-edit {
   height: 100%;
+  display: flex;
+  flex: 1;
 }

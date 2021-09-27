@@ -59,6 +59,10 @@ export const postEditStoreModule: Module<PostEditStoreState, RootState> = {
     tags(state) {
       return state.tags;
     },
+
+    hasTags(state) {
+      return state.tags && state.tags.length ? true : false;
+    },
   },
 
   /**
