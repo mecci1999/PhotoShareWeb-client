@@ -15,6 +15,7 @@
       v-if="isSingleSelect"
     ></TextareaField>
     <div class="actions">
+      <DeleteButton></DeleteButton>
       <SubmitButton text="更新" :unsaved="unsaved" @submit="onSubmitButton" />
     </div>
   </div>
@@ -25,7 +26,8 @@ import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import TextField from '@/app/components/text-field.vue';
 import TextareaField from '@/app/components/textarea-field.vue';
-import SubmitButton from '@/app/components/submit-button';
+import SubmitButton from '@/app/components/submit-button.vue';
+import DeleteButton from '@/app/components/delete-button.vue';
 
 export default defineComponent({
   name: 'ManagePostEditForm',
@@ -110,6 +112,7 @@ export default defineComponent({
     SubmitButton,
     TextField,
     TextareaField,
+    DeleteButton,
   },
 });
 </script>

@@ -1,9 +1,7 @@
 <template>
-  <div class="submit-button">
-    <button :class="submitButtonClasses" @click="onClickSubmitButton">
-      {{ submitButtonText }}
-    </button>
-  </div>
+  <button :class="submitButtonClasses" @click="onClickSubmitButton">
+    {{ submitButtonText }}
+  </button>
 </template>
 
 <script>
