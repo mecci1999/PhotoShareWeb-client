@@ -53,6 +53,7 @@ export default defineComponent({
     }
 
     socket.on('userLikePostCreated', this.onUserLikePostCreated);
+    socket.on('userLikePostDeleted', this.onUserLikePostDeleted);
   },
 
   /**
@@ -64,6 +65,7 @@ export default defineComponent({
     }
 
     socket.off('userLikePostCreated', this.onUserLikePostCreated);
+    socket.off('userLikePostDeleted', this.onUserLikePostDeleted);
   },
 
   computed: {
@@ -117,6 +119,15 @@ export default defineComponent({
       this.setPostTotalLikes({
         postId,
         actionType: 'increase',
+      });
+    },
+
+    onUserLikePostDeleted({ socketId, postId }) {
+      if (socket.id === socketId) return;
+
+      this.setPostTotalLikes({
+        postId,
+        actionType: 'decrease',
       });
     },
   },
