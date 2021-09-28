@@ -7,7 +7,7 @@
 <script>
 import AppLayout from '@/app/layout/app-layout';
 import { mapActions, mapMutations } from 'vuex';
-import { getStroage } from './app.service';
+import { getStroage, socket, apiHttpClient } from './app.service';
 
 export default {
   data() {
@@ -31,6 +31,11 @@ export default {
     if (currentUser) {
       this.getCurrentUser(currentUser);
     }
+
+    // 设置请求头部
+    socket.on('connect', () => {
+      apiHttpClient.defaults.headers.common['X-Socket-Id'] = socket.id;
+    });
   },
 
   methods: {
@@ -40,7 +45,6 @@ export default {
 
     ...mapActions({
       configApiHttpClientAuthHeader: 'auth/configApiHttpClientAuthHeader',
-
       getCurrentUser: 'user/getCurrentUser',
     }),
   },
