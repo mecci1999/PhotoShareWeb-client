@@ -144,11 +144,34 @@ export default defineComponent({
     },
 
     async onDeletePostTag(tagId) {
+      if (this.posts) {
+        this.bacthDeletePostTag(tagId);
+      } else {
+        this.submitDeletePostTag(tagId);
+      }
+    },
+
+    async submitDeletePostTag(tagId) {
       try {
         await this.deletePostTag({ postId: this.postId, tagId });
       } catch (error) {
         this.pushMessage({ content: error.data.message });
       }
+    },
+
+    async bacthDeletePostTag(tagId) {
+      for (const post of this.posts) {
+        if (post.tags && !post.tags.some(tag => tag.id === tagId)) continue;
+
+        try {
+          await this.deletePostTag({ postId: post.id, tagId });
+        } catch (error) {
+          continue;
+        }
+      }
+
+      this.$emit('updated');
+      this.name = '';
     },
   },
 
