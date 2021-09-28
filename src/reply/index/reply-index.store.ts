@@ -67,6 +67,13 @@ export const replyIndexStoreModule: Module<ReplyIndexStoreState, RootState> = {
         item => item.id !== replyId,
       );
     },
+
+    addReplyItem(state, data) {
+      const commentId = data.repliedComment.id;
+      const commentReplies = state.replies[commentId];
+
+      state.replies[commentId] = [...commentReplies, data];
+    },
   },
 
   /**
