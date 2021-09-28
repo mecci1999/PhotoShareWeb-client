@@ -134,6 +134,10 @@ export const commentIndexStoreModule: Module<
         return item;
       });
     },
+
+    addCommentItem(state, data) {
+      state.comments = [data, ...state.comments];
+    },
   },
 
   /**
