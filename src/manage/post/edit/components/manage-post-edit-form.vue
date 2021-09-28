@@ -14,7 +14,10 @@
       @dirty="onDirty"
       v-if="isSingleSelect"
     ></TextareaField>
-    <PostTagField></PostTagField>
+    <PostTagField
+      :posts="selectedPosts"
+      @updated="onUpdatedPostTagField"
+    ></PostTagField>
     <div class="actions">
       <DeleteButton @delete="onDeleteButton"></DeleteButton>
       <SubmitButton text="更新" :unsaved="unsaved" @submit="onSubmitButton" />
@@ -56,6 +59,7 @@ export default defineComponent({
       currentEditedPost: 'manage/select/currentEditedPost',
       isSingleSelect: 'manage/select/isSingleSelect',
       getEditedPost: 'manage/select/getEditedPost',
+      selectedPosts: 'manage/select/selectedPosts',
     }),
   },
 
@@ -78,6 +82,7 @@ export default defineComponent({
       updatePost: 'post/edit/updatePost',
       pushMessage: 'notification/pushMessage',
       deleteSelectedPosts: 'manage/select/deleteSelectedPosts',
+      getSelectedPosts: 'manage/select/getSelectedPosts',
     }),
 
     onDirty() {
@@ -109,6 +114,10 @@ export default defineComponent({
 
     onDeleteButton() {
       this.deleteSelectedPosts();
+    },
+
+    onUpdatedPostTagField() {
+      this.getSelectedPosts();
     },
   },
 

@@ -127,15 +127,15 @@ export const postEditStoreModule: Module<PostEditStoreState, RootState> = {
       try {
         const response = await apiHttpClient.post(`posts/${postId}/tag`, data);
 
-        const {
-          data: { tags },
-        } = await dispatch('post/show/getPostById', postId, {
+        const { data: post } = await dispatch('post/show/getPostById', postId, {
           root: true,
         });
 
-        commit('setTags', tags);
+        commit('setTags', post.tags);
 
         commit('setLoading', false);
+
+        commit('post/index/setPostItem', post, { root: true });
 
         return response;
       } catch (error) {

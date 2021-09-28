@@ -41,6 +41,10 @@ export default defineComponent({
     postId: {
       type: Number,
     },
+
+    posts: {
+      type: Array,
+    },
   },
 
   /**
@@ -51,6 +55,8 @@ export default defineComponent({
       name: '',
     };
   },
+
+  emits: ['updated'],
 
   /**
    * 计算属性
@@ -82,11 +88,42 @@ export default defineComponent({
     }),
 
     onClickAddButton() {
-      this.onSubmitCreatePostTag();
+      if (this.posts) {
+        this.batchCreatePostTag();
+      } else {
+        this.onSubmitCreatePostTag();
+      }
     },
 
     onKeyUpEnterTag() {
-      this.onSubmitCreatePostTag();
+      if (this.posts) {
+        this.batchCreatePostTag();
+      } else {
+        this.onSubmitCreatePostTag();
+      }
+    },
+
+    async batchCreatePostTag() {
+      for (const post of this.posts) {
+        // 如果要打上的标签存在于当前选中项目的标签列表中，则跳过当前循环。
+        if (post.tags && post.tags.some(tag => tag.name === this.name.trim()))
+          continue;
+
+        try {
+          // 给内容打上标签
+          await this.createPostTag({
+            postId: post.id,
+            data: {
+              name: this.name,
+            },
+          });
+        } catch (error) {
+          continue;
+        }
+      }
+
+      this.$emit('updated');
+      this.name = '';
     },
 
     async onSubmitCreatePostTag() {

@@ -1,6 +1,7 @@
 import { Module } from 'vuex';
 import { RootState } from '@/app/app.store';
 import { PostListItem } from '../../post/index/post-index.store';
+import { TagItem } from '../../post/edit/post-edit.store';
 
 export interface ManageSelectStoreState {
   selectedPosts: Array<PostListItem>;
@@ -63,6 +64,16 @@ export const manageSelectStoreModule: Module<
     currentEditedPost(state) {
       return state.selectedPosts[state.selectedPosts.length - 1];
     },
+
+    selectedPostsTags(state) {
+      const tags = state.selectedPosts.reduce((accumulator, post) => {
+        return post.tags ? [...accumulator, ...post.tags] : accumulator;
+      }, [] as Array<TagItem>);
+
+      return Array.from(new Set(tags.map(tag => tag.id))).map(tagId =>
+        tags.find(tag => tag.id === tagId),
+      );
+    },
   },
 
   /**
@@ -82,7 +93,7 @@ export const manageSelectStoreModule: Module<
    * 动作
    */
   actions: {
-    getSelectedPosts({ state, commit, rootGetters }) {
+    getSelectedPosts({ state, commit, rootGetters, getters }) {
       const selectedPosts = state.selectedItems.map(item =>
         rootGetters['post/index/posts'].find(
           (post: PostListItem) => post.id === item,
@@ -90,6 +101,8 @@ export const manageSelectStoreModule: Module<
       );
 
       commit('setSelectedPosts', selectedPosts);
+
+      commit('post/edit/setTags', getters.selectedPostsTags, { root: true });
 
       return selectedPosts;
     },
