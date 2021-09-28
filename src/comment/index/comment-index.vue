@@ -43,6 +43,7 @@ export default defineComponent({
    */
   created() {
     socket.on('commentCreated', this.onCommentCreated);
+    socket.on('commentUpdated', this.onCommentUpdated);
   },
 
   /**
@@ -50,6 +51,7 @@ export default defineComponent({
    */
   unmounted() {
     socket.off('commentCreated', this.onCommentCreated);
+    socket.off('commentUpdated', this.onCommentUpdated);
   },
 
   /**
@@ -58,12 +60,19 @@ export default defineComponent({
   methods: {
     ...mapMutations({
       addCommentItem: 'comment/index/addCommentItem',
+      setCommentItemContent: 'comment/index/setCommentItemContent',
     }),
 
     onCommentCreated({ socketId, comment }) {
       if (socket.id === socketId) return;
 
       this.addCommentItem(comment);
+    },
+
+    onCommentUpdated({ socketId, comment }) {
+      if (socket.id === socketId) return;
+
+      this.setCommentItemContent(comment);
     },
   },
 
