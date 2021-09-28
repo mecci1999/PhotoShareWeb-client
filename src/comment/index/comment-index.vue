@@ -45,6 +45,8 @@ export default defineComponent({
     socket.on('commentCreated', this.onCommentCreated);
     socket.on('commentUpdated', this.onCommentUpdated);
     socket.on('commentDeleted', this.onCommentDeleted);
+    socket.on('commentReplyCreated', this.onCommentReplyCreated);
+    socket.on('commentReplyDeleted', this.onCommentReplyDeleted);
   },
 
   /**
@@ -54,6 +56,8 @@ export default defineComponent({
     socket.off('commentCreated', this.onCommentCreated);
     socket.off('commentUpdated', this.onCommentUpdated);
     socket.off('commentDeleted', this.onCommentDeleted);
+    socket.off('commentReplyCreated', this.onCommentReplyCreated);
+    socket.off('commentReplyDeleted', this.onCommentReplyDeleted);
   },
 
   /**
@@ -64,6 +68,8 @@ export default defineComponent({
       addCommentItem: 'comment/index/addCommentItem',
       setCommentItemContent: 'comment/index/setCommentItemContent',
       removeCommentItem: 'comment/index/removeCommentItem',
+      increaseTotalReplies: 'commment/index/increaseTotalReplies',
+      decreaseTotalReplies: 'comment/index/decreaseTotalReplies',
     }),
 
     onCommentCreated({ socketId, comment }) {
@@ -82,6 +88,18 @@ export default defineComponent({
       if (socket.id === socketId) return;
 
       this.removeCommentItem(comment.id);
+    },
+
+    onCommentReplyCreated({ reply, socketId }) {
+      if (socket.id === socketId) return;
+
+      this.increaseTotalReplies(reply.repliedComment.id);
+    },
+
+    onCommentReplyDeleted({ reply, socketId }) {
+      if (socket.id === socketId) return;
+
+      this.decreaseTotalReplies(reply.repliedComment.id);
     },
   },
 
