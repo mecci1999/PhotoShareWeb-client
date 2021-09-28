@@ -33,6 +33,8 @@ export default defineComponent({
   created() {
     socket.on('userLikePostCreated', this.onUserLikePostCreated);
     socket.on('userLikePostDeleted', this.onUserLikePostDeleted);
+    socket.on('commentCreated', this.onCommentCreated);
+    socket.on('commentDeleted', this.onCommentDeleted);
   },
 
   /**
@@ -41,6 +43,8 @@ export default defineComponent({
   unmounted() {
     socket.off('userLikePostCreated', this.onUserLikePostCreated);
     socket.off('userLikePostDeleted', this.onUserLikePostDeleted);
+    socket.off('commentCreated', this.onCommentCreated);
+    socket.off('commentDeleted', this.onCommentDeleted);
   },
 
   title() {
@@ -56,6 +60,7 @@ export default defineComponent({
   methods: {
     ...mapMutations({
       setPostItemTotalLikes: 'post/index/setPostItemTotalLikes',
+      setPostItemTotalComments: 'post/index/setPostItemTotalComments',
     }),
 
     onUserLikePostCreated({ postId, socketId }) {
@@ -72,6 +77,20 @@ export default defineComponent({
 
       this.setPostItemTotalLikes({
         postId,
+        actionType: 'decrease',
+      });
+    },
+
+    onCommentCreated({ comment }) {
+      this.setPostItemTotalComments({
+        postId: comment.post.id,
+        actionType: 'increase',
+      });
+    },
+
+    onCommentDeleted({ comment }) {
+      this.setPostItemTotalComments({
+        postId: comment.post.id,
         actionType: 'decrease',
       });
     },

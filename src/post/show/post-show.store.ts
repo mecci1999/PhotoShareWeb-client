@@ -138,6 +138,21 @@ export const postShowStoreModule: Module<PostShowStoreState, RootState> = {
         }
       }
     },
+
+    setPostTotalComments(state, data) {
+      const { postId, actionType } = data;
+
+      if (state.post.id === postId) {
+        switch (actionType) {
+          case 'increase':
+            state.post.totalComments++;
+            break;
+          case 'decrease':
+            state.post.totalComments--;
+            break;
+        }
+      }
+    },
   },
 
   actions: {
