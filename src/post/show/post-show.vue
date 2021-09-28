@@ -19,7 +19,7 @@
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import { defineComponent } from 'vue';
 import PostShowMedia from './components/post-show-media.vue';
-import { getStroage } from '@/app/app.service';
+import { getStroage, socket } from '@/app/app.service';
 import PostShowHeader from './components/post-show-header.vue';
 import PostShowContent from './components/post-show-content.vue';
 import PostShowActions from './components/post-show-actions.vue';
@@ -51,6 +51,8 @@ export default defineComponent({
     if (window) {
       window.addEventListener('keyup', this.onKeyUpWindow);
     }
+
+    socket.on('userLikePostCreated', this.onUserLikePostCreated);
   },
 
   /**
@@ -60,6 +62,8 @@ export default defineComponent({
     if (window) {
       window.removeEventListener('keyup', this.onKeyUpWindow);
     }
+
+    socket.off('userLikePostCreated', this.onUserLikePostCreated);
   },
 
   computed: {
@@ -88,6 +92,7 @@ export default defineComponent({
 
     ...mapMutations({
       setLayout: 'post/show/setLayout',
+      setPostTotalLikes: 'post/show/setPostTotalLikes',
     }),
 
     onClickPostShowMedia() {
@@ -104,6 +109,15 @@ export default defineComponent({
           }
           break;
       }
+    },
+
+    onUserLikePostCreated({ socketId, postId }) {
+      if (socket.id === socketId) return;
+
+      this.setPostTotalLikes({
+        postId,
+        actionType: 'increase',
+      });
     },
   },
 
