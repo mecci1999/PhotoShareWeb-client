@@ -9,7 +9,7 @@
     <FileField
       name="file"
       @change="onChangeFile"
-      fileType="image/*"
+      fileType="image/jpg,image/jpeg"
       :text="fileFieldText"
     ></FileField>
     <div class="description">直接把图像文件拖放到这里</div>
@@ -18,7 +18,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import FileField from '@/app/components/file-field.vue';
 
 export default defineComponent({
@@ -72,14 +72,29 @@ export default defineComponent({
    * 组件方法
    */
   methods: {
+    ...mapActions({
+      pushMessage: 'notification/pushMessage',
+    }),
+
     onChangeFile(files) {
       this.$emit('change', files);
     },
 
     onDropDragZone(event) {
-      this.isOverlay = false;
+      // 规定的上传类型
+      const allowedFileTypes = ['image/jpg', 'image/jpeg'];
 
-      this.$emit('change', event.dataTransfer.files);
+      // 上传的文件
+      const selectedFile = event.dataTransfer.files[0];
+
+      // 进行判断，观察当前上传的文件类型是否是规定的类型
+      if (allowedFileTypes.some(type => type === selectedFile.type)) {
+        this.$emit('change', event.dataTransfer.files);
+      } else {
+        this.pushMessage({ content: '不支持上传此类型的文件' });
+      }
+
+      this.isOverlay = false;
     },
 
     onDragEnterDragZone() {
