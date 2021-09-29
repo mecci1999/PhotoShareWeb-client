@@ -15,7 +15,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default defineComponent({
   name: 'PostActions',
@@ -53,6 +53,7 @@ export default defineComponent({
       postId: 'post/create/postId',
       title: 'post/create/title',
       unsaved: 'post/create/unsaved',
+      selectedFile: 'file/create/selectedFile',
     }),
 
     submitButtonText() {
@@ -83,12 +84,18 @@ export default defineComponent({
    * 组件方法
    */
   methods: {
-    ...mapMutations({}),
-    ...mapActions({}),
+    ...mapActions({
+      pushMessage: 'notification/pushMessage',
+    }),
 
     onClickSubmitButton() {
+      if (!this.selectedFile) {
+        this.pushMessage({ content: '请选择上传文件' });
+        return;
+      }
+
       if (!this.title.trim()) {
-        this.pushMessage({ content: '内容标题不能为空' });
+        this.pushMessage({ content: '请输入内容标题' });
         return;
       }
 
