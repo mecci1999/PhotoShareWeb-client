@@ -1,7 +1,10 @@
 <template>
   <div class="post-show-file-meta">
-    <PostShowFileMetaKit :kit="kit"></PostShowFileMetaKit>
-    <PostShowFileMetaSpecs :specs="specs"></PostShowFileMetaSpecs>
+    <PostShowFileMetaKit :kit="kit" v-if="kit.length"></PostShowFileMetaKit>
+    <PostShowFileMetaSpecs
+      :specs="specs"
+      v-if="specs.length"
+    ></PostShowFileMetaSpecs>
   </div>
 </template>
 
