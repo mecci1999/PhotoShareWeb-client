@@ -7,8 +7,19 @@
     >
       {{ deleteButtonText }}
     </button>
-    <button :class="submitButtonClasses" @click="onClickSubmitButton">
+    <button
+      :class="submitButtonClasses"
+      @click="onClickSubmitButton"
+      v-if="isLoggedIn"
+    >
       {{ submitButtonText }}
+    </button>
+    <button
+      :class="loginButtonClasses"
+      @click="onClickLoginButton"
+      v-if="!isLoggedIn"
+    >
+      登录
     </button>
   </div>
 </template>
@@ -54,6 +65,7 @@ export default defineComponent({
       title: 'post/create/title',
       unsaved: 'post/create/unsaved',
       selectedFile: 'file/create/selectedFile',
+      isLoggedIn: 'auth/isLoggedIn',
     }),
 
     submitButtonText() {
@@ -70,6 +82,10 @@ export default defineComponent({
 
     deleteButtonClasses() {
       return ['button', this.size, 'red', { outline: !this.confirmDelete }];
+    },
+
+    loginButtonClasses() {
+      return ['button', 'outline', this.size];
     },
   },
 
@@ -122,6 +138,10 @@ export default defineComponent({
           this.confirmDelete = !this.confirmDelete;
         }, 3000);
       }
+    },
+
+    onClickLoginButton() {
+      this.$router.push({ name: 'login' });
     },
   },
 
