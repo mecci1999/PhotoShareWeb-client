@@ -62,7 +62,9 @@ export default defineComponent({
    */
   methods: {
     onClickUserAvatar() {
-      this.showUserMenu = !this.showUserMenu;
+      if (this.currentUser) {
+        this.showUserMenu = !this.showUserMenu;
+      }
     },
   },
 

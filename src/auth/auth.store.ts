@@ -54,6 +54,7 @@ export const authStoreModule: Module<AuthStoreState, RootState> = {
       commit('setToken', null);
       commit('user/setCurrentUser', null, { root: true });
       commit('auth/login/setLoginResponseData', null, { root: true });
+      apiHttpClient.defaults.headers.common['Authorization'] = null;
     },
   },
 

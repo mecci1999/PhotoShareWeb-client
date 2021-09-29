@@ -11,7 +11,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import AppIcon from '@/app/components/app-icon.vue';
 
 export default defineComponent({
@@ -44,6 +44,10 @@ export default defineComponent({
     userLikeColor() {
       return this.post.liked ? '#EA2027' : '';
     },
+
+    ...mapGetters({
+      isLoggedIn: 'auth/isLoggedIn',
+    }),
   },
 
   /**
@@ -58,11 +62,16 @@ export default defineComponent({
    */
   methods: {
     ...mapActions({
+      pushMessage: 'notification/pushMessage',
       createUserLikePost: 'like/create/createUserLikePost',
       deleteUserLikePost: 'like/destroy/deleteUserLikePost',
     }),
 
     onClickLikeButton() {
+      if (!this.isLoggedIn) {
+        return this.pushMessage({ content: '请先登录' });
+      }
+
       if (this.post.liked) {
         this.deleteUserLikePost({ postId: this.post.id });
       } else {
