@@ -2,7 +2,7 @@
   background: var(--skeleton-background);
 }
 
-.post-list-item.skeleton > .post-list-item-media:after {
+.post-list-item.skeleton > .post-list-item-media::after {
   display: block;
   content: ' ';
   padding-top: 66.66%;
