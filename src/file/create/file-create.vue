@@ -60,27 +60,49 @@ export default defineComponent({
       setPreviewImage: 'file/create/setPreviewImage',
     }),
 
-    ...mapActions({}),
+    ...mapActions({
+      pushMessage: 'notification/pushMessage',
+    }),
 
-    onChangeDragZone(files) {
+    async onChangeDragZone(files) {
       const file = files[0];
 
-      if (file) {
-        this.setSelectedFile(file);
-        this.createImagePreview(file);
-      }
+      if (!file) return;
 
-      this.$emit('change', files);
+      try {
+        const result = await this.createImagePreview(file);
+
+        this.setSelectedFile(file);
+
+        this.setPreviewImage(result);
+
+        this.$emit('change', files);
+      } catch (error) {
+        this.pushMessage({ content: error });
+      }
     },
 
     createImagePreview(file) {
-      const reader = new FileReader();
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
 
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
 
-      reader.onload = event => {
-        this.setPreviewImage(event.target.result);
-      };
+        reader.onload = event => {
+          const image = new Image();
+
+          image.src = event.target.result;
+
+          image.onload = () => {
+            // 进行判断图片的大小
+            if (image.width > 1280) {
+              resolve(event.target.result);
+            } else {
+              reject('图像宽度小于 1280 像素');
+            }
+          };
+        };
+      });
     },
   },
 
