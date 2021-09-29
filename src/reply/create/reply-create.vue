@@ -7,7 +7,8 @@
       <TextareaField
         placeholder="回复评论"
         v-model="content"
-        @keydown="onKeyDownReplyTextarea"
+        @keyup.stop
+        @keydown.stop="onKeyDownReplyTextarea"
       />
       <div class="actions">
         <button class="button pill" @click="onClickCancelButton">取消</button
