@@ -11,6 +11,9 @@ const routes: Array<RouteRecordRaw> = [
     path: '/manage',
     component: Manage,
     props: true,
+    meta: {
+      requireAuth: true,
+    },
     children: [
       {
         name: 'managePost',
