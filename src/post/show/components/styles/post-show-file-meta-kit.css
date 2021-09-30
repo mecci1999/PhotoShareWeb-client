@@ -17,6 +17,10 @@
   margin-right: 16px;
 }
 
+.post-show-file-meta-kit > .content > .kit .link {
+  color: var(--primary-text-color);
+}
+
 .post-show-file-meta-kit > .content > .kit > .title {
   font-weight: 300;
   margin-right: 8px;

@@ -74,11 +74,13 @@ export const fileShowStoreModule: Module<FileShowStoreState, RootState> = {
         const camera = {
           title: '相机',
           value: `${Make} ${Model}`.trim(),
+          url: `/popular?cameraMake=${Make}&cameraModel=${Model}`,
         };
 
         const lens = {
           title: '镜头',
           value: `${LensMake} ${LensModel}`.trim(),
+          url: `/popular?lensMake=${LensMake}&lensModel=${LensModel}`,
         };
 
         kit = [camera, lens];
