@@ -1,18 +1,21 @@
 <template>
   <div class="app-toolbar">
-    <transition name="app-toolbar-item-layout">
-      <div class="app-toolbar-item layout" v-if="showPostListLayoutSwitcher">
-        <PostListLayoutSwitcher></PostListLayoutSwitcher>
-      </div>
-    </transition>
-    <transition name="app-toolbar-item-navigator">
-      <div class="app-toolbar-item navigator" v-if="showPostShowNavigator">
-        <PostShowNavigator></PostShowNavigator>
-      </div>
-    </transition>
-    <transition name="app-toolbar-item-side-sheet">
-      <AppToolbarItemSideSheet v-if="showSideSheetItem" />
-    </transition>
+    <template v-if="!showAppSearch">
+      <transition name="app-toolbar-item-layout">
+        <div class="app-toolbar-item layout" v-if="showPostListLayoutSwitcher">
+          <PostListLayoutSwitcher></PostListLayoutSwitcher>
+        </div>
+      </transition>
+      <transition name="app-toolbar-item-navigator">
+        <div class="app-toolbar-item navigator" v-if="showPostShowNavigator">
+          <PostShowNavigator></PostShowNavigator>
+        </div>
+      </transition>
+      <transition name="app-toolbar-item-side-sheet">
+        <AppToolbarItemSideSheet v-if="showSideSheetItem" />
+      </transition>
+    </template>
+    <AppSearch v-if="showAppSearch" />
     <AppToolbarItemSearch></AppToolbarItemSearch>
   </div>
 </template>
@@ -24,6 +27,7 @@ import AppToolbarItemSearch from '@/app/toolbar/components/app-toolbar-item-sear
 import PostListLayoutSwitcher from '@/post/index/components/post-list-layout-switcher.vue';
 import PostShowNavigator from '@/post/show/components/post-show-navigator.vue';
 import AppToolbarItemSideSheet from '@/toolbar/components/app-toolbar-item-side-sheet.vue';
+import AppSearch from '@/app/search/app-search.vue';
 
 export default defineComponent({
   name: 'AppToolbar',
@@ -48,6 +52,7 @@ export default defineComponent({
       showPostListLayoutSwitcher: 'toolbar/showPostListLayoutSwitcher',
       showPostShowNavigator: 'toolbar/showPostShowNavigator',
       showSideSheetItem: 'toolbar/showSideSheetItem',
+      showAppSearch: 'toolbar/showAppSearch',
     }),
   },
 
@@ -67,6 +72,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    AppSearch,
     AppToolbarItemSideSheet,
     AppToolbarItemSearch,
     PostListLayoutSwitcher,

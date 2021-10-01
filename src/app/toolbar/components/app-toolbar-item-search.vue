@@ -1,11 +1,14 @@
 <template>
   <div class="app-toolbar-item search">
-    <AppIcon name="search"></AppIcon>
+    <button class="button basic" @click="onClickSearchButton">
+      <AppIcon :name="searchIcon"></AppIcon>
+    </button>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import { mapGetters, mapMutations } from 'vuex';
 import AppIcon from '@/app/components/app-icon.vue';
 
 export default defineComponent({
@@ -26,7 +29,15 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {},
+  computed: {
+    ...mapGetters({
+      showAppSearch: 'toolbar/showAppSearch',
+    }),
+
+    searchIcon() {
+      return this.showAppSearch ? 'close' : 'search';
+    },
+  },
 
   /**
    * 已创建
@@ -38,7 +49,15 @@ export default defineComponent({
   /**
    * 组件方法
    */
-  methods: {},
+  methods: {
+    ...mapMutations({
+      setShowAppSearch: 'toolbar/setShowAppSearch',
+    }),
+
+    onClickSearchButton() {
+      this.setShowAppSearch(!this.showAppSearch);
+    },
+  },
 
   /**
    * 使用组件
