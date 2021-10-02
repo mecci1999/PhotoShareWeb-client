@@ -17,6 +17,10 @@ import {
   AppNotificationStoreState,
 } from './notification/app-notification.store';
 import {
+  appSearchStoreModule,
+  AppSearchStoreState,
+} from './search/app-search.store';
+import {
   appToolbarStoreModule,
   AppToolbarStoreState,
 } from './toolbar/app-toolbar.store';
@@ -34,6 +38,7 @@ export interface RootState {
   reply: ReplyStoreState;
   like: LikeStoreState;
   manage: ManageStoreState;
+  search: AppSearchStoreState;
 }
 
 /**
@@ -56,6 +61,7 @@ const store = createStore({
     reply: replyStoreModule,
     like: likeStoreModule,
     manage: manageStoreModule,
+    search: appSearchStoreModule,
   },
 
   plugins: [LocalStorageStroePlugin],
