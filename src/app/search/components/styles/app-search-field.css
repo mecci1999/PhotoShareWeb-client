@@ -1,0 +1,6 @@
+/* app-search-field */
+.app-search-field {
+  flex-grow: 2;
+  display: flex;
+  align-items: center;
+}
