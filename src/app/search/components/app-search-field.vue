@@ -7,6 +7,7 @@
       v-model="keyword"
       :placeholder="placeholder"
       @keydown.enter="onKeyDownSearchField"
+      ref="searchField"
     ></TextField>
   </div>
 </template>
@@ -64,6 +65,22 @@ export default defineComponent({
   },
 
   /**
+   * 挂载
+   */
+  mounted() {
+    this.foucusSearchField();
+  },
+
+  /**
+   * 监听
+   */
+  watch: {
+    searchOption() {
+      this.foucusSearchField();
+    },
+  },
+
+  /**
    * 组件方法
    */
   methods: {
@@ -91,6 +108,10 @@ export default defineComponent({
 
     onKeyDownSearchField() {
       this.submitSearch();
+    },
+
+    foucusSearchField() {
+      this.$refs.searchField.$el.querySelector('input').focus();
     },
   },
 
