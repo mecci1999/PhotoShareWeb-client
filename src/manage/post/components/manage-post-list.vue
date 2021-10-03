@@ -44,7 +44,7 @@ export default defineComponent({
     filter() {
       return {
         user: this.currentUser ? this.currentUser.id : null,
-        action: 'published',
+        status: 'published',
       };
     },
   },

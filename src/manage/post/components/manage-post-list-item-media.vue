@@ -1,12 +1,14 @@
 <template>
   <div class="manage-post-list-item-media">
     <img class="image" :src="image" v-if="image" />
+    <ManagePostStatusAction />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import { getImageBase64 } from '@/file/file.service';
+import ManagePostStatusAction from '@/manage/post/components/manage-post-status-action.vue';
 
 export default defineComponent({
   name: 'ManagePostListItemMedia',
@@ -49,7 +51,9 @@ export default defineComponent({
   /**
    * 使用组件
    */
-  components: {},
+  components: {
+    ManagePostStatusAction,
+  },
 });
 </script>
 

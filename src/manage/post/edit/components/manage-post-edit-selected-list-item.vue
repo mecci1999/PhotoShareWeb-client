@@ -2,6 +2,7 @@
   <div class="manage-post-edit-selected-list-item">
     <div class="thumbnail">
       <img class="image" :src="image" v-if="image" />
+      <ManagePostStatusAction></ManagePostStatusAction>
     </div>
     <div class="actions">
       <button class="button basic circle" @click="onClickRemoveButton(item)">
@@ -16,6 +17,7 @@ import { defineComponent } from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 import AppIcon from '@/app/components/app-icon.vue';
 import { getImageBase64 } from '@/file/file.service';
+import ManagePostStatusAction from '@/manage/post/components/manage-post-status-action.vue';
 
 export default defineComponent({
   name: 'ManagePostEditSelectedListItem',
@@ -74,6 +76,7 @@ export default defineComponent({
    */
   components: {
     AppIcon,
+    ManagePostStatusAction,
   },
 });
 </script>
