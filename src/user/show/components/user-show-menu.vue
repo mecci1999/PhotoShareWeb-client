@@ -22,7 +22,7 @@ export default defineComponent({
    */
   props: {
     user: {
-      type: String,
+      type: Object,
     },
   },
 
