@@ -24,6 +24,7 @@ import PostContentField from '@/post/components/post-content-field.vue';
 import PostActions from '@/post/components/post-actions.vue';
 import PostMeta from '@/post/components/post-meta.vue';
 import FileCreate from '@/file/create/file-create.vue';
+import { getImageBase64 } from '@/file/file.service';
 
 export default defineComponent({
   name: 'PostCreate',
@@ -162,7 +163,9 @@ export default defineComponent({
         this.setTags(tags);
 
         if (file) {
-          this.setPreviewImage(file.size.large);
+          const imageData = await getImageBase64(file.size.large);
+
+          this.setPreviewImage(imageData);
         }
       } catch (error) {
         this.pushMessage({ content: error.data.message });

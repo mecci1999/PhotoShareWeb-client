@@ -1,11 +1,12 @@
 <template>
   <div :class="postShowMediaClasses">
-    <img class="image" :src="post.file.size.large" @load="onLoadImage" />
+    <img class="image" :src="image" @load="onLoadImage" />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import { getImageBase64 } from '@/file/file.service';
 
 export default defineComponent({
   name: 'PostShowMedia',
@@ -25,6 +26,7 @@ export default defineComponent({
   data() {
     return {
       loading: true,
+      image: null,
     };
   },
 
@@ -40,8 +42,8 @@ export default defineComponent({
   /**
    * 已创建
    */
-  created() {
-    //
+  async created() {
+    this.image = await getImageBase64(this.post.file.size.large);
   },
 
   /**

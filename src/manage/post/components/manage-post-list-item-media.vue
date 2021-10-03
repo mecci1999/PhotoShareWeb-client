@@ -1,11 +1,12 @@
 <template>
   <div class="manage-post-list-item-media">
-    <img class="image" :src="item.file.size.medium" />
+    <img class="image" :src="image" v-if="image" />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import { getImageBase64 } from '@/file/file.service';
 
 export default defineComponent({
   name: 'ManagePostListItemMedia',
@@ -23,7 +24,9 @@ export default defineComponent({
    * 数据
    */
   data() {
-    return {};
+    return {
+      image: null,
+    };
   },
 
   /**
@@ -34,8 +37,8 @@ export default defineComponent({
   /**
    * 已创建
    */
-  created() {
-    //
+  async created() {
+    this.image = await getImageBase64(this.item.file.size.medium);
   },
 
   /**

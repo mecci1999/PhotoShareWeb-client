@@ -1,7 +1,7 @@
 <template>
   <div class="manage-post-edit-selected-list-item">
     <div class="thumbnail">
-      <img class="image" :src="item.file.size.medium" />
+      <img class="image" :src="image" v-if="image" />
     </div>
     <div class="actions">
       <button class="button basic circle" @click="onClickRemoveButton(item)">
@@ -15,6 +15,7 @@
 import { defineComponent } from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 import AppIcon from '@/app/components/app-icon.vue';
+import { getImageBase64 } from '@/file/file.service';
 
 export default defineComponent({
   name: 'ManagePostEditSelectedListItem',
@@ -32,7 +33,9 @@ export default defineComponent({
    * 数据
    */
   data() {
-    return {};
+    return {
+      image: null,
+    };
   },
 
   /**
@@ -45,8 +48,8 @@ export default defineComponent({
   /**
    * 已创建
    */
-  created() {
-    //
+  async created() {
+    this.image = await getImageBase64(this.item.file.size.medium);
   },
 
   /**
