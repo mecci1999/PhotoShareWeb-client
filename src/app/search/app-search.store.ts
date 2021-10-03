@@ -2,9 +2,34 @@ import { Module } from 'vuex';
 import { RootState } from '@/app/app.store';
 import { apiHttpClient } from '@/app/app.service';
 
+export interface UserResult {
+  id: number;
+  name: string;
+  avatar: number;
+  totalPosts: number;
+}
+
+export interface TagResult {
+  id: number;
+  name: string;
+  totalPosts: number;
+}
+
+export interface CameraResult {
+  camera: Array<string>;
+  totalPosts: number;
+}
+
+export interface LensResult {
+  lens: Array<string>;
+  totalPosts: number;
+}
+
 export interface AppSearchStoreState {
   searchKeyword: string;
-  searchResults: null;
+  searchResults: Array<
+    UserResult | TagResult | CameraResult | LensResult
+  > | null;
   searchOption: SearchOption;
   loading: boolean;
 }
@@ -44,7 +69,49 @@ export const appSearchStoreModule: Module<AppSearchStoreState, RootState> = {
     },
 
     searchResults(state) {
-      return state.searchResults;
+      return state.searchResults
+        ? state.searchResults.map(result => {
+            let item, title, link, meta, extra;
+
+            switch (state.searchOption.value) {
+              case 'tags':
+                item = result as TagResult;
+                title = item.name;
+                meta = item.totalPosts;
+                link = `/popular?tag=${item.name}`;
+                break;
+              case 'user':
+                item = result as UserResult;
+                title = item.name;
+                meta = item.totalPosts;
+                link = `users/${item.id}`;
+                extra = {
+                  id: item.id,
+                  avatar: item.avatar,
+                };
+                break;
+              case 'cameras':
+                item = result as CameraResult;
+                title = item.camera.join(' ');
+                meta = item.totalPosts;
+                link = `/popular?cameras=${item.camera[0]}&cameraModel=${item.camera[1]}`;
+                break;
+              case 'lens':
+                item = result as LensResult;
+                title = item.lens.join(' ');
+                meta = item.totalPosts;
+                link = `/popular?lens=${item.lens[0]}&lenModel=${item.lens[1]}`;
+                break;
+            }
+
+            return {
+              title,
+              meta,
+              link,
+              extra,
+            };
+          })
+        : null;
     },
 
     searchOption(state) {
