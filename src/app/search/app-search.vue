@@ -43,15 +43,40 @@ export default defineComponent({
    * 已创建
    */
   created() {
-    //
+    if (window) {
+      window.addEventListener('keydown', this.onKeyDownWindow);
+    }
+  },
+
+  /**
+   * 取消挂载
+   */
+  unmounted() {
+    if (window) {
+      window.removeEventListener('keydown', this.onKeyDownWindow);
+    }
+
+    this.setSearchResults(null);
+    this.setSearchKeyword('');
   },
 
   /**
    * 组件方法
    */
   methods: {
-    ...mapMutations({}),
+    ...mapMutations({
+      setSearchResults: 'search/setSearchResults',
+      setSearchKeyword: 'search/setSearchKeyword',
+    }),
+
     ...mapActions({}),
+
+    onKeyDownWindow(event) {
+      if (event.key === 'Escape') {
+        this.setSearchResults(null);
+        this.setSearchKeyword('');
+      }
+    },
   },
 
   /**

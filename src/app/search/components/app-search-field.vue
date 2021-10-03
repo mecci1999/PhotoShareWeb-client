@@ -49,6 +49,10 @@ export default defineComponent({
 
       set(value) {
         this.setSearchKeyword(value);
+
+        if (!value) {
+          this.setSearchResults(null);
+        }
       },
     },
 
@@ -86,6 +90,7 @@ export default defineComponent({
   methods: {
     ...mapMutations({
       setSearchKeyword: 'search/setSearchKeyword',
+      setSearchResults: 'search/setSearchResults',
     }),
     ...mapActions({
       search: 'search/search',
