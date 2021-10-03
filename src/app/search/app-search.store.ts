@@ -80,7 +80,7 @@ export const appSearchStoreModule: Module<AppSearchStoreState, RootState> = {
                 meta = item.totalPosts;
                 link = `/popular?tag=${item.name}`;
                 break;
-              case 'user':
+              case 'users':
                 item = result as UserResult;
                 title = item.name;
                 meta = item.totalPosts;

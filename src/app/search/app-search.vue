@@ -1,5 +1,6 @@
 <template>
   <div class="app-search">
+    <AppSearchResultList />
     <AppSearchField />
     <AppSearchOptions />
   </div>
@@ -10,6 +11,7 @@ import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import AppSearchOptions from '@/app/search/components/app-search-options.vue';
 import AppSearchField from '@/app/search/components/app-search-field.vue';
+import AppSearchResultList from '@/app/search/components/app-search-result-list.vue';
 
 export default defineComponent({
   name: 'AppSearch',
@@ -52,6 +54,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    AppSearchResultList,
     AppSearchOptions,
     AppSearchField,
   },
