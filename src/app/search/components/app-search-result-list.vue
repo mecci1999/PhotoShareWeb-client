@@ -5,7 +5,7 @@
     </div>
     <div class="content">
       <AppSearchResultListItem
-        v-for="(result, index) in searchResult"
+        v-for="(result, index) in searchResults"
         :key="index"
         :item="result"
       />

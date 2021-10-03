@@ -84,9 +84,10 @@ export const appSearchStoreModule: Module<AppSearchStoreState, RootState> = {
                 item = result as UserResult;
                 title = item.name;
                 meta = item.totalPosts;
-                link = `users/${item.id}`;
+                link = `/users/${item.id}`;
                 extra = {
                   id: item.id,
+                  name: item.name,
                   avatar: item.avatar,
                 };
                 break;
@@ -120,6 +121,10 @@ export const appSearchStoreModule: Module<AppSearchStoreState, RootState> = {
 
     loading(state) {
       return state.loading;
+    },
+
+    hasSearchResults(state) {
+      return state.searchResults && state.searchResults.length > 0;
     },
   },
 
@@ -160,6 +165,8 @@ export const appSearchStoreModule: Module<AppSearchStoreState, RootState> = {
         const response = await apiHttpClient.get(
           `/search/${value}?${query}=${searchKeyword}`,
         );
+
+        commit('setSearchResults', response.data);
 
         commit('setLoading', false);
 

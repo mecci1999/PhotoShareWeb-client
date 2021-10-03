@@ -95,8 +95,6 @@ export default defineComponent({
     async submitSearch() {
       const response = await this.search();
 
-      console.log(response.data);
-
       if (!response.data.length) {
         this.pushMessage({ content: `没有找到相关${this.searchOption.title}` });
       }

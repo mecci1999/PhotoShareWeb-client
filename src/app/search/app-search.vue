@@ -1,8 +1,10 @@
 <template>
   <div class="app-search">
-    <AppSearchResultList />
     <AppSearchField />
     <AppSearchOptions />
+    <transition name="app-search-result-list">
+      <AppSearchResultList v-if="hasSearchResults" />
+    </transition>
   </div>
 </template>
 
@@ -32,7 +34,9 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      hasSearchResults: 'search/hasSearchResults',
+    }),
   },
 
   /**
