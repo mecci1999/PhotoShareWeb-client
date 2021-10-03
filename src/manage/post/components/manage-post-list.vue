@@ -54,7 +54,7 @@ export default defineComponent({
    */
   created() {
     if (this.currentUser) {
-      this.getPosts({ filter: this.filter });
+      this.getManagedPosts();
     }
 
     if (window) {
@@ -91,14 +91,14 @@ export default defineComponent({
         this.hasMore &&
         !this.loading
       ) {
-        this.getPosts({ filter: this.filter });
+        this.getManagedPosts();
       }
     }
   },
 
   watch: {
     filter() {
-      this.getPosts({ filter: this.filter });
+      this.getManagedPosts();
     },
   },
 
@@ -125,7 +125,7 @@ export default defineComponent({
         const scrollDown = scrollTop > this.prevScrollTop;
 
         if (scrollDown && touchDown && !this.loading && this.hasMore) {
-          this.getPosts({ filter: this.filter });
+          this.getManagedPosts();
         }
 
         this.prevScrollTop = scrollTop;
@@ -136,6 +136,10 @@ export default defineComponent({
       if ((event.metaKey || event.ctrlKey) && event.key === 'Backspace') {
         this.deleteSelectedPosts();
       }
+    },
+
+    getManagedPosts() {
+      this.getPosts({ filter: this.filter, manage: 'true' });
     },
   },
 
