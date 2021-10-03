@@ -2,7 +2,7 @@
   <div class="manage-post-edit-selected-list-item">
     <div class="thumbnail">
       <img class="image" :src="image" v-if="image" />
-      <ManagePostStatusAction></ManagePostStatusAction>
+      <ManagePostStatusAction :post="item"></ManagePostStatusAction>
     </div>
     <div class="actions">
       <button class="button basic circle" @click="onClickRemoveButton(item)">

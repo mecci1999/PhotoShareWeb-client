@@ -1,7 +1,7 @@
 <template>
   <div class="manage-post-status-action">
-    <button class="button basic circle">
-      <AppIcon color="#fff" size="16"></AppIcon>
+    <button class="button basic circle" @click.stop="onClickStatusButton">
+      <AppIcon color="#fff" size="16" :name="postStatusIcon"></AppIcon>
     </button>
   </div>
 </template>
@@ -17,7 +17,11 @@ export default defineComponent({
   /**
    * 属性
    */
-  props: {},
+  props: {
+    post: {
+      type: Object,
+    },
+  },
 
   /**
    * 数据
@@ -30,7 +34,24 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      hasSelected: 'manage/select/hasSelected',
+    }),
+
+    postStatusIcon() {
+      let icon;
+
+      switch (this.post.status) {
+        case 'draft':
+          icon = 'public_off';
+          break;
+        case 'published':
+          icon = 'public';
+          break;
+      }
+
+      return icon;
+    },
   },
 
   /**
@@ -44,8 +65,39 @@ export default defineComponent({
    * 组件方法
    */
   methods: {
-    ...mapMutations({}),
-    ...mapActions({}),
+    ...mapMutations({
+      setPostItem: 'post/index/setPostItem',
+    }),
+
+    ...mapActions({
+      updatePost: 'post/edit/updatePost',
+      pushMessage: 'notification/pushMessage',
+      getSelectedPosts: 'manage/select/getSelectedPosts',
+    }),
+
+    async onClickStatusButton() {
+      const status = this.post.status === 'draft' ? 'published' : 'draft';
+
+      try {
+        await this.updatePost({
+          postId: this.post.id,
+          data: {
+            status,
+          },
+        });
+
+        this.setPostItem({
+          id: this.post.id,
+          status,
+        });
+
+        if (this.hasSelected) {
+          this.getSelectedPosts();
+        }
+      } catch (error) {
+        this.pushMessage({ content: error.data.message });
+      }
+    },
   },
 
   /**
