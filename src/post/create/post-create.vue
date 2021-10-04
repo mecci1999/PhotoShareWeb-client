@@ -54,6 +54,7 @@ export default defineComponent({
       post: 'post/show/post',
       selectedFile: 'file/create/selectedFile',
       isLoggedIn: 'auth/isLoggedIn',
+      status: 'post/create/status',
     }),
   },
 
@@ -113,6 +114,7 @@ export default defineComponent({
       setUnsaved: 'post/create/setUnsaved',
       setSelectedFile: 'file/create/setSelectedFile',
       setPreviewImage: 'file/create/setPreviewImage',
+      setStatus: 'post/craete/setStatus',
     }),
 
     ...mapActions({
@@ -130,10 +132,13 @@ export default defineComponent({
       }
 
       try {
+        const status = this.status ? this.status : 'draft';
+
         await this.createPost({
           data: {
             title: this.title,
             content: this.content,
+            status,
           },
           file: this.selectedFile,
         });
@@ -155,12 +160,13 @@ export default defineComponent({
       try {
         await this.getPostById(postId);
 
-        const { title, content, tags, file } = this.post;
+        const { title, content, tags, file, status } = this.post;
 
         this.setTitle(title);
         this.setContent(content);
         this.setPostId(postId);
         this.setTags(tags);
+        this.setStatus(status);
 
         if (file) {
           const imageData = await getImageBase64(file.size.large);
@@ -181,15 +187,19 @@ export default defineComponent({
       this.setSelectedFile(null);
       this.setPreviewImage(null);
       this.postCache = null;
+      this.setStatus(null);
     },
 
     async submitUpdatePost() {
+      const status = this.status ? this.status : 'draft';
+
       try {
         await this.updatePost({
           postId: this.postId,
           data: {
             title: this.title,
             content: this.content,
+            status,
           },
           file: this.selectedFile,
         });
