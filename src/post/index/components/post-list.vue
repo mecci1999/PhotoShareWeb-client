@@ -44,6 +44,8 @@ export default defineComponent({
   },
 
   async created() {
+    this.setPosts([]);
+
     await this.getPosts({ sort: this.sort, filter: this.filter });
 
     // 从本地存储中，获取内容页面布局数据
@@ -89,6 +91,7 @@ export default defineComponent({
 
     ...mapMutations({
       setLayout: 'post/index/setLayout',
+      setPosts: 'post/index/setPosts',
     }),
 
     onScrollWindow() {
