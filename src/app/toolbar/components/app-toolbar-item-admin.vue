@@ -30,10 +30,12 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      useAdmin: 'user/useAdmin',
+    }),
 
     appToolbarItemAdminClasses() {
-      return ['app-toolbar-item', 'admin', { inactive: true }];
+      return ['app-toolbar-item', 'admin', { inactive: !this.useAdmin }];
     },
   },
 
@@ -48,12 +50,18 @@ export default defineComponent({
    * 组件方法
    */
   methods: {
-    ...mapMutations({}),
+    ...mapMutations({
+      setUseAdmin: 'user/setUseAdmin',
+    }),
 
     ...mapActions({}),
 
     onClickAdminButton() {
-      //
+      this.setUseAdmin(!this.useAdmin);
+
+      const query = this.useAdmin ? { admin: true } : {};
+
+      this.$router.replace({ query });
     },
   },
 

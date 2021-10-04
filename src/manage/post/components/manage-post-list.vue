@@ -39,12 +39,13 @@ export default defineComponent({
       loading: 'post/index/loading',
       posts: 'post/index/posts',
       hasMore: 'post/index/hasMore',
+      useAdmin: 'user/useAdmin',
     }),
 
     filter() {
       return {
         user: this.currentUser ? this.currentUser.id : null,
-        status: 'published',
+        action: 'published',
       };
     },
   },
@@ -100,6 +101,10 @@ export default defineComponent({
     filter() {
       this.getManagedPosts();
     },
+
+    useAdmin() {
+      this.getManagedPosts();
+    },
   },
 
   /**
@@ -139,7 +144,11 @@ export default defineComponent({
     },
 
     getManagedPosts() {
-      this.getPosts({ filter: this.filter, manage: 'true' });
+      this.getPosts({
+        filter: this.filter,
+        manage: 'true',
+        admin: this.useAdmin,
+      });
     },
   },
 

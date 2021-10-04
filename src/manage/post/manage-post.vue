@@ -6,7 +6,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 import ManagePostList from '@/manage/post/components/manage-post-list.vue';
 
 export default defineComponent({
@@ -31,13 +31,27 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {},
+  computed: {
+    ...mapGetters({
+      useAdmin: 'user/useAdmin',
+    }),
+  },
 
   /**
    * 已创建
    */
   created() {
     this.setSideSheetComponent('ManagePostSideSheet');
+
+    const { admin } = this.$route.query;
+
+    if (admin === 'true') {
+      this.setUseAdmin(true);
+    }
+
+    if (this.useAdmin) {
+      this.$router.replace({ query: { admin: true } });
+    }
   },
 
   /**
@@ -46,6 +60,7 @@ export default defineComponent({
   methods: {
     ...mapMutations({
       setSideSheetComponent: 'layout/setSideSheetComponent',
+      setUseAdmin: 'user/setUseAdmin',
     }),
   },
 
