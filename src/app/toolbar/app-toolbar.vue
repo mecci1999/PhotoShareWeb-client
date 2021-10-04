@@ -14,6 +14,7 @@
       <transition name="app-toolbar-item-side-sheet">
         <AppToolbarItemSideSheet v-if="showSideSheetItem" />
       </transition>
+      <AppToolbarItemAdmin />
     </template>
     <AppSearch v-if="showAppSearch" />
     <AppToolbarItemSearch></AppToolbarItemSearch>
@@ -28,6 +29,7 @@ import PostListLayoutSwitcher from '@/post/index/components/post-list-layout-swi
 import PostShowNavigator from '@/post/show/components/post-show-navigator.vue';
 import AppToolbarItemSideSheet from '@/app/toolbar/components/app-toolbar-item-side-sheet.vue';
 import AppSearch from '@/app/search/app-search.vue';
+import AppToolbarItemAdmin from '@/app/toolbar/components/app-toolbar-item-admin.vue';
 
 export default defineComponent({
   name: 'AppToolbar',
@@ -72,6 +74,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    AppToolbarItemAdmin,
     AppSearch,
     AppToolbarItemSideSheet,
     AppToolbarItemSearch,
