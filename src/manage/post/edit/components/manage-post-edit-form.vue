@@ -18,6 +18,16 @@
       :posts="selectedPosts"
       @updated="onUpdatedPostTagField"
     ></PostTagField>
+    <div class="section status">
+      <CheckboxField
+        v-for="{ text, value } in statusFields"
+        :key="value"
+        :value="value"
+        :text="text"
+        name="status"
+        type="radio"
+      />
+    </div>
     <div class="actions">
       <DeleteButton @delete="onDeleteButton"></DeleteButton>
       <SubmitButton text="更新" :unsaved="unsaved" @submit="onSubmitButton" />
@@ -33,6 +43,7 @@ import TextareaField from '@/app/components/textarea-field.vue';
 import SubmitButton from '@/app/components/submit-button.vue';
 import DeleteButton from '@/app/components/delete-button.vue';
 import PostTagField from '@/post/components/post-tag-field.vue';
+import CheckboxField from '@/app/components/checkbox-field.vue';
 
 export default defineComponent({
   name: 'ManagePostEditForm',
@@ -48,6 +59,17 @@ export default defineComponent({
   data() {
     return {
       unsaved: false,
+
+      statusFields: [
+        {
+          value: 'draft',
+          text: '私人',
+        },
+        {
+          value: 'published',
+          text: '公开',
+        },
+      ],
     };
   },
 
@@ -125,6 +147,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    CheckboxField,
     SubmitButton,
     TextField,
     TextareaField,
