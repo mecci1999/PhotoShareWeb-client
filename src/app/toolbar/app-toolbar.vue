@@ -14,7 +14,7 @@
       <transition name="app-toolbar-item-side-sheet">
         <AppToolbarItemSideSheet v-if="showSideSheetItem" />
       </transition>
-      <AppToolbarItemAdmin />
+      <AppToolbarItemAdmin v-if="showAdminItem && isAdmin" />
     </template>
     <AppSearch v-if="showAppSearch" />
     <AppToolbarItemSearch></AppToolbarItemSearch>
@@ -55,6 +55,8 @@ export default defineComponent({
       showPostShowNavigator: 'toolbar/showPostShowNavigator',
       showSideSheetItem: 'toolbar/showSideSheetItem',
       showAppSearch: 'toolbar/showAppSearch',
+      showAdminItem: 'toolbar/showAdminItem',
+      isAdmin: 'user/isAdmin',
     }),
   },
 
