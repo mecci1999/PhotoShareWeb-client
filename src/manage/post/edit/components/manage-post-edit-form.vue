@@ -26,6 +26,7 @@
         :text="text"
         name="status"
         type="radio"
+        v-model="postStatus"
       />
     </div>
     <div class="actions">
@@ -70,6 +71,8 @@ export default defineComponent({
           text: '公开',
         },
       ],
+
+      selectedStatus: null,
     };
   },
 
@@ -82,14 +85,50 @@ export default defineComponent({
       isSingleSelect: 'manage/select/isSingleSelect',
       getEditedPost: 'manage/select/getEditedPost',
       selectedPosts: 'manage/select/selectedPosts',
+      isMultiSelect: 'manage/select/isMultiSelect',
     }),
+
+    postStatus: {
+      get() {
+        return this.isMultiSelect
+          ? this.selectedStatus
+          : this.currentEditedPost.status;
+      },
+
+      set(value) {
+        if (this.isMultiSelect) {
+          this.selectedStatus = value;
+        } else {
+          this.currentEditedPost.status = value;
+        }
+
+        this.unsaved = true;
+      },
+    },
   },
 
   /**
    * 已创建
    */
   created() {
-    //
+    if (this.isMultiSelect) {
+      this.selectedStatus = null;
+    } else {
+      this.selectedStatus = this.currentEditedPost.status;
+    }
+  },
+
+  /**
+   * 监视
+   */
+  watch: {
+    isMultiSelect(value) {
+      if (value) {
+        this.selectedStatus = null;
+      } else {
+        this.unsaved = false;
+      }
+    },
   },
 
   /**
@@ -118,6 +157,14 @@ export default defineComponent({
         return;
       }
 
+      if (this.isMultiSelect) {
+        await this.batchUpdatePost();
+      } else {
+        await this.submitUpdatePost();
+      }
+    },
+
+    async submitUpdatePost() {
       try {
         await this.updatePost({
           postId: this.currentEditedPost.id,
@@ -132,6 +179,31 @@ export default defineComponent({
       } catch (error) {
         this.pushMessage({ content: error.data.message });
       }
+    },
+
+    async batchUpdatePost() {
+      if (!this.selectedStatus) return;
+
+      for (const post of this.selectedPosts) {
+        if (post.status === this.selectedStatus) continue;
+
+        try {
+          await this.updatePost({
+            postId: post.id,
+            data: {
+              status: this.selectedStatus,
+            },
+          });
+
+          this.setPostItem({ id: post.id, status: this.selectedStatus });
+
+          this.unsaved = false;
+        } catch (error) {
+          continue;
+        }
+      }
+
+      this.getSelectedPosts();
     },
 
     onDeleteButton() {
