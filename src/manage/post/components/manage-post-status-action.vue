@@ -1,15 +1,17 @@
 <template>
   <div class="manage-post-status-action">
-    <button class="button basic circle" @click.stop="onClickStatusButton">
-      <AppIcon color="#fff" size="16" :name="postStatusIcon"></AppIcon>
-    </button>
+    <CircleButton
+      :icon="postStatusIcon"
+      @click="onClickStatusButton"
+      :active="isActive"
+    />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
-import AppIcon from '@/app/components/app-icon.vue';
+import CircleButton from '@/app/components/circle-button.vue';
 
 export default defineComponent({
   name: 'ManagePostStatusAction',
@@ -51,6 +53,10 @@ export default defineComponent({
       }
 
       return icon;
+    },
+
+    isActive() {
+      return this.post && this.post.status === 'published';
     },
   },
 
@@ -104,7 +110,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
-    AppIcon,
+    CircleButton,
   },
 });
 </script>

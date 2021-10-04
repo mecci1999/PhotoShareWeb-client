@@ -1,7 +1,7 @@
 <template>
   <div class="manage-post-list-item-media">
     <img class="image" :src="image" v-if="image" />
-    <ManagePostStatusAction :post="item" />
+    <ManagePostStatusAction :post="item" @click.stop />
   </div>
 </template>
 

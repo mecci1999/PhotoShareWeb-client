@@ -5,9 +5,10 @@
       <ManagePostStatusAction :post="item"></ManagePostStatusAction>
     </div>
     <div class="actions">
-      <button class="button basic circle" @click="onClickRemoveButton(item)">
-        <AppIcon name="remove_circle_outline" color="#fff" size="16"></AppIcon>
-      </button>
+      <CircleButton
+        icon="remove_circle_outline"
+        @click="onClickRemoveButton(item)"
+      />
     </div>
   </div>
 </template>
@@ -15,9 +16,9 @@
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapActions } from 'vuex';
-import AppIcon from '@/app/components/app-icon.vue';
 import { getImageBase64 } from '@/file/file.service';
 import ManagePostStatusAction from '@/manage/post/components/manage-post-status-action.vue';
+import CircleButton from '@/app/components/circle-button.vue';
 
 export default defineComponent({
   name: 'ManagePostEditSelectedListItem',
@@ -75,7 +76,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
-    AppIcon,
+    CircleButton,
     ManagePostStatusAction,
   },
 });
