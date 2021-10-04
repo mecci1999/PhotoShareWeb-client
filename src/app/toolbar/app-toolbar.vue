@@ -26,7 +26,7 @@ import { mapGetters } from 'vuex';
 import AppToolbarItemSearch from '@/app/toolbar/components/app-toolbar-item-search.vue';
 import PostListLayoutSwitcher from '@/post/index/components/post-list-layout-switcher.vue';
 import PostShowNavigator from '@/post/show/components/post-show-navigator.vue';
-import AppToolbarItemSideSheet from '@/toolbar/components/app-toolbar-item-side-sheet.vue';
+import AppToolbarItemSideSheet from '@/app/toolbar/components/app-toolbar-item-side-sheet.vue';
 import AppSearch from '@/app/search/app-search.vue';
 
 export default defineComponent({
