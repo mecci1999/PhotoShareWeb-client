@@ -4,6 +4,7 @@
     <PostTitleField />
     <PostContentField />
     <PostTagField :postId="postId" v-if="postId" />
+    <PostStatusField />
     <PostActions
       @update="submitUpdatePost"
       @create="submitCreatePost"
@@ -25,6 +26,7 @@ import PostActions from '@/post/components/post-actions.vue';
 import PostMeta from '@/post/components/post-meta.vue';
 import FileCreate from '@/file/create/file-create.vue';
 import { getImageBase64 } from '@/file/file.service';
+import PostStatusField from '@/post/components/post-status-field.vue';
 
 export default defineComponent({
   name: 'PostCreate',
@@ -114,7 +116,7 @@ export default defineComponent({
       setUnsaved: 'post/create/setUnsaved',
       setSelectedFile: 'file/create/setSelectedFile',
       setPreviewImage: 'file/create/setPreviewImage',
-      setStatus: 'post/craete/setStatus',
+      setStatus: 'post/create/setStatus',
     }),
 
     ...mapActions({
@@ -253,6 +255,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    PostStatusField,
     FileCreate,
     PostMeta,
     PostActions,

@@ -105,7 +105,7 @@ export default defineComponent({
     }),
 
     onClickSubmitButton() {
-      if (!this.selectedFile) {
+      if (!this.selectedFile && !this.postId) {
         this.pushMessage({ content: '请选择上传文件' });
         return;
       }

@@ -64,7 +64,7 @@ export default defineComponent({
       statusFields: [
         {
           value: 'draft',
-          text: '私人',
+          text: '仅自己可见',
         },
         {
           value: 'published',

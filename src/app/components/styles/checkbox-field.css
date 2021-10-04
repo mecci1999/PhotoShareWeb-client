@@ -40,12 +40,13 @@
   height: 8px;
   border-bottom: 2px solid var(--highlight-line-color);
   border-right: 2px solid var(--highlight-line-color);
+  border-color: #4cd137;
   transform: rotate(45deg);
   visibility: hidden;
 }
 
 .checkbox-field > .input:checked ~ .icon {
-  border-color: var(--highlight-line-color);
+  border-color: #4cd137;
 }
 
 .checkbox-field > .input:checked ~ .text {
