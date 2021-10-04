@@ -1,7 +1,9 @@
 <template>
-  <div class="checkbox-field">
-    CheckboxField
-  </div>
+  <label class="checkbox-field" for="demo">
+    <input class="input" id="demo" type="radio" name="demo" value="value" />
+    <div class="icon"></div>
+    <div class="text">选项</div>
+  </label>
 </template>
 
 <script>
@@ -25,27 +27,24 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {
-  },
+  computed: {},
 
   /**
    * 已创建
    */
   created() {
-  // 
+    //
   },
 
   /**
    * 组件方法
    */
-  methods: {
-  },
+  methods: {},
 
   /**
    * 使用组件
    */
-  components: {
-  },
+  components: {},
 });
 </script>
 
