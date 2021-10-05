@@ -44,7 +44,7 @@ export default defineComponent({
   },
 
   async created() {
-    this.setPosts([]);
+    this.resetPosts();
 
     await this.getPosts({ sort: this.sort, filter: this.filter });
 
@@ -92,6 +92,7 @@ export default defineComponent({
     ...mapMutations({
       setLayout: 'post/index/setLayout',
       setPosts: 'post/index/setPosts',
+      resetPosts: 'post/index/resetPosts',
     }),
 
     onScrollWindow() {
