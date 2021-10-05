@@ -1,6 +1,11 @@
 <template>
   <div class="post-audit-action">
-    <CircleButton />
+    <div class="icon">
+      <CircleButton :icon="icon" @click="onClickButton" :disabled="disabled" />
+    </div>
+    <div class="text">
+      <button class="button basic" @click="onClickButton">{{ text }}</button>
+    </div>
   </div>
 </template>
 
@@ -25,9 +30,26 @@ export default defineComponent({
   },
 
   /**
+   * 事件
+   */
+  emits: ['change'],
+
+  /**
    * 计算属性
    */
-  computed: {},
+  computed: {
+    icon() {
+      return 'add_task';
+    },
+
+    text() {
+      return '提交审核';
+    },
+
+    disabled() {
+      return false;
+    },
+  },
 
   /**
    * 已创建
@@ -41,6 +63,10 @@ export default defineComponent({
    */
   methods: {
     ...mapActions({}),
+
+    onClickButton() {
+      //
+    },
   },
 
   /**
