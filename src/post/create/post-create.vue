@@ -117,6 +117,7 @@ export default defineComponent({
       setSelectedFile: 'file/create/setSelectedFile',
       setPreviewImage: 'file/create/setPreviewImage',
       setStatus: 'post/create/setStatus',
+      setAudit: 'post/create/setAudit',
     }),
 
     ...mapActions({
@@ -162,13 +163,14 @@ export default defineComponent({
       try {
         await this.getPostById(postId);
 
-        const { title, content, tags, file, status } = this.post;
+        const { title, content, tags, file, status, audit } = this.post;
 
         this.setTitle(title);
         this.setContent(content);
         this.setPostId(postId);
         this.setTags(tags);
         this.setStatus(status);
+        this.setAudit(audit);
 
         if (file) {
           const imageData = await getImageBase64(file.size.large);
@@ -190,6 +192,7 @@ export default defineComponent({
       this.setPreviewImage(null);
       this.postCache = null;
       this.setStatus(null);
+      this.setAudit(null);
     },
 
     async submitUpdatePost() {
