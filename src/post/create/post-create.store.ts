@@ -84,6 +84,10 @@ export const postCreateStoreModule: Module<PostCreateStoreState, RootState> = {
     isApprovedAudit(state) {
       return state.audit && state.audit.status === 'approved';
     },
+
+    isDeniedAudit(state) {
+      return state.audit && state.audit.status === 'Denied';
+    },
   },
 
   /**

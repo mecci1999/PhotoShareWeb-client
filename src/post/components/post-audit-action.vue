@@ -71,9 +71,17 @@ export default defineComponent({
     postAuditActionClasses() {
       return [
         'post-audit-action',
-        { approved: this.audit.status === 'approved' },
-        { denied: this.audit.status === 'denied' },
+        { approved: this.isApprovedAudit },
+        { denied: this.isDeniedAudit },
       ];
+    },
+
+    isApprovedAudit() {
+      return this.post.audit && this.post.audit.status === 'approved';
+    },
+
+    isDeniedAudit() {
+      return this.post.audit && this.post.audit.status === 'denied';
     },
   },
 
@@ -150,7 +158,7 @@ export default defineComponent({
           },
         });
 
-        this.pushMessage({ content: '提交审核成功，请等待审核' });
+        this.pushMessage({ content: '提交审核成功，请等待管理员进行审核' });
 
         this.$emit('change', { status });
       } catch (error) {
