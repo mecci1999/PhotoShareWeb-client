@@ -1,0 +1,7 @@
+/* manage-post-audit-status */
+.manage-post-audit-status {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  display: flex;
+}

@@ -8,15 +8,22 @@
       @click.stop
     ></PostAuditAction>
     <ManagePostStatusAction :post="item" @click.stop />
+    <ManagePostAuditStatus
+      v-if="canUseAdmin"
+      :post="item"
+      @change="onChangeAction"
+      @click.stop
+    />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 import { getImageBase64 } from '@/file/file.service';
 import ManagePostStatusAction from '@/manage/post/components/manage-post-status-action.vue';
 import PostAuditAction from '@/post/components/post-audit-action.vue';
+import ManagePostAuditStatus from '@/manage/post/components/manage-post-audit-status.vue';
 
 export default defineComponent({
   name: 'ManagePostListItemMedia',
@@ -42,7 +49,11 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {},
+  computed: {
+    ...mapGetters({
+      canUseAdmin: 'user/canUseAdmin',
+    }),
+  },
 
   /**
    * 已创建
@@ -68,6 +79,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    ManagePostAuditStatus,
     ManagePostStatusAction,
     PostAuditAction,
   },
