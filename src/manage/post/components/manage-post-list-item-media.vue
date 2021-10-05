@@ -11,7 +11,7 @@
     <ManagePostAuditStatus
       v-if="canUseAdmin"
       :post="item"
-      @change="onChangeAction"
+      @change="onChangeAuditAction"
       @click.stop
     />
   </div>
