@@ -148,6 +148,7 @@ export default defineComponent({
         filter: this.filter,
         manage: 'true',
         admin: this.useAdmin,
+        status: this.useAdmin ? 'published' : '',
       });
     },
   },
