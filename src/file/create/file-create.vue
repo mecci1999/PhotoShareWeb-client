@@ -1,7 +1,10 @@
 <template>
   <div :class="fileCreateClasses">
     <FileCreateMedia v-if="previewImage" />
-    <FileCreateDragZone @change="onChangeDragZone" v-if="!uploading" />
+    <FileCreateDragZone
+      @change="onChangeDragZone"
+      v-if="showFileCreateDragZone"
+    />
     <FileCreateStatus v-if="uploading" />
   </div>
 </template>
@@ -37,10 +40,16 @@ export default defineComponent({
     ...mapGetters({
       previewImage: 'file/create/previewImage',
       uploading: 'file/create/uploading',
+      isPendingAudit: 'post/create/isPendingAudit',
+      isApprovedAudit: 'post/create/isApprovedAudit',
     }),
 
     fileCreateClasses() {
       return ['file-create', { active: this.previewImage }];
+    },
+
+    showFileCreateDragZone() {
+      return !this.uploading && !this.isPendingAudit && !this.isApprovedAudit;
     },
   },
 

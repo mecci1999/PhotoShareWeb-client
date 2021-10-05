@@ -163,8 +163,10 @@ export default defineComponent({
 
       try {
         await this.revokeAudit({
-          resourceId,
-          resourceType: 'post',
+          data: {
+            resourceId,
+            resourceType: 'post',
+          },
         });
 
         this.pushMessage({ content: '成功取消审核' });

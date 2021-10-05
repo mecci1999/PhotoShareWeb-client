@@ -76,6 +76,14 @@ export const postCreateStoreModule: Module<PostCreateStoreState, RootState> = {
     postId(state) {
       return state.postId;
     },
+
+    isPendingAudit(state) {
+      return state.audit && state.audit.status === 'pending';
+    },
+
+    isApprovedAudit(state) {
+      return state.audit && state.audit.status === 'approved';
+    },
   },
 
   /**
