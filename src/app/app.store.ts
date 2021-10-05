@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import { auditStoreModule, AuditStoreState } from '../audit/audit.store';
 import { authStoreModule, AuthStoreState } from '../auth/auth.store';
 import {
   commentStoreModule,
@@ -39,6 +40,7 @@ export interface RootState {
   like: LikeStoreState;
   manage: ManageStoreState;
   search: AppSearchStoreState;
+  audit: AuditStoreState;
 }
 
 /**
@@ -62,6 +64,7 @@ const store = createStore({
     like: likeStoreModule,
     manage: manageStoreModule,
     search: appSearchStoreModule,
+    audit: auditStoreModule,
   },
 
   plugins: [LocalStorageStroePlugin],
