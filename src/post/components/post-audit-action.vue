@@ -1,5 +1,5 @@
 <template>
-  <div class="post-audit-action">
+  <div :class="postAuditActionClasses">
     <div class="icon">
       <CircleButton :icon="icon" @click="onClickButton" :disabled="disabled" />
     </div>
@@ -11,7 +11,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import CircleButton from '@/app/components/circle-button.vue';
 
 export default defineComponent({
@@ -20,7 +20,11 @@ export default defineComponent({
   /**
    * 属性
    */
-  props: {},
+  props: {
+    post: {
+      type: Object,
+    },
+  },
 
   /**
    * 数据
@@ -38,16 +42,38 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
+    ...mapGetters({
+      audit: 'post/create/audit',
+    }),
+
     icon() {
-      return 'add_task';
+      const { icon } = this.getAuditAction(this.post);
+
+      return icon;
     },
 
     text() {
-      return '提交审核';
+      const { text } = this.getAuditAction(this.post);
+
+      return text;
+    },
+
+    action() {
+      const { action } = this.getAuditAction(this.post);
+
+      return action;
     },
 
     disabled() {
-      return false;
+      return !this.action;
+    },
+
+    postAuditActionClasses() {
+      return [
+        'post-audit-action',
+        { approved: this.audit.status === 'approved' },
+        { denied: this.audit.status === 'denied' },
+      ];
     },
   },
 
@@ -62,10 +88,91 @@ export default defineComponent({
    * 组件方法
    */
   methods: {
-    ...mapActions({}),
+    ...mapActions({
+      createAudit: 'audit/create/createAudit',
+      revokeAudit: 'audit/revoke/revokeAudit',
+      pushMessage: 'notification/pushMessage',
+    }),
+
+    getAuditAction({ audit }) {
+      let icon, text, action;
+
+      const status = audit && audit.status ? audit.status : null;
+
+      switch (status) {
+        case 'pending':
+          icon = 'pending';
+          text = '审核中';
+          action = 'revoke';
+          break;
+        case 'denied':
+          icon = 'error_outline';
+          text = '审核被拒';
+          action = 'create';
+          break;
+        case 'approved':
+          icon = 'check_circle';
+          text = '审核通过';
+          action = 'revoke';
+          break;
+        default:
+          icon = 'add_task';
+          text = '提交审核';
+          action = 'create';
+          break;
+      }
+
+      return { icon, text, action };
+    },
 
     onClickButton() {
-      //
+      // 根据action值来判断进行动作
+      switch (this.action) {
+        case 'create':
+          this.submitCreateAudit();
+          break;
+        case 'revoke':
+          this.submitRevokeAudit();
+          break;
+      }
+    },
+
+    async submitCreateAudit() {
+      const { id: resourceId } = this.post;
+      const status = 'pending';
+
+      try {
+        await this.createAudit({
+          data: {
+            resourceId,
+            resourceType: 'post',
+            status,
+          },
+        });
+
+        this.pushMessage({ content: '提交审核成功，请等待审核' });
+
+        this.$emit('change', { status });
+      } catch (error) {
+        this.pushMessage({ content: error.data.message });
+      }
+    },
+
+    async submitRevokeAudit() {
+      const { id: resourceId } = this.post;
+
+      try {
+        await this.revokeAudit({
+          resourceId,
+          resourceType: 'post',
+        });
+
+        this.pushMessage({ content: '成功取消审核' });
+
+        this.$emit('change', null);
+      } catch (error) {
+        this.pushMessage({ content: error.data.message });
+      }
     },
   },
 

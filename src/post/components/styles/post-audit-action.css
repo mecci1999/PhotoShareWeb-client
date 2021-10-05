@@ -29,3 +29,23 @@
 .post-audit-action > .text > .button:disabled {
   color: rgba(255, 255, 255, 0.8);
 }
+
+/* .post-audit-action.approved > .icon .button {
+  background: #4cd137;
+} */
+
+.post-audit-action.approved > .icon .button i {
+  color: #27ae60 !important;
+}
+
+.post-audit-action.approved > .text > .button {
+  color: #27ae60;
+}
+
+.post-audit-action.denied > .icon .button i {
+  color: #d63031 !important;
+}
+
+.post-audit-action.denied > .text > .button {
+  color: #d63031;
+}
