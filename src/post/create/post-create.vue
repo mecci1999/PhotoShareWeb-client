@@ -1,5 +1,10 @@
 <template>
   <div class="post-create">
+    <PostAuditAction
+      v-if="postId"
+      :post="{ id: postId, audit }"
+      @change="onChangePostAuditAction"
+    />
     <FileCreate @change="onChangeFileCreate" />
     <PostTitleField />
     <PostContentField />
@@ -27,6 +32,7 @@ import PostMeta from '@/post/components/post-meta.vue';
 import FileCreate from '@/file/create/file-create.vue';
 import { getImageBase64 } from '@/file/file.service';
 import PostStatusField from '@/post/components/post-status-field.vue';
+import PostAuditAction from '@/post/components/post-audit-action.vue';
 
 export default defineComponent({
   name: 'PostCreate',
@@ -57,6 +63,7 @@ export default defineComponent({
       selectedFile: 'file/create/selectedFile',
       isLoggedIn: 'auth/isLoggedIn',
       status: 'post/create/status',
+      audit: 'post/create/audit',
     }),
   },
 
@@ -252,12 +259,17 @@ export default defineComponent({
         this.pushMessage({ content: error.data.message });
       }
     },
+
+    onChangePostAuditAction(audit) {
+      this.setAudit(audit);
+    },
   },
 
   /**
    * 使用组件
    */
   components: {
+    PostAuditAction,
     PostStatusField,
     FileCreate,
     PostMeta,
