@@ -171,7 +171,7 @@ export default defineComponent({
 
         this.pushMessage({ content: '成功取消审核' });
 
-        this.$emit('change', null);
+        this.$emit('change', { status: null });
       } catch (error) {
         this.pushMessage({ content: error.data.message });
       }
