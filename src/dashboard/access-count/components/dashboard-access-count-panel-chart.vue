@@ -3,12 +3,16 @@
     <div class="header">
       {{ chartPanelTitle }}
     </div>
+    <div class="media">
+      <canvas width="400" height="260" ref="accessCountChartCanvas"></canvas>
+    </div>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import Chart from 'chart.js';
 
 export default defineComponent({
   name: 'DashboardAccessCountPanelChart',
@@ -22,7 +26,9 @@ export default defineComponent({
    * 数据
    */
   data() {
-    return {};
+    return {
+      accessCountChart: null,
+    };
   },
 
   /**
@@ -48,9 +54,20 @@ export default defineComponent({
   },
 
   /**
+   * 挂载
+   */
+  mounted() {
+    this.createChart();
+  },
+
+  /**
    * 监视
    */
   watch: {
+    accessCount() {
+      this.updateChart();
+    },
+
     dateTimeRange() {
       this.submitGetAccessCountByAction();
     },
@@ -80,6 +97,38 @@ export default defineComponent({
       } catch (error) {
         this.pushMessage({ content: error.data.message });
       }
+    },
+
+    createChart() {
+      const context = this.$refs.accessCountChartCanvas;
+
+      const type = 'line';
+
+      const data = {
+        labels: [],
+        datasets: [
+          {
+            label: '',
+            data: [],
+          },
+        ],
+      };
+
+      const options = {
+        legend: {
+          display: false,
+        },
+      };
+
+      this.accessCountChart = new Chart(context, { type, data, options });
+    },
+
+    updateChart() {
+      const [datetimeArray, valueArray] = this.accessCount.dateset;
+
+      this.accessCountChart.data.labels = datetimeArray;
+      this.accessCountChart.data.datasets[0].data = valueArray;
+      this.accessCountChart.update();
     },
   },
 
