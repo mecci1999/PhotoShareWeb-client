@@ -79,6 +79,17 @@ export const dashboardAccessCountStoreModule: Module<
     setLoading(state, data) {
       state.loading = data;
     },
+
+    // 实时更新访问次数
+    increaseAccessCount(state, data) {
+      state.accessCountList = state.accessCountList.map(accessCount => {
+        if (accessCount.action === data) {
+          accessCount.value++;
+        }
+
+        return accessCount;
+      });
+    },
   },
 
   /**

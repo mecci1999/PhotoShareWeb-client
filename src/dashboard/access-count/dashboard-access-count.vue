@@ -7,6 +7,7 @@
 <script>
 import { defineComponent } from 'vue';
 import { mapMutations } from 'vuex';
+import { socket } from '@/app/app.service';
 import DashboardAccessCountPanels from '@/dashboard/access-count/components/dashboard-access-count-panels.vue';
 
 export default defineComponent({
@@ -33,14 +34,27 @@ export default defineComponent({
    * 已创建
    */
   async created() {
-    //
+    socket.on('accessLogCreated', this.onAccessLogCreated);
+  },
+
+  /**
+   * 取消挂载
+   */
+  unmounted() {
+    socket.off('accessLogCreated', this.onAccessLogCreated);
   },
 
   /**
    * 组件方法
    */
   methods: {
-    ...mapMutations({}),
+    ...mapMutations({
+      increaseAccessCount: 'dashboard/accessCount/increaseAccessCount',
+    }),
+
+    onAccessLogCreated(action) {
+      this.increaseAccessCount(action);
+    },
   },
 
   /**
