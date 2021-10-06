@@ -15,6 +15,7 @@ export interface AccessCount {
 }
 
 export interface DashboardAccessCountStoreState {
+  currentAction: string;
   dateTimeRange: string;
   accessCount: AccessCount | null;
   accessCountList: Array<AccessCountListItem>;
@@ -43,6 +44,7 @@ export const dashboardAccessCountStoreModule: Module<
    * 数据
    */
   state: {
+    currentAction: 'getPosts',
     dateTimeRange: '1-day',
     accessCount: null,
     accessCountList: [],
@@ -53,6 +55,10 @@ export const dashboardAccessCountStoreModule: Module<
    * 获取器
    */
   getters: {
+    currentAction(state) {
+      return state.currentAction;
+    },
+
     dateTimeRange(state) {
       return state.dateTimeRange;
     },
@@ -74,6 +80,10 @@ export const dashboardAccessCountStoreModule: Module<
    * 修改器
    */
   mutations: {
+    setCurrentAction(state, data) {
+      state.currentAction = data;
+    },
+
     setDateTimeRange(state, data) {
       state.dateTimeRange = data;
     },

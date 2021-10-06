@@ -1,5 +1,8 @@
 <template>
-  <div class="dashboard-access-count-panel">
+  <div
+    :class="dashboardAccessCountPanelClasses"
+    @click="onClickDashboardAccessCountPanel"
+  >
     <div class="header">
       {{ accessCount.title }}
     </div>
@@ -11,6 +14,7 @@
 
 <script>
 import { defineComponent } from 'vue';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default defineComponent({
   name: 'DashboardAccessCountPanel',
@@ -34,7 +38,19 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {},
+  computed: {
+    ...mapGetters({
+      currentAction: 'dashboard/accessCount/currentAction',
+    }),
+
+    dashboardAccessCountPanelClasses() {
+      return ['dashboard-access-count-panel', { active: this.isActivePanel }];
+    },
+
+    isActivePanel() {
+      return this.currentAction === this.accessCount.action;
+    },
+  },
 
   /**
    * 已创建
@@ -46,7 +62,15 @@ export default defineComponent({
   /**
    * 组件方法
    */
-  methods: {},
+  methods: {
+    ...mapMutations({
+      setCurrentAction: 'dashboard/accessCount/setCurrentAction',
+    }),
+
+    onClickDashboardAccessCountPanel() {
+      this.setCurrentAction(this.accessCount.action);
+    },
+  },
 
   /**
    * 使用组件
