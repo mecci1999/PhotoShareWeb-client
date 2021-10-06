@@ -1,6 +1,21 @@
 <template>
   <div class="dashboard-access-count-filter-datetime">
-    <CheckboxField></CheckboxField>
+    <div class="label">
+      <button class="button basic" @click="onClickLabelButton">最近：</button>
+    </div>
+    <div class="fields">
+      <CheckboxField
+        class="compact"
+        :useIcon="false"
+        v-for="{ text, value } in dateTimeRangeFields"
+        :key="value"
+        :value="value"
+        :text="text"
+        name="datetime"
+        type="radio"
+        v-model="accessCountDateTimeRange"
+      ></CheckboxField>
+    </div>
   </div>
 </template>
 
@@ -21,14 +36,45 @@ export default defineComponent({
    * 数据
    */
   data() {
-    return {};
+    return {
+      dateTimeRangeFields: [
+        {
+          value: '1-day',
+          text: '一天',
+        },
+        {
+          value: '7-day',
+          text: '七天',
+        },
+        {
+          value: '1-month',
+          text: '一个月',
+        },
+        {
+          value: '3-month',
+          text: '三个月',
+        },
+      ],
+    };
   },
 
   /**
    * 计算属性
    */
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      dateTimeRange: 'dashboard/accessCount/dateTimeRange',
+    }),
+
+    accessCountDateTimeRange: {
+      get() {
+        return this.dateTimeRange;
+      },
+
+      set(value) {
+        this.setDateTimeRange(value);
+      },
+    },
   },
 
   /**
@@ -42,9 +88,15 @@ export default defineComponent({
    * 组件方法
    */
   methods: {
-    ...mapMutations({}),
+    ...mapMutations({
+      setDateTimeRange: 'dashboard/accessCount/setDateTimeRange',
+    }),
 
     ...mapActions({}),
+
+    onClickLabelButton() {
+      this.setDateTimeRange('1-day');
+    },
   },
 
   /**
