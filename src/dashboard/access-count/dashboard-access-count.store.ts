@@ -117,6 +117,17 @@ export const dashboardAccessCountStoreModule: Module<
 
         return accessCount;
       });
+
+      if (state.accessCount && state.accessCount.action === data) {
+        const [datetimeArray, valueArray] = state.accessCount.dateset;
+
+        valueArray[valueArray.length - 1]++;
+
+        state.accessCount = {
+          ...state.accessCount,
+          dateset: [datetimeArray, valueArray],
+        };
+      }
     },
   },
 
