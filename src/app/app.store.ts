@@ -5,6 +5,10 @@ import {
   commentStoreModule,
   CommentStoreState,
 } from '../comment/comment.store';
+import {
+  dashboardStoreModule,
+  DashboardStoreState,
+} from '../dashboard/dashboard.store';
 import { fileStoreModule, FileStoreState } from '../file/file.store';
 import { likeStoreModule, LikeStoreState } from '../like/like.store';
 import { manageStoreModule, ManageStoreState } from '../manage/manage.store';
@@ -41,6 +45,7 @@ export interface RootState {
   manage: ManageStoreState;
   search: AppSearchStoreState;
   audit: AuditStoreState;
+  dashboard: DashboardStoreState;
 }
 
 /**
@@ -65,6 +70,7 @@ const store = createStore({
     manage: manageStoreModule,
     search: appSearchStoreModule,
     audit: auditStoreModule,
+    dashboard: dashboardStoreModule,
   },
 
   plugins: [LocalStorageStroePlugin],

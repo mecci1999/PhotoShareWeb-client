@@ -14,7 +14,7 @@ export default defineComponent({
    * 标题
    */
   title() {
-    return '仪表盘';
+    return '后台数据';
   },
 
   /**
