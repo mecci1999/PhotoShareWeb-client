@@ -34,6 +34,7 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       accessCountList: 'dashboard/accessCount/accessCountList',
+      dateTimeRange: 'dashboard/accessCount/dateTimeRange',
     }),
   },
 
@@ -41,14 +42,44 @@ export default defineComponent({
    * 已创建
    */
   created() {
-    this.submitGetAccessCounts();
+    const {
+      query: { dateTimeRange },
+    } = this.$route;
+
+    this.$router.replace({ query: { dateTimeRange: this.dateTimeRange } });
+
+    if (dateTimeRange && dateTimeRange !== '1-day') {
+      this.setDateTimeRange(dateTimeRange);
+    } else {
+      this.submitGetAccessCounts();
+    }
+  },
+
+  watch: {
+    dateTimeRange(value) {
+      this.$router.replace({ query: { dateTimeRange: value } });
+      this.submitGetAccessCounts();
+    },
+
+    $route(value) {
+      const {
+        name,
+        query: { dateTimeRange },
+      } = value;
+
+      if (name === 'dashboardAccessCount' && !dateTimeRange) {
+        this.setDateTimeRange('1-day');
+      }
+    },
   },
 
   /**
    * 组件方法
    */
   methods: {
-    ...mapMutations({}),
+    ...mapMutations({
+      setDateTimeRange: 'dashboard/accessCount/setDateTimeRange',
+    }),
 
     ...mapActions({
       getAccessCounts: 'dashboard/accessCount/getAccessCounts',
@@ -57,7 +88,7 @@ export default defineComponent({
 
     async submitGetAccessCounts() {
       try {
-        await this.getAccessCounts();
+        await this.getAccessCounts({ dateTimeRange: this.dateTimeRange });
       } catch (error) {
         this.pushMessage({ content: error.data.message });
       }
