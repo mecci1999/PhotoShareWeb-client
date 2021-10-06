@@ -1,5 +1,6 @@
 <template>
   <div class="dashboard-access-count-panels">
+    <DashboardAccessCountPanelChart />
     <DashboardAccessCountPanel
       v-for="accessCount in accessCountList"
       :key="accessCount.action"
@@ -12,6 +13,7 @@
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import DashboardAccessCountPanel from '@/dashboard/access-count/components/dashboard-access-count-panel.vue';
+import DashboardAccessCountPanelChart from '@/dashboard/access-count/components/dashboard-access-count-panel-chart.vue';
 
 export default defineComponent({
   name: 'DashboardAccessCountPanels',
@@ -118,6 +120,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    DashboardAccessCountPanelChart,
     DashboardAccessCountPanel,
   },
 });
