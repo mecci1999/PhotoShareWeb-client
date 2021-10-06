@@ -24,6 +24,11 @@ export interface GetAccessCountsOptions {
   dataTimeRange?: string;
 }
 
+export interface GetAccessCountByActionOptions {
+  dataTimeRange?: string;
+  action?: string;
+}
+
 export const dashboardAccessCountStoreModule: Module<
   DashboardAccessCountStoreState,
   RootState
@@ -80,6 +85,7 @@ export const dashboardAccessCountStoreModule: Module<
    * 动作
    */
   actions: {
+    // 获得访问次数列表
     async getAccessCounts({ commit }, options: GetAccessCountsOptions = {}) {
       commit('setLoading', true);
 
@@ -93,6 +99,37 @@ export const dashboardAccessCountStoreModule: Module<
 
         commit('setLoading', false);
         commit('setAccessCountList', response.data);
+
+        return response;
+      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const _error = error as any;
+
+        commit('setLoading', false);
+
+        throw _error.response;
+      }
+    },
+
+    // 按动作分时段的访问次数
+    async getAccessCountByAction(
+      { commit },
+      options: GetAccessCountByActionOptions = {},
+    ) {
+      commit('setLoading', true);
+
+      const { dataTimeRange = '1-day', action } = options;
+      const getAccessCountByActionQueryString = queryStringProcess({
+        dataTimeRange,
+      });
+
+      try {
+        const response = await apiHttpClient.get(
+          `dashboard/access-counts/${action}?${getAccessCountByActionQueryString}`,
+        );
+
+        commit('setLoading', false);
+        commit('setAccessCount', response.data);
 
         return response;
       } catch (error) {
