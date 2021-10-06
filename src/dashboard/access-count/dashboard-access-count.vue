@@ -1,5 +1,6 @@
 <template>
   <div class="dashboard-access-count">
+    <DashboardAccessCountFilterDatetime />
     <DashboardAccessCountPanels />
   </div>
 </template>
@@ -9,6 +10,7 @@ import { defineComponent } from 'vue';
 import { mapMutations } from 'vuex';
 import { socket } from '@/app/app.service';
 import DashboardAccessCountPanels from '@/dashboard/access-count/components/dashboard-access-count-panels.vue';
+import DashboardAccessCountFilterDatetime from '@/dashboard/access-count/components/dashboard-access-count-filter-datetime.vue';
 
 export default defineComponent({
   name: 'DashboardAccessCount',
@@ -61,6 +63,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    DashboardAccessCountFilterDatetime,
     DashboardAccessCountPanels,
   },
 });

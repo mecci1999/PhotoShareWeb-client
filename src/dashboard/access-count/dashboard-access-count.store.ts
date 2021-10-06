@@ -15,17 +15,18 @@ export interface AccessCount {
 }
 
 export interface DashboardAccessCountStoreState {
+  dateTimeRange: string;
   accessCount: AccessCount | null;
   accessCountList: Array<AccessCountListItem>;
   loading: boolean;
 }
 
 export interface GetAccessCountsOptions {
-  dataTimeRange?: string;
+  dateTimeRange?: string;
 }
 
 export interface GetAccessCountByActionOptions {
-  dataTimeRange?: string;
+  dateTimeRange?: string;
   action?: string;
 }
 
@@ -42,6 +43,7 @@ export const dashboardAccessCountStoreModule: Module<
    * 数据
    */
   state: {
+    dateTimeRange: '1-day',
     accessCount: null,
     accessCountList: [],
     loading: false,
@@ -51,6 +53,10 @@ export const dashboardAccessCountStoreModule: Module<
    * 获取器
    */
   getters: {
+    dateTimeRange(state) {
+      return state.dateTimeRange;
+    },
+
     accessCount(state) {
       return state.accessCount;
     },
@@ -68,6 +74,10 @@ export const dashboardAccessCountStoreModule: Module<
    * 修改器
    */
   mutations: {
+    setDateTimeRange(state, data) {
+      state.dateTimeRange = data;
+    },
+
     setAccessCount(state, data) {
       state.accessCount = data;
     },
@@ -100,8 +110,8 @@ export const dashboardAccessCountStoreModule: Module<
     async getAccessCounts({ commit }, options: GetAccessCountsOptions = {}) {
       commit('setLoading', true);
 
-      const { dataTimeRange = '1-day' } = options;
-      const getAccessCountsQueryString = queryStringProcess({ dataTimeRange });
+      const { dateTimeRange = '1-day' } = options;
+      const getAccessCountsQueryString = queryStringProcess({ dateTimeRange });
 
       try {
         const response = await apiHttpClient.get(
@@ -129,9 +139,9 @@ export const dashboardAccessCountStoreModule: Module<
     ) {
       commit('setLoading', true);
 
-      const { dataTimeRange = '1-day', action } = options;
+      const { dateTimeRange = '1-day', action } = options;
       const getAccessCountByActionQueryString = queryStringProcess({
-        dataTimeRange,
+        dateTimeRange,
       });
 
       try {
