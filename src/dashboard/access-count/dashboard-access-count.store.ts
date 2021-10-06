@@ -11,7 +11,7 @@ export interface AccessCountListItem {
 export interface AccessCount {
   title: string;
   action: string;
-  dataset: [Array<string>, Array<number>];
+  dateset: [Array<string>, Array<number>];
 }
 
 export interface DashboardAccessCountStoreState {
@@ -64,7 +64,15 @@ export const dashboardAccessCountStoreModule: Module<
     },
 
     accessCount(state) {
-      return state.accessCount;
+      const { accessCount } = state;
+
+      if (accessCount) {
+        const [datetimeArray] = accessCount.dateset;
+
+        accessCount.dateset[0] = datetimeArray.map(item => item.slice(-2));
+      }
+
+      return accessCount;
     },
 
     accessCountList(state) {

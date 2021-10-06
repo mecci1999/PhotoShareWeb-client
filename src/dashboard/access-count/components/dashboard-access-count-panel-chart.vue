@@ -118,6 +118,15 @@ export default defineComponent({
         legend: {
           display: false,
         },
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+          ],
+        },
       };
 
       this.accessCountChart = new Chart(context, { type, data, options });
