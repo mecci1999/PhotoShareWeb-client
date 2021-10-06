@@ -3,6 +3,7 @@
     <AppSidebarItemBrand></AppSidebarItemBrand>
     <AppSidebarItemUser></AppSidebarItemUser>
     <AppSidebarItemPopular></AppSidebarItemPopular>
+    <AppSidebarItemDashboard />
     <AppSidebarItemAdd></AppSidebarItemAdd>
     <AppSidebarItemTheme></AppSidebarItemTheme>
   </div>
@@ -15,6 +16,7 @@ import AppSidebarItemPopular from '@/app/sidebar/components/app-sidebar-item-pop
 import AppSidebarItemAdd from '@/app/sidebar/components/app-sidebar-item-add.vue';
 import AppSidebarItemTheme from '@/app/sidebar/components/app-sidebar-item-theme.vue';
 import AppSidebarItemUser from '@/app/sidebar/components/app-sidebar-item-user.vue';
+import AppSidebarItemDashboard from '@/app/sidebar/components/app-sidebar-item-dashboard.vue';
 
 export default defineComponent({
   name: 'AppSidebar',
@@ -52,6 +54,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    AppSidebarItemDashboard,
     AppSidebarItemBrand,
     AppSidebarItemPopular,
     AppSidebarItemAdd,

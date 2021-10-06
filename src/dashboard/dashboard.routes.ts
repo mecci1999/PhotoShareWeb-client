@@ -13,7 +13,7 @@ const routes: Array<RouteRecordRaw> = [
     props: true,
     children: [
       {
-        name: 'dashboard-access-count',
+        name: 'dashboardAccessCount',
         path: '',
         component: DashboardAccessCount,
       },
