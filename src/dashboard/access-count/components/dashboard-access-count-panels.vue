@@ -35,6 +35,7 @@ export default defineComponent({
     ...mapGetters({
       accessCountList: 'dashboard/accessCount/accessCountList',
       dateTimeRange: 'dashboard/accessCount/dateTimeRange',
+      currentAction: 'dashboard/accessCount/currentAction',
     }),
   },
 
@@ -43,22 +44,30 @@ export default defineComponent({
    */
   created() {
     const {
-      query: { dateTimeRange },
+      query: { dateTimeRange, action },
     } = this.$route;
 
-    this.$router.replace({ query: { dateTimeRange: this.dateTimeRange } });
+    this.updateRouterQuery();
 
     if (dateTimeRange && dateTimeRange !== '1-day') {
       this.setDateTimeRange(dateTimeRange);
     } else {
       this.submitGetAccessCounts();
     }
+
+    if (action) {
+      this.setCurrentAction(action);
+    }
   },
 
   watch: {
-    dateTimeRange(value) {
-      this.$router.replace({ query: { dateTimeRange: value } });
+    dateTimeRange() {
+      this.updateRouterQuery();
       this.submitGetAccessCounts();
+    },
+
+    currentAction() {
+      this.updateRouterQuery();
     },
 
     $route(value) {
@@ -79,6 +88,7 @@ export default defineComponent({
   methods: {
     ...mapMutations({
       setDateTimeRange: 'dashboard/accessCount/setDateTimeRange',
+      setCurrentAction: 'dashboard/accessCount/setCurrentAction',
     }),
 
     ...mapActions({
@@ -92,6 +102,15 @@ export default defineComponent({
       } catch (error) {
         this.pushMessage({ content: error.data.message });
       }
+    },
+
+    updateRouterQuery() {
+      this.$router.replace({
+        query: {
+          dateTimeRange: this.dateTimeRange,
+          action: this.currentAction,
+        },
+      });
     },
   },
 
