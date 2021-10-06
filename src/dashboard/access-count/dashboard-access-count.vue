@@ -26,14 +26,13 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {
-  },
+  computed: {},
 
   /**
    * 已创建
    */
-  created() {
-  // 
+  async created() {
+    //
   },
 
   /**
@@ -46,8 +45,7 @@ export default defineComponent({
   /**
    * 使用组件
    */
-  components: {
-  },
+  components: {},
 });
 </script>
 

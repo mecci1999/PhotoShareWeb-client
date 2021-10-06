@@ -1,6 +1,6 @@
 import { Module } from 'vuex';
 import { RootState } from '@/app/app.store';
-import { apiHttpClient } from '@/app/app.service';
+import { apiHttpClient, queryStringProcess } from '@/app/app.service';
 
 export interface AccessCountListItem {
   action: string;
@@ -21,7 +21,7 @@ export interface DashboardAccessCountStoreState {
 }
 
 export interface GetAccessCountsOptions {
-  data?: null;
+  dataTimeRange?: string;
 }
 
 export const dashboardAccessCountStoreModule: Module<
@@ -83,9 +83,16 @@ export const dashboardAccessCountStoreModule: Module<
     async getAccessCounts({ commit }, options: GetAccessCountsOptions = {}) {
       commit('setLoading', true);
 
+      const { dataTimeRange = '1-day' } = options;
+      const getAccessCountsQueryString = queryStringProcess({ dataTimeRange });
+
       try {
-        const response = await apiHttpClient.get(`resources`);
+        const response = await apiHttpClient.get(
+          `dashboard/access-counts?${getAccessCountsQueryString}`,
+        );
+
         commit('setLoading', false);
+        commit('setAccessCountList', response.data);
 
         return response;
       } catch (error) {
