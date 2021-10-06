@@ -110,6 +110,8 @@ export default defineComponent({
           {
             label: '',
             data: [],
+            backgroundColor: 'rgba(234, 32, 39,0.4)',
+            borderColor: 'rgba(234, 32, 39,0.6)',
           },
         ],
       };
