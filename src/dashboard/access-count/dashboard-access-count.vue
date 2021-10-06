@@ -1,12 +1,13 @@
 <template>
   <div class="dashboard-access-count">
-    DashboardAccessCount
+    <DashboardAccessCountPanels />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import { mapMutations } from 'vuex';
+import DashboardAccessCountPanels from '@/dashboard/access-count/components/dashboard-access-count-panels.vue';
 
 export default defineComponent({
   name: 'DashboardAccessCount',
@@ -45,7 +46,9 @@ export default defineComponent({
   /**
    * 使用组件
    */
-  components: {},
+  components: {
+    DashboardAccessCountPanels,
+  },
 });
 </script>
 
