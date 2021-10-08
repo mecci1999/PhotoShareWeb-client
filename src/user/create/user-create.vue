@@ -5,11 +5,17 @@
       <TextField v-model="name" placeholder="用户名" />
       <TextField v-model="password" placeholder="密码" type="password" />
       <TextField
+        v-show="hasPassword"
         v-model="passwordAgain"
         placeholder="再次输入密码"
         type="password"
       />
       <ButtonField text="注册" size="large" />
+    </div>
+    <div class="action">
+      <router-link class="link" :to="loginLinkTo">
+        登录 ←
+      </router-link>
     </div>
   </div>
 </template>
@@ -32,13 +38,21 @@ export default defineComponent({
    * 数据
    */
   data() {
-    return {};
+    return {
+      hasPassword: false,
+    };
   },
 
   /**
    * 计算属性
    */
-  computed: {},
+  computed: {
+    ...mapGetters({}),
+
+    loginLinkTo() {
+      return { name: 'login' };
+    },
+  },
 
   /**
    * 已创建
@@ -50,7 +64,9 @@ export default defineComponent({
   /**
    * 组件方法
    */
-  methods: {},
+  methods: {
+    ...mapMutations({}),
+  },
 
   /**
    * 使用组件

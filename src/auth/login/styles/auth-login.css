@@ -1,11 +1,14 @@
-/* user-create */
-.user-create {
+.auth-login {
   max-width: 520px;
   margin: 0 auto;
   padding: 32px;
 }
 
-.user-create .link {
+.auth-login > .action {
+  text-align: right;
+}
+
+.auth-login > .action > .link {
   color: var(--secondary-text-color);
   font-size: 18px;
 }
