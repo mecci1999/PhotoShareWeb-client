@@ -3,7 +3,9 @@
     <PageHeader></PageHeader>
     <PageAside></PageAside>
     <div class="page-main">
-      <slot></slot>
+      <div class="content" @click="onClickPageContent">
+        <slot></slot>
+      </div>
       <PageSideSheet
         @scroll="onScrollPageSideSheet"
         ref="pageSideSheet"
@@ -15,7 +17,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import PageHeader from '@/app/layout/components/page-header.vue';
 import PageAside from '@/app/layout/components/page-aside.vue';
 import AppNotification from '@/app/notification/app-notification.vue';
@@ -43,6 +45,7 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       theme: 'layout/theme',
+      isSideSheetActive: 'layout/isSideSheetActive',
     }),
   },
 
@@ -67,6 +70,10 @@ export default defineComponent({
       setSideSheetTouchDown: 'layout/setSideSheetTouchDown',
     }),
 
+    ...mapActions({
+      closeSideSheet: 'layout/closeSideSheet',
+    }),
+
     onScrollPageSideSheet() {
       const {
         scrollTop,
@@ -76,6 +83,12 @@ export default defineComponent({
 
       if (scrollTop + clientHeight + 100 >= scrollHeight) {
         this.setSideSheetTouchDown(true);
+      }
+    },
+
+    onClickPageContent() {
+      if (this.isSideSheetActive) {
+        this.closeSideSheet();
       }
     },
   },

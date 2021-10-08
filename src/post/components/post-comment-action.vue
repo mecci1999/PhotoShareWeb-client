@@ -1,7 +1,7 @@
 <template>
   <div class="post-comment-action">
     <div class="icon">
-      <button class="button basic" @click="onClickCommentButton">
+      <button class="button basic" @click.stop="onClickCommentButton">
         <AppIcon name="comment"></AppIcon>
       </button>
     </div>
