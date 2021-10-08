@@ -10,7 +10,7 @@
         placeholder="再次输入密码"
         type="password"
       />
-      <ButtonField text="注册" size="large" />
+      <ButtonField text="注册" size="large" :type="registerButtonType" />
     </div>
     <div class="action">
       <router-link class="link" :to="loginLinkTo">
@@ -39,6 +39,8 @@ export default defineComponent({
    */
   data() {
     return {
+      name: '',
+      password: '',
       hasPassword: false,
     };
   },
@@ -51,6 +53,10 @@ export default defineComponent({
 
     loginLinkTo() {
       return { name: 'login' };
+    },
+
+    registerButtonType() {
+      return this.name && this.password ? '' : 'outline';
     },
   },
 

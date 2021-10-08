@@ -12,6 +12,7 @@
         text="登录"
         size="large"
         @click="onClickLoginButton"
+        :type="loginButtonType"
       ></ButtonField>
     </div>
     <div class="action">
@@ -64,6 +65,10 @@ export default defineComponent({
 
     registerLinkTo() {
       return { name: 'userCreate' };
+    },
+
+    loginButtonType() {
+      return this.name && this.password ? '' : 'outline';
     },
   },
 
