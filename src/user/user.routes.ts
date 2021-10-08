@@ -5,6 +5,7 @@ import UserLiked from './show/components/user-liked.vue';
 import UserComments from './show/components/user-comments.vue';
 import UserReplies from './show/components/user-replies.vue';
 import UserAccount from './account/user-account.vue';
+import UserCreate from '@/user/create/user-create.vue';
 
 /**
  * 定义路由
@@ -76,6 +77,11 @@ const routes: Array<RouteRecordRaw> = [
         component: UserAccount,
       },
     ],
+  },
+  {
+    name: 'userCreate',
+    path: '/register',
+    component: UserCreate,
   },
 ];
 
