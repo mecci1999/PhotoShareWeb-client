@@ -15,9 +15,10 @@
 }
 
 .page-side-sheet > .close-button {
-  position: absolute;
-  top: 16px;
-  left: 16px;
+  position: fixed;
+  top: 100px;
+  right: 300px;
+  z-index: 999;
 }
 
 .page-side-sheet-enter-active {
