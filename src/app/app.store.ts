@@ -15,6 +15,7 @@ import { manageStoreModule, ManageStoreState } from '../manage/manage.store';
 import { postStoreModule, PostStoreState } from '../post/post.store';
 import { replyStoreModule, ReplyStoreState } from '../reply/reply.store';
 import { userStoreModule, UserStoreState } from '../user/user.store';
+import { weixinStoreModule, WeixinStoreState } from '../weixin/weixin.store';
 import { LocalStorageStroePlugin } from './app.store.plugin';
 import { layoutStoreModule, LayoutStoreState } from './layout/layout.store';
 import {
@@ -46,6 +47,7 @@ export interface RootState {
   search: AppSearchStoreState;
   audit: AuditStoreState;
   dashboard: DashboardStoreState;
+  weixin: WeixinStoreState;
 }
 
 /**
@@ -71,6 +73,7 @@ const store = createStore({
     search: appSearchStoreModule,
     audit: auditStoreModule,
     dashboard: dashboardStoreModule,
+    weixin: weixinStoreModule,
   },
 
   plugins: [LocalStorageStroePlugin],
