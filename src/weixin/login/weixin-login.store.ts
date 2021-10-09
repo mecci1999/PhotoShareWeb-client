@@ -9,10 +9,17 @@ export interface LoginStep {
   component?: string;
 }
 
+export interface ConnectOption {
+  title: string;
+  value: string;
+  icon: string;
+}
+
 export interface WeixinLoginStoreState {
   currentLoginStepName: string;
   loading: boolean;
   loginSteps: Array<LoginStep>;
+  connectOptions: Array<ConnectOption>;
 }
 
 export interface WeixinLoginConnectOptions {
@@ -32,6 +39,18 @@ export const weixinLoginStoreModule: Module<
    * 数据
    */
   state: {
+    connectOptions: [
+      {
+        title: '关联已创建的账户',
+        value: 'verifyAccount',
+        icon: 'merge_type',
+      },
+      {
+        title: '创建并关联新账户',
+        value: 'createAccount',
+        icon: 'person_add',
+      },
+    ],
     currentLoginStepName: 'waitForUserConfimation',
     loading: false,
     loginSteps: [
@@ -71,6 +90,16 @@ export const weixinLoginStoreModule: Module<
    * 获取器
    */
   getters: {
+    connectOptions(state) {
+      return state.connectOptions;
+    },
+
+    selectedConnectOption(state) {
+      return state.connectOptions.find(
+        option => option.value === state.currentLoginStepName,
+      );
+    },
+
     currentLoginStepName(state) {
       return state.currentLoginStepName;
     },
