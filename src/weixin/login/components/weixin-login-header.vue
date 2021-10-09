@@ -1,23 +1,24 @@
 <template>
-  <div class="weixin-login">
-    <WeixinLoginHeader />
+  <div class="weixin-login-header">
+    <div class="thumbnail">
+      <WeixinIcon size="64"></WeixinIcon>
+    </div>
+    <div class="header">
+      {{ currentLoginStep.title }}
+    </div>
+    <div class="description">
+      {{ currentLoginStep.description }}
+    </div>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
-import WeixinLoginHeader from '@/weixin/login/components/weixin-login-header.vue';
+import WeixinIcon from '@/weixin/components/weixin-icon.vue';
 
 export default defineComponent({
-  name: 'WeixinLogin',
-
-  /**
-   * 标题
-   */
-  title() {
-    return '微信登录';
-  },
+  name: 'WeixinLoginHeader',
 
   /**
    * 属性
@@ -35,7 +36,9 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      currentLoginStep: 'weixin/login/currentLoginStep',
+    }),
   },
 
   /**
@@ -57,11 +60,11 @@ export default defineComponent({
    * 使用组件
    */
   components: {
-    WeixinLoginHeader,
+    WeixinIcon,
   },
 });
 </script>
 
 <style scoped>
-@import './styles/weixin-login.css';
+@import './styles/weixin-login-header.css';
 </style>

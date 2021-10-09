@@ -32,7 +32,7 @@ export const weixinLoginStoreModule: Module<
    * 数据
    */
   state: {
-    currentLoginStepName: 'connectAccount',
+    currentLoginStepName: 'waitForUserConfimation',
     loading: false,
     loginSteps: [
       {
