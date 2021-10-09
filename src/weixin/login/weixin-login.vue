@@ -5,12 +5,15 @@
   </div>
 </template>
 
+
+
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import WeixinLoginHeader from '@/weixin/login/components/weixin-login-header.vue';
 import WeixinLoginIframe from '@/weixin/login/components/weixin-login-iframe.vue';
 import WeixinLoginConnect from '@/weixin/login/components/weixin-login-connect.vue';
+import WeixinLoginAccount from '@/weixin/login/components/weixin-login-account.vue';
 
 export default defineComponent({
   name: 'WeixinLogin',
@@ -62,12 +65,15 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    WeixinLoginAccount,
     WeixinLoginConnect,
     WeixinLoginIframe,
     WeixinLoginHeader,
   },
 });
 </script>
+
+
 
 <style scoped>
 @import './styles/weixin-login.css';

@@ -17,7 +17,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import IconTextButton from '@/app/components/icon-text-button.vue';
 
 export default defineComponent({

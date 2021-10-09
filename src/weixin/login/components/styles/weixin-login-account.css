@@ -1,0 +1,8 @@
+/* weixin-login-account */
+.weixin-login-account {
+  width: 100%;
+}
+
+.weixin-login-account > .action > .button {
+  color: var(--secondary-text-color);
+}
