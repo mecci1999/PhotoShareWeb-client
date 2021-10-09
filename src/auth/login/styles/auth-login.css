@@ -12,3 +12,8 @@
   color: var(--secondary-text-color);
   font-size: 18px;
 }
+
+.auth-login > .form > .section.actions {
+  display: flex;
+  justify-content: space-between;
+}

@@ -8,12 +8,15 @@
         type="password"
         placeholder="密码"
       ></TextField>
-      <ButtonField
-        text="登录"
-        size="large"
-        @click="onClickLoginButton"
-        :type="loginButtonType"
-      ></ButtonField>
+      <div class="section actions">
+        <ButtonField
+          text="登录"
+          size="large"
+          @click="onClickLoginButton"
+          :type="loginButtonType"
+        ></ButtonField>
+        <WeixinLoginButton />
+      </div>
     </div>
     <div class="action">
       <router-link class="link" :to="registerLinkTo">
@@ -28,6 +31,7 @@ import { defineComponent } from 'vue';
 import TextField from '@/app/components/text-field.vue';
 import ButtonField from '@/app/components/button-field.vue';
 import { mapActions, mapGetters } from 'vuex';
+import WeixinLoginButton from '@/weixin/login/components/weixin-login-button.vue';
 
 export default defineComponent({
   name: 'AuthLogin',
@@ -131,6 +135,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    WeixinLoginButton,
     TextField,
     ButtonField,
   },
