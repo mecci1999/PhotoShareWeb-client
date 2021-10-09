@@ -1,6 +1,7 @@
 <template>
   <div class="weixin-login">
     <WeixinLoginHeader />
+    <WeixinLoginIframe />
   </div>
 </template>
 
@@ -8,6 +9,7 @@
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import WeixinLoginHeader from '@/weixin/login/components/weixin-login-header.vue';
+import WeixinLoginIframe from '@/weixin/login/components/weixin-login-iframe.vue';
 
 export default defineComponent({
   name: 'WeixinLogin',
@@ -57,6 +59,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    WeixinLoginIframe,
     WeixinLoginHeader,
   },
 });
