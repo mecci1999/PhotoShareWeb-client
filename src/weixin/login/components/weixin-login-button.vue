@@ -4,13 +4,14 @@
       class="button large green outline circle"
       @click="onClickWeixinLoginButton"
     >
-      wx
+      <WeixinIcon />
     </button>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import WeixinIcon from '@/weixin/components/weixin-icon';
 
 export default defineComponent({
   name: 'WeixinLoginButton',
@@ -51,7 +52,9 @@ export default defineComponent({
   /**
    * 使用组件
    */
-  components: {},
+  components: {
+    WeixinIcon,
+  },
 });
 </script>
 
