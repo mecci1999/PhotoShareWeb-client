@@ -1,6 +1,10 @@
 <template>
   <div class="field">
-    <button :class="['button', size, type]" @click="$emit('click')">
+    <button
+      :class="['button', size, type]"
+      @click="$emit('click')"
+      :disabled="disabled"
+    >
       {{ text }}
     </button>
   </div>
@@ -25,6 +29,10 @@ export default defineComponent({
     },
     type: {
       type: String,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
 
