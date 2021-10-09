@@ -51,7 +51,7 @@ export const weixinLoginStoreModule: Module<
         icon: 'person_add',
       },
     ],
-    currentLoginStepName: 'connectAccount',
+    currentLoginStepName: 'waitForUserConfimation',
     loading: false,
     loginSteps: [
       {
@@ -125,6 +125,10 @@ export const weixinLoginStoreModule: Module<
 
     setLoading(state, data) {
       state.loading = data;
+    },
+
+    resetLoginStep(state) {
+      state.currentLoginStepName = 'waitForUserConfimation';
     },
   },
 

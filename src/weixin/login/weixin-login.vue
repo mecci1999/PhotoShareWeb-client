@@ -5,11 +5,9 @@
   </div>
 </template>
 
-
-
 <script>
 import { defineComponent } from 'vue';
-import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import WeixinLoginHeader from '@/weixin/login/components/weixin-login-header.vue';
 import WeixinLoginIframe from '@/weixin/login/components/weixin-login-iframe.vue';
 import WeixinLoginConnect from '@/weixin/login/components/weixin-login-connect.vue';
@@ -50,15 +48,16 @@ export default defineComponent({
    * 已创建
    */
   created() {
-    //
+    this.resetLoginStep();
   },
 
   /**
    * 组件方法
    */
   methods: {
-    ...mapMutations({}),
-    ...mapActions({}),
+    ...mapMutations({
+      resetLoginStep: 'weixin/login/resetLoginStep',
+    }),
   },
 
   /**
@@ -72,8 +71,6 @@ export default defineComponent({
   },
 });
 </script>
-
-
 
 <style scoped>
 @import './styles/weixin-login.css';
