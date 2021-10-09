@@ -51,7 +51,7 @@ export const weixinLoginStoreModule: Module<
         icon: 'person_add',
       },
     ],
-    currentLoginStepName: 'waitForUserConfimation',
+    currentLoginStepName: 'connectAccount',
     loading: false,
     loginSteps: [
       {

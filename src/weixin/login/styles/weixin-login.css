@@ -1,1 +1,10 @@
 /* weixin-login */
+.weixin-login {
+  max-width: 330px;
+  margin: 0 auto;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
