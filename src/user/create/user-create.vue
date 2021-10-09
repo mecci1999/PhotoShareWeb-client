@@ -35,6 +35,13 @@ export default defineComponent({
   name: 'UserCreate',
 
   /**
+   * 标题
+   */
+  title() {
+    return '用户注册';
+  },
+
+  /**
    * 属性
    */
   props: {},
