@@ -1,7 +1,7 @@
 <template>
   <div class="weixin-login">
     <WeixinLoginHeader />
-    <WeixinLoginIframe />
+    <component :is="currentLoginStep.component"></component>
   </div>
 </template>
 
@@ -37,7 +37,9 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      currentLoginStep: 'weixin/login/currentLoginStep',
+    }),
   },
 
   /**
