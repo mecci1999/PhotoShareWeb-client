@@ -5,12 +5,16 @@ import {
   userShowStoreModule,
   UserShowStoreState,
 } from './show/user-show.store';
+
 import {
   userAccountStoreModule,
   UserAccountStoreState,
 } from './account/user-account.store';
 
+import { UserCreateStoreState, userCreateStoreModule } from '@/user/create/user-create.store';
+
 export interface UserStoreState {
+  create: UserCreateStoreState;
   useAdmin: boolean;
   currentUser: User | null;
   show: UserShowStoreState;
@@ -90,6 +94,7 @@ export const userStoreModule: Module<UserStoreState, RootState> = {
   },
 
   modules: {
+    create: userCreateStoreModule,
     show: userShowStoreModule,
     account: userAccountStoreModule,
   },
