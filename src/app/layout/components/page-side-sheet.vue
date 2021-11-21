@@ -1,7 +1,9 @@
 <template>
   <transition name="page-side-sheet">
     <div class="page-side-sheet" v-if="isSideSheetActive">
-      <CloseButton @click="onClickCloseButton"></CloseButton>
+      <div class="close_button">
+        <CloseButton @click="onClickCloseButton"></CloseButton>
+      </div>
       <component :is="sideSheetComponent"></component>
     </div>
   </transition>
