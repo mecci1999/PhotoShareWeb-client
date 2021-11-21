@@ -2,6 +2,7 @@
   <div class="post-show-actions">
     <PostLikeAction class="action" :post="post"></PostLikeAction>
     <PostCommentAction class="action" :post="post" />
+    <PostDownloadAction class="action" :post="post" />
   </div>
 </template>
 
@@ -10,6 +11,7 @@ import { defineComponent } from 'vue';
 import { mapGetters, mapMutations } from 'vuex';
 import PostLikeAction from '@/post/components/post-like-action.vue';
 import PostCommentAction from '@/post/components/post-comment-action.vue';
+import PostDownloadAction from '@/post/components/post-download-action.vue';
 
 export default defineComponent({
   name: 'PostShowActions',
@@ -77,6 +79,7 @@ export default defineComponent({
   components: {
     PostCommentAction,
     PostLikeAction,
+    PostDownloadAction,
   },
 });
 </script>
