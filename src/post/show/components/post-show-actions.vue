@@ -56,6 +56,7 @@ export default defineComponent({
     if (this.sideSheetComponent === 'PostSideSheet') {
       this.setSideSheetProps({
         post: this.post,
+        disableCloseButton: true,
       });
     }
   },

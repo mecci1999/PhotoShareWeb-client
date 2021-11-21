@@ -2,7 +2,10 @@
   <transition name="page-side-sheet">
     <div class="page-side-sheet" v-if="isSideSheetActive">
       <div class="close_button">
-        <CloseButton @click="onClickCloseButton"></CloseButton>
+        <CloseButton
+          @click="onClickCloseButton"
+          v-if="showCloseButton"
+        ></CloseButton>
       </div>
       <component :is="sideSheetComponent"></component>
     </div>
@@ -39,7 +42,14 @@ export default defineComponent({
     ...mapGetters({
       sideSheetComponent: 'layout/sideSheetComponent',
       isSideSheetActive: 'layout/isSideSheetActive',
+      sideSheetProps: 'layout/sideSheetProps',
     }),
+
+    showCloseButton() {
+      return this.sideSheetProps && this.sideSheetProps.disableCloseButton
+        ? false
+        : true;
+    },
   },
 
   /**
