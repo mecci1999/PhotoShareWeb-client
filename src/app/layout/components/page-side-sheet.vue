@@ -15,6 +15,7 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 import CommentSideSheet from '@/comment/components/comment-side-sheet.vue';
 import CloseButton from '@/app/components/close-button.vue';
 import ManagePostSideSheet from '@/manage/post/components/manage-post-side-sheet.vue';
+import PostSideSheet from '@/post/side-sheet/post-side-sheet.vue';
 
 export default defineComponent({
   name: 'PageSideSheet',
@@ -90,6 +91,7 @@ export default defineComponent({
     ManagePostSideSheet,
     CommentSideSheet,
     CloseButton,
+    PostSideSheet,
   },
 });
 </script>

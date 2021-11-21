@@ -1,7 +1,7 @@
 <template>
   <div class="post-show-actions">
     <PostLikeAction class="action" :post="post"></PostLikeAction>
-    <PostCommentAction class="action" :post="post" actionType="switch" />
+    <PostCommentAction class="action" :post="post" />
   </div>
 </template>
 
@@ -43,11 +43,19 @@ export default defineComponent({
    * 已创建
    */
   created() {
-    this.setSideSheetComponent('CommentSideSheet');
+    if (!this.sideSheetComponent) {
+      this.setSideSheetComponent('PostSideSheet');
+    }
 
-    if (this.sideSheetComponent) {
+    if (this.sideSheetComponent === 'CommentSideSheet') {
       this.setSideSheetProps({
         filter: { post: this.post.id },
+      });
+    }
+
+    if (this.sideSheetComponent === 'PostSideSheet') {
+      this.setSideSheetProps({
+        post: this.post,
       });
     }
   },
