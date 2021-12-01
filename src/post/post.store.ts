@@ -21,6 +21,7 @@ import {
 } from './edit/post-edit.store';
 
 import { PostDestroyStoreState, postDestroyStoreModule } from '@/post/destroy/post-destroy.store';
+import { PostSideSheetStoreState, postSideSheetStoreModule } from '@/post/side-sheet/post-side-sheet.store';
 
 export interface PostItem {
   id: number;
@@ -29,6 +30,7 @@ export interface PostItem {
 }
 
 export interface PostStoreState {
+  sideSheet: PostSideSheetStoreState;
   destroy: PostDestroyStoreState;
   edit: PostEditStoreState;
   create: PostCreateStoreState;
@@ -40,6 +42,7 @@ export const postStoreModule: Module<PostStoreState, RootState> = {
   namespaced: true,
 
   modules: {
+    sideSheet: postSideSheetStoreModule,
     destroy: postDestroyStoreModule,
     edit: postEditStoreModule,
     create: postCreateStoreModule,
