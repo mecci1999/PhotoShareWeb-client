@@ -138,6 +138,7 @@ export const weixinLoginStoreModule: Module<
   actions: {
     async weixinLoginConnect(
       { commit },
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       options: WeixinLoginConnectOptions = {},
     ) {
       commit('setLoading', true);
