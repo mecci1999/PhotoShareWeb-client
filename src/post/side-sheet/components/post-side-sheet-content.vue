@@ -1,12 +1,13 @@
 <template>
   <div class="post-side-sheet-content">
-    PostSideSheetContent
+    <PostSideSheetContentMeta />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import PostSideSheetContentMeta from '@/post/side-sheet/components/post-side-sheet-content-meta.vue';
 
 export default defineComponent({
   name: 'PostSideSheetContent',
@@ -34,7 +35,7 @@ export default defineComponent({
    * 已创建
    */
   created() {
-  // 
+    //
   },
 
   /**
@@ -49,6 +50,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    PostSideSheetContentMeta,
   },
 });
 </script>

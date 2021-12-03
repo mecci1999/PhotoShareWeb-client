@@ -6,7 +6,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import PostSideSheetContent from '@/post/side-sheet/compoents/post-side-sheet-content.vue';
+import PostSideSheetContent from '@/post/side-sheet/components/post-side-sheet-content.vue';
 
 export default defineComponent({
   name: 'PostSideSheet',
