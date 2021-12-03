@@ -1,15 +1,15 @@
 <template>
-  <div class="post-side-sheet">
-    <PostSideSheetContent />
+  <div class="post-side-sheet-content">
+    PostSideSheetContent
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import PostSideSheetContent from '@/post/side-sheet/compoents/post-side-sheet-content.vue';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default defineComponent({
-  name: 'PostSideSheet',
+  name: 'PostSideSheetContent',
 
   /**
    * 属性
@@ -26,29 +26,33 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {},
+  computed: {
+    ...mapGetters({}),
+  },
 
   /**
    * 已创建
    */
   created() {
-    //
+  // 
   },
 
   /**
    * 组件方法
    */
-  methods: {},
+  methods: {
+    ...mapMutations({}),
+    ...mapActions({}),
+  },
 
   /**
    * 使用组件
    */
   components: {
-    PostSideSheetContent,
   },
 });
 </script>
 
 <style scoped>
-@import './styles/post-side-sheet.css';
+@import './styles/post-side-sheet-content.css';
 </style>
