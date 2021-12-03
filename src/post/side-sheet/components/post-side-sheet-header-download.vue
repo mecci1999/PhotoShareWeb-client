@@ -1,10 +1,16 @@
 <template>
-  <div class="post-side-sheet-header">
-    <div class="media">
-      <img class="image" :src="post.file.size.medium" />
+  <div class="post-side-sheet-header-download">
+    <div class="image">
+      IMAGE
     </div>
-    <div class="content">
-      <PostSideSheetHeaderDownload />
+    <div class="header">
+      HEADER
+    </div>
+    <div class="description">
+      DESCRIPTION
+    </div>
+    <div class="action">
+      ACTION
     </div>
   </div>
 </template>
@@ -12,10 +18,9 @@
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
-import PostSideSheetHeaderDownload from '@/post/side-sheet/components/post-side-sheet-header-download.vue';
 
 export default defineComponent({
-  name: 'PostSideSheetHeader',
+  name: 'PostSideSheetHeaderDownload',
 
   /**
    * 属性
@@ -33,13 +38,7 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
-    ...mapGetters({
-      sideSheetProps: 'layout/sideSheetProps',
-    }),
-
-    post() {
-      return this.sideSheetProps.post;
-    },
+    ...mapGetters({}),
   },
 
   /**
@@ -60,12 +59,10 @@ export default defineComponent({
   /**
    * 使用组件
    */
-  components: {
-    PostSideSheetHeaderDownload,
-  },
+  components: {},
 });
 </script>
 
 <style scoped>
-@import './styles/post-side-sheet-header.css';
+@import './styles/post-side-sheet-header-download.css';
 </style>
