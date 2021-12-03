@@ -1,7 +1,7 @@
 <template>
   <div class="post-side-sheet-header-download">
     <div class="image">
-      IMAGE
+      <AppQrcode />
     </div>
     <div class="header">
       HEADER
@@ -18,6 +18,7 @@
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import AppQrcode from '@/app/components/app-qrcode.vue';
 
 export default defineComponent({
   name: 'PostSideSheetHeaderDownload',
@@ -59,7 +60,9 @@ export default defineComponent({
   /**
    * 使用组件
    */
-  components: {},
+  components: {
+    AppQrcode,
+  },
 });
 </script>
 
