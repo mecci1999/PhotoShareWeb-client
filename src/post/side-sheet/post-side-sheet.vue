@@ -2,6 +2,7 @@
   <div class="post-side-sheet">
     <PostSideSheetHeader />
     <PostSideSheetContent />
+    <PostSideSheetActions />
   </div>
 </template>
 
@@ -9,6 +10,7 @@
 import { defineComponent } from 'vue';
 import PostSideSheetContent from '@/post/side-sheet/components/post-side-sheet-content.vue';
 import PostSideSheetHeader from '@/post/side-sheet/components/post-side-sheet-header.vue';
+import PostSideSheetActions from '@/post/side-sheet/components/post-side-sheet-actions.vue';
 
 export default defineComponent({
   name: 'PostSideSheet',
@@ -46,6 +48,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    PostSideSheetActions,
     PostSideSheetHeader,
     PostSideSheetContent,
   },
