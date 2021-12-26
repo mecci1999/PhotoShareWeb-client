@@ -1,15 +1,34 @@
 import { Module } from 'vuex';
 import { RootState } from '@/app/app.store';
-import { apiHttpClient } from '@/app/app.service';
+import { apiHttpClient, queryStringProcess } from '@/app/app.service';
+import { Stringifiable } from 'query-string';
+import { API_BASE_URL } from '../../app/app.config';
+
+export interface Download {
+  id: number;
+  userId: number;
+  licenseId: number;
+  token: string;
+  resourceType: string;
+  resourceId: number;
+  created: string;
+  used: string;
+}
 
 export interface DownloadCreateStoreState {
   fileDownloadUrl: string;
-  download: string;
+  download: Download | null;
   loading: boolean;
 }
 
+export interface CreateDownloadData {
+  resourceType: string;
+  resourceId: string;
+}
+
 export interface CreateDownloadOptions {
-  data?: null;
+  fileId: number;
+  data: CreateDownloadData;
 }
 
 export const downloadCreateStoreModule: Module<
@@ -26,7 +45,7 @@ export const downloadCreateStoreModule: Module<
    */
   state: {
     fileDownloadUrl: '',
-    download: '',
+    download: null,
     loading: false,
   } as DownloadCreateStoreState,
 
@@ -52,7 +71,13 @@ export const downloadCreateStoreModule: Module<
    */
   mutations: {
     setFileDownloadUrl(state, data) {
-      state.fileDownloadUrl = data;
+      if (data) {
+        const { fileId, token, socketId } = data;
+        const queryString = queryStringProcess({ token, socketId });
+        state.fileDownloadUrl = `${API_BASE_URL}/files/${fileId}/download?${queryString}`;
+      } else {
+        state.fileDownloadUrl = '';
+      }
     },
 
     setDownload(state, data) {
@@ -68,12 +93,25 @@ export const downloadCreateStoreModule: Module<
    * 动作
    */
   actions: {
-    async createDownload({ commit }, options: CreateDownloadOptions = {}) {
+    async createDownload(
+      { commit, rootGetters },
+      options: CreateDownloadOptions,
+    ) {
       commit('setLoading', true);
 
+      const { fileId, data } = options;
+
       try {
-        const response = await apiHttpClient.get(`resources`);
+        const response = await apiHttpClient.post(`downloads`, data);
         commit('setLoading', false);
+
+        commit('setDownload', response.data);
+
+        commit('setFileDownloadUrl', {
+          fileId,
+          token: response.data.token,
+          socketId: rootGetters['user/socketId'],
+        });
 
         return response;
       } catch (error) {
