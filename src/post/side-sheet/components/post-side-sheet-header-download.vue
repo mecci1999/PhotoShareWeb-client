@@ -45,7 +45,13 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       fileDownloadUrl: 'download/create/fileDownloadUrl',
+      download: 'download/create/download',
+      sideSheetProps: 'layout/sideSheetProps',
     }),
+
+    post() {
+      return this.sideSheetProps.post;
+    },
   },
 
   /**
@@ -60,10 +66,35 @@ export default defineComponent({
    */
   methods: {
     ...mapMutations({}),
-    ...mapActions({}),
 
-    onClickDownloadButton() {
-      //
+    ...mapActions({
+      pushMessage: 'notification/pushMessage',
+      createDownload: 'download/create/createDownload',
+    }),
+
+    async onClickDownloadButton() {
+      if (this.download) {
+        this.$refs.downloadLink.click();
+      } else {
+        await this.generateDownload();
+        if (this.download) {
+          this.$refs.downloadLink.click();
+        }
+      }
+    },
+
+    async generateDownload() {
+      try {
+        await this.createDownload({
+          fileId: this.post.file.id,
+          data: {
+            resourceType: 'post',
+            resourceId: this.post.id,
+          },
+        });
+      } catch (error) {
+        this.pushMessage({ content: error.data.message });
+      }
     },
   },
 
