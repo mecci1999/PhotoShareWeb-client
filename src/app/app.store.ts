@@ -9,6 +9,10 @@ import {
   dashboardStoreModule,
   DashboardStoreState,
 } from '../dashboard/dashboard.store';
+import {
+  downloadStoreModule,
+  DownloadStoreState,
+} from '../download/download.store';
 import { fileStoreModule, FileStoreState } from '../file/file.store';
 import { likeStoreModule, LikeStoreState } from '../like/like.store';
 import { manageStoreModule, ManageStoreState } from '../manage/manage.store';
@@ -48,6 +52,7 @@ export interface RootState {
   audit: AuditStoreState;
   dashboard: DashboardStoreState;
   weixin: WeixinStoreState;
+  download: DownloadStoreState;
 }
 
 /**
@@ -74,6 +79,7 @@ const store = createStore({
     audit: auditStoreModule,
     dashboard: dashboardStoreModule,
     weixin: weixinStoreModule,
+    download: downloadStoreModule,
   },
 
   plugins: [LocalStorageStroePlugin],
