@@ -51,8 +51,10 @@ export default defineComponent({
    */
   computed: {
     qrcodeSvg() {
+      const content = this.content ? this.content : 'https://ninghao.net';
+
       const qrcode = new Qrcode({
-        content: this.content,
+        content,
         container: 'svg-viewbox',
         join: true,
         width: this.size,

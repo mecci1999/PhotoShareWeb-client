@@ -1,7 +1,14 @@
 <template>
   <div class="post-side-sheet-header-download">
-    <div class="image">
-      <AppQrcode />
+    <div class="media">
+      <div :class="imageClasses">
+        <AppQrcode :content="qrcodeContent" />
+      </div>
+      <div class="action" v-if="!qrcodeContent">
+        <button class="button basic" @click="onClickGenerateButton">
+          <AppIcon name="autorenew" color="#ffffff"></AppIcon>
+        </button>
+      </div>
     </div>
     <div class="header">
       下载原版照片
@@ -37,7 +44,9 @@ export default defineComponent({
    * 数据
    */
   data() {
-    return {};
+    return {
+      qrcodeContent: '',
+    };
   },
 
   /**
@@ -52,6 +61,10 @@ export default defineComponent({
 
     post() {
       return this.sideSheetProps.post;
+    },
+
+    imageClasses() {
+      return ['image', { mask: !this.qrcodeContent }];
     },
   },
 
@@ -113,6 +126,15 @@ export default defineComponent({
       if (this.download.id === id) {
         this.setDownload(null);
         this.setFileDownloadUrl('');
+        this.qrcodeContent = '';
+      }
+    },
+
+    async onClickGenerateButton() {
+      await this.generateDownload();
+
+      if (this.download) {
+        this.qrcodeContent = this.fileDownloadUrl;
       }
     },
   },
