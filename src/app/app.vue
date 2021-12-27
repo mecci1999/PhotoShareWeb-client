@@ -35,12 +35,14 @@ export default {
     // 设置请求头部
     socket.on('connect', () => {
       apiHttpClient.defaults.headers.common['X-Socket-Id'] = socket.id;
+      this.setSocketId(socket.id);
     });
   },
 
   methods: {
     ...mapMutations({
       setToken: 'auth/setToken',
+      setSocketId: 'user/setSocketId',
     }),
 
     ...mapActions({

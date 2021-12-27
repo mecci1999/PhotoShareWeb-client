@@ -23,6 +23,7 @@ import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import AppQrcode from '@/app/components/app-qrcode.vue';
 import AppIcon from '@/app/components/app-icon.vue';
+import { socket } from '@/app/app.service';
 
 export default defineComponent({
   name: 'PostSideSheetHeaderDownload',
@@ -58,14 +59,24 @@ export default defineComponent({
    * 已创建
    */
   created() {
-    //
+    socket.on('fileDownloadUsed', this.onFileDownloadUsed);
+  },
+
+  /**
+   * 取消挂载
+   */
+  unmounted() {
+    socket.off('fileDownloadUsed', this.onFileDownloadUsed);
   },
 
   /**
    * 组件方法
    */
   methods: {
-    ...mapMutations({}),
+    ...mapMutations({
+      setDownload: 'download/create/setDownload',
+      setFileDownloadUrl: 'download/create/setFileDownloadUrl',
+    }),
 
     ...mapActions({
       pushMessage: 'notification/pushMessage',
@@ -94,6 +105,14 @@ export default defineComponent({
         });
       } catch (error) {
         this.pushMessage({ content: error.data.message });
+      }
+    },
+
+    onFileDownloadUsed({ id }) {
+      console.log('on file download used', id);
+      if (this.download.id === id) {
+        this.setDownload(null);
+        this.setFileDownloadUrl('');
       }
     },
   },
