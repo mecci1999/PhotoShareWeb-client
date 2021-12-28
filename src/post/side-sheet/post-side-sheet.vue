@@ -9,6 +9,7 @@
 
 <script>
 import { defineComponent } from 'vue';
+import { mapGetters, mapActions } from 'vuex';
 import PostSideSheetContent from '@/post/side-sheet/components/post-side-sheet-content.vue';
 import PostSideSheetHeader from '@/post/side-sheet/components/post-side-sheet-header.vue';
 import PostSideSheetActions from '@/post/side-sheet/components/post-side-sheet-actions.vue';
@@ -32,19 +33,37 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {},
+  computed: {
+    ...mapGetters({
+      canDownload: 'download/canDownload',
+      sideSheetProps: 'layout/sideSheetProps',
+    }),
+  },
 
   /**
    * 已创建
    */
-  created() {
-    //
+  async created() {
+    await this.getDownloadPermission();
+  },
+
+  /**
+   * 监视
+   */
+  watch: {
+    async sideSheetProps() {
+      await this.getDownloadPermission();
+    },
   },
 
   /**
    * 组件方法
    */
-  methods: {},
+  methods: {
+    ...mapActions({
+      getDownloadPermission: 'download/getDownloadPermission',
+    }),
+  },
 
   /**
    * 使用组件

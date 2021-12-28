@@ -55,6 +55,7 @@ export const downloadStoreModule: Module<DownloadStoreState, RootState> = {
 
       // 检查许可
       const resourceId = rootGetters['layout/sideSheetProps'].post.id;
+
       await dispatch(
         'license/valid/getValidLicense',
         { resourceId, resourceType: 'post' },
