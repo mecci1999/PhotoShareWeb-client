@@ -14,6 +14,10 @@ import {
   DownloadStoreState,
 } from '../download/download.store';
 import { fileStoreModule, FileStoreState } from '../file/file.store';
+import {
+  licenseStoreModule,
+  LicenseStoreState,
+} from '../license/license.store';
 import { likeStoreModule, LikeStoreState } from '../like/like.store';
 import { manageStoreModule, ManageStoreState } from '../manage/manage.store';
 import { postStoreModule, PostStoreState } from '../post/post.store';
@@ -53,6 +57,7 @@ export interface RootState {
   dashboard: DashboardStoreState;
   weixin: WeixinStoreState;
   download: DownloadStoreState;
+  license: LicenseStoreState;
 }
 
 /**
@@ -80,6 +85,7 @@ const store = createStore({
     dashboard: dashboardStoreModule,
     weixin: weixinStoreModule,
     download: downloadStoreModule,
+    license: licenseStoreModule,
   },
 
   plugins: [LocalStorageStroePlugin],
