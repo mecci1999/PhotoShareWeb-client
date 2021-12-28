@@ -64,7 +64,7 @@ export default defineComponent({
       // 设置页面侧板属性
       this.setSideSheetProps({
         post: this.post,
-        disableCloseButton: true,
+        disableCloseButton: false,
       });
 
       this.openSideSheet();
