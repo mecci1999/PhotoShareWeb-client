@@ -11,7 +11,10 @@ import {
   UserAccountStoreState,
 } from './account/user-account.store';
 
-import { UserCreateStoreState, userCreateStoreModule } from '@/user/create/user-create.store';
+import {
+  UserCreateStoreState,
+  userCreateStoreModule,
+} from '@/user/create/user-create.store';
 
 export interface UserStoreState {
   socketId: string;
@@ -61,6 +64,15 @@ export const userStoreModule: Module<UserStoreState, RootState> = {
     // 是否使用管理员模式
     canUseAdmin(state) {
       return state.currentUser && state.currentUser.id === 1 && state.useAdmin;
+    },
+
+    // 判断当前用户是否含有有效订阅
+    hasValidSubscription(state) {
+      return (
+        state.currentUser &&
+        state.currentUser.subscription &&
+        state.currentUser.subscription.status === 'valid'
+      );
     },
   },
 
