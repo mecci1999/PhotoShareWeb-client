@@ -43,7 +43,9 @@ export const appToolbarStoreModule: Module<AppToolbarStoreState, RootState> = {
     },
 
     showPostShowNavigator(state, _, rootState) {
-      return state.showPostShowNavigator && rootState.post.index.posts.length;
+      return state.showPostShowNavigator && rootState.post.index.posts.length
+        ? true
+        : false;
     },
 
     showAppSearch(state) {

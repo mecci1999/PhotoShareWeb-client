@@ -41,6 +41,10 @@ export default defineComponent({
   created() {
     this.getPostById(this.postId);
 
+    this.getPosts({});
+
+    this.setShowPostShowNavigator(true);
+
     //布局
     const layout = getStroage('post-show-layout');
 
@@ -80,6 +84,7 @@ export default defineComponent({
       sideSheetComponent: 'layout/sideSheetComponent',
       posts: 'post/index/posts',
       isSideSheetActive: 'layout/isSideSheetActive',
+      showPostShowNavigator: 'toolbar/showPostShowNavigator',
     }),
 
     showPost() {
@@ -94,12 +99,14 @@ export default defineComponent({
   methods: {
     ...mapActions({
       getPostById: 'post/show/getPostById',
+      getPosts: 'post/index/getPosts',
     }),
 
     ...mapMutations({
       setLayout: 'post/show/setLayout',
       setPostTotalLikes: 'post/show/setPostTotalLikes',
       setPostTotalComments: 'post/show/setPostTotalComments',
+      setShowPostShowNavigator: 'toolbar/setShowPostShowNavigator',
     }),
 
     onClickPostShowMedia() {
