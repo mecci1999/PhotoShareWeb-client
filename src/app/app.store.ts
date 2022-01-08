@@ -20,6 +20,10 @@ import {
 } from '../license/license.store';
 import { likeStoreModule, LikeStoreState } from '../like/like.store';
 import { manageStoreModule, ManageStoreState } from '../manage/manage.store';
+import {
+  paymentStoreModule,
+  PaymentStoreState,
+} from '../payment/payment.store';
 import { postStoreModule, PostStoreState } from '../post/post.store';
 import { replyStoreModule, ReplyStoreState } from '../reply/reply.store';
 import { userStoreModule, UserStoreState } from '../user/user.store';
@@ -58,6 +62,7 @@ export interface RootState {
   weixin: WeixinStoreState;
   download: DownloadStoreState;
   license: LicenseStoreState;
+  payment: PaymentStoreState;
 }
 
 /**
@@ -86,6 +91,7 @@ const store = createStore({
     weixin: weixinStoreModule,
     download: downloadStoreModule,
     license: licenseStoreModule,
+    payment: paymentStoreModule,
   },
 
   plugins: [LocalStorageStroePlugin],
