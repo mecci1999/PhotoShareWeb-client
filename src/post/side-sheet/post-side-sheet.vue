@@ -35,7 +35,6 @@ export default defineComponent({
    */
   computed: {
     ...mapGetters({
-      canDownload: 'download/canDownload',
       sideSheetProps: 'layout/sideSheetProps',
     }),
   },
@@ -44,7 +43,7 @@ export default defineComponent({
    * 已创建
    */
   async created() {
-    await this.getDownloadPermission();
+    await this.initialize();
   },
 
   /**
@@ -52,7 +51,7 @@ export default defineComponent({
    */
   watch: {
     async sideSheetProps() {
-      await this.getDownloadPermission();
+      await this.initialize();
     },
   },
 
@@ -61,7 +60,7 @@ export default defineComponent({
    */
   methods: {
     ...mapActions({
-      getDownloadPermission: 'download/getDownloadPermission',
+      initialize: 'post/sideSheet/initialize',
     }),
   },
 

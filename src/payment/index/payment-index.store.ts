@@ -19,7 +19,7 @@ export interface PaymentMeta {
 
 export interface PaymentIndexStoreState {
   loading: boolean;
-  payments: Array<Payment> | null;
+  payments: Array<Payment>;
 }
 
 export interface GetPaymentsOptions {
@@ -53,6 +53,10 @@ export const paymentIndexStoreModule: Module<
 
     payments(state) {
       return state.payments;
+    },
+
+    hasPayments(state) {
+      return state.payments.length ? true : false;
     },
   },
 
