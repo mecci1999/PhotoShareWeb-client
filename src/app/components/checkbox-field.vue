@@ -1,5 +1,5 @@
 <template>
-  <label class="checkbox-field" :for="id">
+  <label :class="checkboxFieldClasses" :for="id">
     <input
       class="input"
       :id="id"
@@ -11,6 +11,7 @@
     />
     <div class="icon" v-if="useIcon"></div>
     <div class="text">{{ text }}</div>
+    <slot></slot>
   </label>
 </template>
 
@@ -78,6 +79,10 @@ export default defineComponent({
       }
 
       return isChecked;
+    },
+
+    checkboxFieldClasses() {
+      return ['checkbox-field', { active: this.isChecked }];
     },
   },
 
