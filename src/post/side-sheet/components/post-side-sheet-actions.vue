@@ -1,12 +1,13 @@
 <template>
   <div class="post-side-sheet-actions">
-    PostSideSheetActions
+    <PaymentSelect v-if="!canDownload" />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import PaymentSelect from '@/payment/select/payment-select';
 
 export default defineComponent({
   name: 'PostSideSheetActions',
@@ -27,14 +28,16 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      canDownload: 'download/canDownload',
+    }),
   },
 
   /**
    * 已创建
    */
   created() {
-  // 
+    //
   },
 
   /**
@@ -49,6 +52,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    PaymentSelect,
   },
 });
 </script>

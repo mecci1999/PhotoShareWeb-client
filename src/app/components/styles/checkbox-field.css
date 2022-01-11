@@ -91,10 +91,10 @@
 .checkbox-field > .extra {
   transform: translateX(16px);
   opacity: 0;
-  transition: 0.3s;
+  transition: 0.5s;
 }
 
-.checkbox-field:active > .extra {
+.checkbox-field.active > .extra {
   transform: translateX(0);
   opacity: 1;
 }
