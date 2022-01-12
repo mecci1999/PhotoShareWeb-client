@@ -25,6 +25,10 @@ import {
   PaymentStoreState,
 } from '../payment/payment.store';
 import { postStoreModule, PostStoreState } from '../post/post.store';
+import {
+  productStoreModule,
+  ProductStoreState,
+} from '../product/product.store';
 import { replyStoreModule, ReplyStoreState } from '../reply/reply.store';
 import { userStoreModule, UserStoreState } from '../user/user.store';
 import { weixinStoreModule, WeixinStoreState } from '../weixin/weixin.store';
@@ -63,6 +67,7 @@ export interface RootState {
   download: DownloadStoreState;
   license: LicenseStoreState;
   payment: PaymentStoreState;
+  product: ProductStoreState;
 }
 
 /**
@@ -92,6 +97,7 @@ const store = createStore({
     download: downloadStoreModule,
     license: licenseStoreModule,
     payment: paymentStoreModule,
+    product: productStoreModule,
   },
 
   plugins: [LocalStorageStroePlugin],
