@@ -98,7 +98,7 @@ export const productShowStoreModule: Module<
       commit('setLoading', true);
 
       try {
-        const response = await apiHttpClient.get(`products/license`);
+        const response = await apiHttpClient.get(`/products/license`);
         commit('setLoading', false);
         commit('setLicenseProduct', response.data);
 
@@ -117,7 +117,7 @@ export const productShowStoreModule: Module<
       commit('setLoading', true);
 
       try {
-        const response = await apiHttpClient.get(`products/license`);
+        const response = await apiHttpClient.get(`/products/subscription`);
         commit('setLoading', false);
         commit('setSubscriptionProducts', response.data);
 
