@@ -48,10 +48,17 @@ export default defineComponent({
       selectedPayment: 'payment/select/selectedPayment',
       selectedPaymentName: 'payment/select/selectedPaymentName',
       payments: 'payment/index/payments',
+      selectedProduct: 'product/select/selectedProduct',
     }),
 
     headerText() {
-      return '购买产品';
+      let headerText;
+
+      if (this.selectedProduct) {
+        headerText = `支付${this.selectedProduct.title}`;
+      }
+
+      return headerText;
     },
   },
 
