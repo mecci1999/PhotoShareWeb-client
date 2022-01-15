@@ -1,6 +1,12 @@
 <template>
-  <div class="post-side-sheet-content-license">
-    PostSideSheetContentLicense
+  <div class="post-side-sheet-content-license" v-if="hasLicenseProduct">
+    <div
+      class="line"
+      v-for="(line, index) in licenseProduct.description"
+      :key="index"
+    >
+      {{ line }}
+    </div>
   </div>
 </template>
 
@@ -27,27 +33,28 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      hasLicenseProduct: 'product/show/hasLicenseProduct',
+      licenseProduct: 'product/show/licenseProduct',
+    }),
   },
 
   /**
    * 已创建
    */
   created() {
-  // 
+    //
   },
 
   /**
    * 组件方法
    */
-  methods: {
-  },
+  methods: {},
 
   /**
    * 使用组件
    */
-  components: {
-  },
+  components: {},
 });
 </script>
 
