@@ -1,12 +1,17 @@
 <template>
   <div class="post-side-sheet-footer">
-    PostSideSheetFooter
+    <ProductPrice
+      v-if="showProductPrice"
+      :price="selectedProduct.price"
+      :salePrice="selectedProduct.salePrice"
+    />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import ProductPrice from '@/product/components/product-price';
 
 export default defineComponent({
   name: 'PostSideSheetFooter',
@@ -27,14 +32,21 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      canDownload: 'download/canDownload',
+      selectedProduct: 'product/select/selectedProduct',
+    }),
+
+    showProductPrice() {
+      return !this.canDownload && this.selectedProduct ? true : false;
+    },
   },
 
   /**
    * 已创建
    */
   created() {
-  // 
+    //
   },
 
   /**
@@ -49,6 +61,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    ProductPrice,
   },
 });
 </script>
