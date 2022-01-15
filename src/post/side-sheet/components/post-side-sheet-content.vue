@@ -1,5 +1,6 @@
 <template>
   <div class="post-side-sheet-content">
+    <component :is="contentComponent"></component>
     <PostSideSheetContentMeta />
   </div>
 </template>
@@ -8,6 +9,8 @@
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import PostSideSheetContentMeta from '@/post/side-sheet/components/post-side-sheet-content-meta.vue';
+import PostSideSheetContentLicense from '@/post/side-sheet/components/post-side-sheet-content-license.vue';
+import PostSideSheetContentSubscription from '@/post/side-sheet/components/post-side-sheet-content-subscription.vue';
 
 export default defineComponent({
   name: 'PostSideSheetContent',
@@ -28,7 +31,27 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      selectedProductType: 'product/select/selectedProductType',
+      canDownload: 'download/canDownload',
+    }),
+
+    contentComponent() {
+      let contentComponent;
+
+      if (!this.canDownload) {
+        switch (this.selectedProductType) {
+          case 'license':
+            contentComponent = 'PostSideSheetContentLicense';
+            break;
+          case 'subscription':
+            contentComponent = 'PostSideSheetContentSubscription';
+            break;
+        }
+      }
+
+      return contentComponent;
+    },
   },
 
   /**
@@ -50,6 +73,8 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    PostSideSheetContentSubscription,
+    PostSideSheetContentLicense,
     PostSideSheetContentMeta,
   },
 });
