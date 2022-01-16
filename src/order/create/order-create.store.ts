@@ -1,6 +1,7 @@
 import { Module } from 'vuex';
 import { RootState } from '@/app/app.store';
 import { apiHttpClient } from '@/app/app.service';
+import { SubscriptionProduct } from '../../product/show/product-show.store';
 
 export interface Order {
   id?: number;
@@ -12,7 +13,7 @@ export interface Order {
 }
 
 export interface OrderCreateStoreState {
-  subscriptionOrder: {
+  subscriptionOrders: {
     [subscriptionType: string]: Order;
   } | null;
   licenseOrder: Order | null;
@@ -20,8 +21,15 @@ export interface OrderCreateStoreState {
   loading: boolean;
 }
 
+export interface CreateOrderData {
+  payment: string;
+  productId: number;
+  resourceType: string;
+  resourceId?: number;
+}
+
 export interface CreateOrderOptions {
-  data?: null;
+  data?: CreateOrderData;
 }
 
 export const orderCreateStoreModule: Module<
@@ -37,7 +45,7 @@ export const orderCreateStoreModule: Module<
    * 数据
    */
   state: {
-    subscriptionOrder: null,
+    subscriptionOrders: null,
     licenseOrder: null,
     licenseOrderResourceId: null,
     loading: false,
@@ -47,8 +55,8 @@ export const orderCreateStoreModule: Module<
    * 获取器
    */
   getters: {
-    subscriptionOrder(state) {
-      return state.subscriptionOrder;
+    subscriptionOrders(state) {
+      return state.subscriptionOrders;
     },
 
     licenseOrder(state) {
@@ -68,8 +76,14 @@ export const orderCreateStoreModule: Module<
    * 修改器
    */
   mutations: {
-    setSubscriptionOrder(state, data) {
-      state.subscriptionOrder = data;
+    setSubscriptionOrders(state, data) {
+      const subscriptionOrders = state.subscriptionOrders;
+
+      if (data) {
+        state.subscriptionOrders = { ...subscriptionOrders, ...data };
+      } else {
+        state.subscriptionOrders = null;
+      }
     },
 
     setLicenseOrder(state, data) {
@@ -89,12 +103,16 @@ export const orderCreateStoreModule: Module<
    * 动作
    */
   actions: {
-    async createOrder({ commit }, options: CreateOrderOptions = {}) {
+    async createOrder({ commit, dispatch }, options: CreateOrderOptions = {}) {
       commit('setLoading', true);
 
+      const { data } = options;
+
       try {
-        const response = await apiHttpClient.post(`/orders`);
+        const response = await apiHttpClient.post(`/orders`, data);
         commit('setLoading', false);
+
+        dispatch('createOrderPostProcess', { ...data, order: response.data });
 
         return response;
       } catch (error) {
@@ -104,6 +122,32 @@ export const orderCreateStoreModule: Module<
         commit('setLoading', false);
 
         throw _error.response;
+      }
+    },
+
+    createOrderPostProcess(
+      { commit, rootGetters },
+      { resourceType, resourceId, productId, order },
+    ) {
+      // 许可订单
+      if (resourceType === 'post') {
+        commit('setLicenseOrder', order);
+        commit('setLicenseOrderResourceId', resourceId);
+      }
+
+      // 订阅订单
+      if (resourceType === 'subscription') {
+        const subscriptionProduct = rootGetters[
+          'product/show/subscriptionProducts'
+        ] as Array<SubscriptionProduct>;
+
+        const orderProduct = subscriptionProduct.find(
+          product => product.id === productId,
+        ) as SubscriptionProduct;
+
+        commit('setSubscriptionOrders', {
+          [orderProduct.meta.subscriptionType]: order,
+        });
       }
     },
   },
