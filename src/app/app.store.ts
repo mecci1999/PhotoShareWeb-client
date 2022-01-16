@@ -20,6 +20,7 @@ import {
 } from '../license/license.store';
 import { likeStoreModule, LikeStoreState } from '../like/like.store';
 import { manageStoreModule, ManageStoreState } from '../manage/manage.store';
+import { orderStoreModule, OrderStoreState } from '../order/order.store';
 import {
   paymentStoreModule,
   PaymentStoreState,
@@ -68,6 +69,7 @@ export interface RootState {
   license: LicenseStoreState;
   payment: PaymentStoreState;
   product: ProductStoreState;
+  order: OrderStoreState;
 }
 
 /**
@@ -98,6 +100,7 @@ const store = createStore({
     license: licenseStoreModule,
     payment: paymentStoreModule,
     product: productStoreModule,
+    order: orderStoreModule,
   },
 
   plugins: [LocalStorageStroePlugin],
