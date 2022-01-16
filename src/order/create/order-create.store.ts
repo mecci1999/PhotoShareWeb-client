@@ -172,6 +172,45 @@ export const orderCreateStoreModule: Module<
         });
       }
     },
+
+    // 创建许可订单动作
+    createLicenseOrder({ rootGetters, dispatch }) {
+      // 产品ID
+      const { id: productId } = rootGetters['product/select/selectedProduct'];
+
+      // 支付方法
+      const payment = rootGetters['payment/select/selectedPaymentName'];
+
+      // 资源类型
+      const resourceType = 'post';
+
+      // 资源ID
+      const {
+        post: { id: resourceId },
+      } = rootGetters['layout/sideSheetProps'];
+
+      // 创建订单
+      return dispatch('createOrder', {
+        data: { productId, payment, resourceType, resourceId },
+      });
+    },
+
+    // 创建订阅订单动作
+    createSubscriptionOrder({ rootGetters, dispatch }) {
+      // 产品ID
+      const { id: productId } = rootGetters['product/select/selectedProduct'];
+
+      // 支付方法
+      const payment = rootGetters['payment/select/selectedPaymentName'];
+
+      // 资源类型
+      const resourceType = 'subscription';
+
+      // 创建订单
+      return dispatch('createOrder', {
+        data: { productId, payment, resourceType },
+      });
+    },
   },
 
   /**
