@@ -1,16 +1,17 @@
 <template>
-  <div class="post-side-sheet-content-subscription">
-    <SubscriptionSelect />
+  <div class="subscription-select-option">
+    <SubscriptionIcon />
+    <ProductPrice />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import { mapGetters } from 'vuex';
-import SubscriptionSelect from '@/subscription/components/subscription-select.vue';
+import ProductPrice from '@/product/components/product-price.vue';
+import SubscriptionIcon from '@/subscription/components/subscription-icon.vue';
 
 export default defineComponent({
-  name: 'PostSideSheetContentSubscription',
+  name: 'SubscriptionSelectOption',
 
   /**
    * 属性
@@ -27,9 +28,7 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {
-    ...mapGetters({}),
-  },
+  computed: {},
 
   /**
    * 已创建
@@ -47,11 +46,12 @@ export default defineComponent({
    * 使用组件
    */
   components: {
-    SubscriptionSelect,
+    SubscriptionIcon,
+    ProductPrice,
   },
 });
 </script>
 
 <style scoped>
-@import './styles/post-side-sheet-content-subscription.css';
+@import './styles/subscription-select-option.css';
 </style>

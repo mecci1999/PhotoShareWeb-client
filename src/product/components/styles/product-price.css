@@ -54,3 +54,7 @@
   line-height: 1;
   color: var(--primary-text-color);
 }
+.product-price.saved-bottom > .price.sale > .saved {
+  display: block;
+  padding-top: 4px;
+}

@@ -1,7 +1,7 @@
 <template>
   <div class="post-side-sheet-content">
     <component :is="contentComponent"></component>
-    <PostSideSheetContentMeta />
+    <PostSideSheetContentMeta v-if="showContentMeta" />
   </div>
 </template>
 
@@ -51,6 +51,16 @@ export default defineComponent({
       }
 
       return contentComponent;
+    },
+
+    showContentMeta() {
+      let showContentMeta = true;
+
+      if (this.selectedProductType === 'subscription') {
+        showContentMeta = false;
+      }
+
+      return showContentMeta;
     },
   },
 
