@@ -70,6 +70,28 @@ export const orderCreateStoreModule: Module<
     loading(state) {
       return state.loading;
     },
+
+    proSubscriptionOrder(state) {
+      return state.subscriptionOrders ? state.subscriptionOrders['pro'] : null;
+    },
+
+    standardSubscriptionOrder(state) {
+      return state.subscriptionOrders
+        ? state.subscriptionOrders['standard']
+        : null;
+    },
+
+    hasProSubscription(state) {
+      return state.subscriptionOrders && 'pro' in state.subscriptionOrders
+        ? true
+        : false;
+    },
+
+    hasStandardSubscription(state) {
+      return state.subscriptionOrders && 'standard' in state.subscriptionOrders
+        ? true
+        : false;
+    },
   },
 
   /**
