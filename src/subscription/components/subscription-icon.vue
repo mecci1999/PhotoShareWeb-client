@@ -41,7 +41,7 @@ export default defineComponent({
       return icon;
     },
 
-    subscritpionIconStyles() {
+    subscriptionIconStyles() {
       let styleObject = { color: this.color };
 
       if (this.size) {
