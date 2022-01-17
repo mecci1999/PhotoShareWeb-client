@@ -211,6 +211,62 @@ export const orderCreateStoreModule: Module<
         data: { productId, payment, resourceType },
       });
     },
+
+    // 创建订单的分解动作
+    async createOrderResolver({ dispatch, getters, rootGetters }) {
+      // 产品类型
+      const selectedProductType =
+        rootGetters['product/select/selectedProductType'];
+
+      // 订阅类型
+      const selectedSubscriptionType =
+        rootGetters['product/select/selectedSubscriptionType'];
+
+      // 许可订单
+      if (selectedProductType === 'license') {
+        // 资源 ID
+        const {
+          post: { id: resourceId },
+        } = rootGetters['layout/sideSheetProps'];
+
+        // 提供许可订单
+        if (getters.licenseOrderResourceId === resourceId) {
+          return getters.licenseOrder;
+        }
+
+        // 创建许可订单
+        const { data: licenseOrder } = await dispatch('createLicenseOrder');
+
+        // 提供新的许可订单
+        return licenseOrder;
+      }
+
+      // 订阅订单
+      if (selectedProductType === 'subscription') {
+        // 提供专业版订阅订单
+        if (
+          selectedSubscriptionType === 'pro' &&
+          getters.hasProSubscriptionOrder
+        ) {
+          return getters.proSubscriptionOrder;
+        }
+
+        // 提供标准版订阅订单
+        if (
+          selectedSubscriptionType === 'standard' &&
+          getters.hasStandardSubscriptionOrder
+        ) {
+          return getters.standardSubscriptionOrder;
+        }
+
+        // 提供新的订阅订单
+        const { data: subscriptionOrder } = await dispatch(
+          'createSubscriptionOrder',
+        );
+
+        return subscriptionOrder;
+      }
+    },
   },
 
   /**
