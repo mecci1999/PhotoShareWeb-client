@@ -38,6 +38,7 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       sideSheetProps: 'layout/sideSheetProps',
+      selectedProduct: 'product/select/selectedProduct',
     }),
   },
 
@@ -54,6 +55,12 @@ export default defineComponent({
   watch: {
     async sideSheetProps() {
       await this.initialize();
+    },
+
+    async selectedProduct(value, oldvalue) {
+      if (oldvalue !== null) {
+        await this.initialize();
+      }
     },
   },
 

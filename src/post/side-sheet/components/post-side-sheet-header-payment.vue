@@ -2,7 +2,7 @@
   <div class="post-side-sheet-header-payment" v-if="selectedPayment">
     <div class="media">
       <div class="image">
-        <AppQrcode></AppQrcode>
+        <AppQrcode :content="qrcodeContent"></AppQrcode>
       </div>
     </div>
     <div class="header">
@@ -49,6 +49,7 @@ export default defineComponent({
       selectedPaymentName: 'payment/select/selectedPaymentName',
       payments: 'payment/index/payments',
       selectedProduct: 'product/select/selectedProduct',
+      prePay: 'order/pay/prePay',
     }),
 
     headerText() {
@@ -59,6 +60,10 @@ export default defineComponent({
       }
 
       return headerText;
+    },
+
+    qrcodeContent() {
+      return this.prePay ? this.prePay.codeUrl : null;
     },
   },
 

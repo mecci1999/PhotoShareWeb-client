@@ -104,6 +104,14 @@ export const postSideSheetStoreModule: Module<
           root: true,
         });
       }
+
+      // 处理订单
+      const order = await dispatch('order/create/createOrderResolver', null, {
+        root: true,
+      });
+
+      // 支付订单
+      await dispatch('order/pay/payOrder', order.id, { root: true });
     },
   },
 
