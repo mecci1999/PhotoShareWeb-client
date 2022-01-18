@@ -2,8 +2,10 @@ import { Module } from 'vuex';
 import { RootState } from '@/app/app.store';
 import { OrderCreateStoreState, orderCreateStoreModule } from '@/order/create/order-create.store';
 import { OrderPayStoreState, orderPayStoreModule } from '@/order/pay/order-pay.store';
+import { OrderEditStoreState, orderEditStoreModule } from '@/order/edit/order-edit.store';
 
 export interface OrderStoreState {
+  edit: OrderEditStoreState;
   pay: OrderPayStoreState;
   create: OrderCreateStoreState;
   name: string;
@@ -47,6 +49,7 @@ export const orderStoreModule: Module<OrderStoreState, RootState> = {
    * 模块
    */
   modules: {
+    edit: orderEditStoreModule,
     pay: orderPayStoreModule,
     create: orderCreateStoreModule,
   },
