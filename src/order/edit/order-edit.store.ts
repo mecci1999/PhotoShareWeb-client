@@ -69,6 +69,29 @@ export const orderEditStoreModule: Module<OrderEditStoreState, RootState> = {
         throw _error.response;
       }
     },
+
+    async updateOrderResolver({ dispatch, rootGetters }) {
+      // 订单 ID
+      const { id: orderId } = await dispatch(
+        'order/create/createOrderResolver',
+        null,
+        { root: true },
+      );
+
+      // 支付方法
+      const payment = rootGetters['payment/select/selectedPaymentName'];
+
+      // 更新订单
+      await dispatch('updateOrder', {
+        orderId,
+        data: {
+          payment,
+        },
+      });
+
+      // 支付订单
+      await dispatch('order/pay/payOrder', orderId, { root: true });
+    },
   },
 
   /**

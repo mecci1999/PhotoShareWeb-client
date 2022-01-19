@@ -39,6 +39,7 @@ export default defineComponent({
     ...mapGetters({
       sideSheetProps: 'layout/sideSheetProps',
       selectedProduct: 'product/select/selectedProduct',
+      selectedPaymentName: 'payment/select/selectedPaymentName',
     }),
   },
 
@@ -57,9 +58,15 @@ export default defineComponent({
       await this.initialize();
     },
 
-    async selectedProduct(value, oldvalue) {
-      if (oldvalue !== null) {
+    async selectedProduct(value, oldValue) {
+      if (oldValue !== null) {
         await this.initialize();
+      }
+    },
+
+    async selectedPaymentName(value, oldValue) {
+      if (oldValue) {
+        await this.updateOrderResolver();
       }
     },
   },
@@ -70,6 +77,7 @@ export default defineComponent({
   methods: {
     ...mapActions({
       initialize: 'post/sideSheet/initialize',
+      updateOrderResolver: 'order/edit/updateOrderResolver',
     }),
   },
 

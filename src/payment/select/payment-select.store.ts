@@ -31,9 +31,13 @@ export const paymentSelectStoreModule: Module<
     selectedPaymentName(state, getters, rootState, rootGetters) {
       const payments = rootGetters['payment/index/payments'];
 
-      return state.selectedPaymentName
-        ? state.selectedPaymentName
-        : payments[0].name;
+      if (payments.length) {
+        return state.selectedPaymentName
+          ? state.selectedPaymentName
+          : payments[0].name;
+      } else {
+        return '';
+      }
     },
 
     selectedPayment(state, getters, rootState, rootGetters) {
