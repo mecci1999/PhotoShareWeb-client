@@ -70,27 +70,54 @@ export const orderEditStoreModule: Module<OrderEditStoreState, RootState> = {
       }
     },
 
-    async updateOrderResolver({ dispatch, rootGetters }) {
+    async updateOrderResolver({ dispatch, rootGetters, commit }) {
       // 订单 ID
-      const { id: orderId } = await dispatch(
-        'order/create/createOrderResolver',
-        null,
-        { root: true },
-      );
+      const order = await dispatch('order/create/createOrderResolver', null, {
+        root: true,
+      });
 
       // 支付方法
       const payment = rootGetters['payment/select/selectedPaymentName'];
 
+      // 防止更新同样的支付方法
+      if (order.payment === payment) return;
+
+      // 产品类型
+      const selectedProductType =
+        rootGetters['product/select/selectedProductType'];
+
+      // 订阅类型
+      const selectedSubscriptionType =
+        rootGetters['product/select/selectedSubscriptionType'];
+
+      // 更新许可订单
+      if (selectedProductType === 'license') {
+        commit(
+          'order/create/setLicenseOrder',
+          { ...order, payment },
+          { root: true },
+        );
+      }
+
+      // 更新订阅订单
+      if (selectedProductType === 'subscription') {
+        commit(
+          'order/create/setSubscriptionOrders',
+          { [selectedSubscriptionType]: { ...order, payment } },
+          { root: true },
+        );
+      }
+
       // 更新订单
       await dispatch('updateOrder', {
-        orderId,
+        orderId: order.id,
         data: {
           payment,
         },
       });
 
       // 支付订单
-      await dispatch('order/pay/payOrder', orderId, { root: true });
+      await dispatch('order/pay/payOrder', order.id, { root: true });
     },
   },
 
