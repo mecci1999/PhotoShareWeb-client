@@ -10,7 +10,8 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
+import { socket } from '@/app/app.service';
 import PostSideSheetContent from '@/post/side-sheet/components/post-side-sheet-content.vue';
 import PostSideSheetHeader from '@/post/side-sheet/components/post-side-sheet-header.vue';
 import PostSideSheetActions from '@/post/side-sheet/components/post-side-sheet-actions.vue';
@@ -48,6 +49,17 @@ export default defineComponent({
    */
   async created() {
     await this.initialize();
+
+    socket.on('licenseStatusChanged', this.onLicenseStatusChanged);
+    socket.on('subscriptionStatusChanged', this.onSubscriptionStatusChanged);
+  },
+
+  /**
+   * 取消挂载
+   */
+  unmounted() {
+    socket.off('licenseStatusChanged', this.onLicenseStatusChanged);
+    socket.off('subscriptionStatusChanged', this.onSubscriptionStatusChanged);
   },
 
   /**
@@ -78,7 +90,22 @@ export default defineComponent({
     ...mapActions({
       initialize: 'post/sideSheet/initialize',
       updateOrderResolver: 'order/edit/updateOrderResolver',
+      pushMessage: 'notification/pushMessage',
     }),
+
+    ...mapMutations({
+      setCanDownload: 'download/setCanDownload',
+    }),
+
+    onLicenseStatusChanged() {
+      this.setCanDownload(true);
+      this.pushMessage({ content: '成功购买许可' });
+    },
+
+    onSubscriptionStatusChanged() {
+      this.setCanDownload(true);
+      this.pushMessage({ content: '成功订阅会员' });
+    },
   },
 
   /**

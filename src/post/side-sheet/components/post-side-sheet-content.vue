@@ -56,7 +56,7 @@ export default defineComponent({
     showContentMeta() {
       let showContentMeta = true;
 
-      if (this.selectedProductType === 'subscription') {
+      if (!this.canDownload && this.selectedProductType === 'subscription') {
         showContentMeta = false;
       }
 

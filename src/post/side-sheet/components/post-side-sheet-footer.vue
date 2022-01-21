@@ -1,5 +1,5 @@
 <template>
-  <div class="post-side-sheet-footer" v-if="showProductPrice">
+  <div class="post-side-sheet-footer" v-if="showPostSideSheetFooter">
     <ProductPrice
       v-if="showProductPrice"
       :price="selectedProduct.price"
@@ -51,6 +51,10 @@ export default defineComponent({
 
     showPaymentLink() {
       return this.prePay && this.prePay.offSiteUrl ? true : false;
+    },
+
+    showPostSideSheetFooter() {
+      return !this.canDownload && this.showProductPrice;
     },
   },
 
