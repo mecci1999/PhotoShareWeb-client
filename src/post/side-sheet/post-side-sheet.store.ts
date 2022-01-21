@@ -83,7 +83,7 @@ export const postSideSheetStoreModule: Module<
    * 动作
    */
   actions: {
-    async initialize({ dispatch, rootGetters }) {
+    async initialize({ dispatch, rootGetters, commit }) {
       // 检查下载权限
       await dispatch('download/getDownloadPermission', null, { root: true });
       if (rootGetters['download/canDownload']) return;
@@ -109,6 +109,16 @@ export const postSideSheetStoreModule: Module<
       const order = await dispatch('order/create/createOrderResolver', null, {
         root: true,
       });
+
+      // 支付方法
+      const selectedPaymentName =
+        rootGetters['payment/select/selectedPaymentName'];
+
+      if (selectedPaymentName !== order.payment) {
+        commit('payment/select/setSelectedPaymentName', order.payment, {
+          root: true,
+        });
+      }
 
       // 支付订单
       await dispatch('order/pay/payOrder', order.id, { root: true });
