@@ -1,17 +1,24 @@
 <template>
-  <div class="post-side-sheet-footer">
+  <div class="post-side-sheet-footer" v-if="showProductPrice">
     <ProductPrice
       v-if="showProductPrice"
       :price="selectedProduct.price"
       :salePrice="selectedProduct.salePrice"
     />
+    <a
+      class="button"
+      target="_blank"
+      :href="prePay.offSiteUrl"
+      v-if="showPaymentLink"
+      >立即支付</a
+    >
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
-import ProductPrice from '@/product/components/product-price';
+import ProductPrice from '@/product/components/product-price.vue';
 
 export default defineComponent({
   name: 'PostSideSheetFooter',
@@ -35,10 +42,15 @@ export default defineComponent({
     ...mapGetters({
       canDownload: 'download/canDownload',
       selectedProduct: 'product/select/selectedProduct',
+      prePay: 'order/pay/prePay',
     }),
 
     showProductPrice() {
       return !this.canDownload && this.selectedProduct ? true : false;
+    },
+
+    showPaymentLink() {
+      return this.prePay && this.prePay.offSiteUrl ? true : false;
     },
   },
 

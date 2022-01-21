@@ -2,7 +2,9 @@
 .post-side-sheet-footer {
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 330px;
+  box-sizing: border-box;
+  min-height: 57px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -10,4 +12,9 @@
   padding: 8px 24px;
   border-top: 1px solid var(--line-color);
   backdrop-filter: blur(4px);
+}
+
+.post-side-sheet-footer > .button {
+  font-size: 12px;
+  padding: 8px 16px;
 }
