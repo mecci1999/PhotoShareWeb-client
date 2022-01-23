@@ -96,6 +96,15 @@ export default defineComponent({
             text: '管理',
           },
         ],
+        [
+          {
+            linkTo: {
+              name: 'subscription',
+              params: { userId: this.currentUser.id },
+            },
+            text: '订阅',
+          },
+        ],
       ];
     },
   },
