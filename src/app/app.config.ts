@@ -20,3 +20,11 @@ export const COMMENTS_PRE_PAGE = parseInt(
   process.env.VUE_APP_COMMENTS_PRE_PAGE,
   10,
 );
+
+/**
+ * 订阅
+ */
+export const STANDARD_SUBSCRIPTION_COLOR =
+  process.env.VUE_APP_STANDARD_SUBSCRIPTION_COLOR || '#43a047';
+export const PRO_SUBSCRIPTION_COLOR =
+  process.env.VUE_APP_PRO_SUBSCRIPTION_COLOR || '#6e64ef';
