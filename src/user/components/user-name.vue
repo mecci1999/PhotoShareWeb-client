@@ -1,15 +1,26 @@
 <template>
   <div :class="userNameClasses">
-    <div class="user-name-text">
+    <div class="text">
       <router-link :to="userNameLinkTo" class="link" @click="$emit('click')">{{
         user.name
       }}</router-link>
+    </div>
+    <div class="icon" v-if="hasSubscription">
+      <router-link class="link" :to="subscriptionIconLinkTo">
+        <SubscriptionIcon :color="subscriptionIconColor"></SubscriptionIcon>
+      </router-link>
+      <div class="name">{{ subscriptionIconName }}</div>
     </div>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import SubscriptionIcon from '@/subscription/components/subscription-icon.vue';
+import {
+  STANDARD_SUBSCRIPTION_COLOR,
+  PRO_SUBSCRIPTION_COLOR,
+} from '@/app/app.config';
 
 export default defineComponent({
   name: 'UserName',
@@ -50,6 +61,52 @@ export default defineComponent({
         params: { userId: this.user.id },
       };
     },
+
+    hasSubscription() {
+      return this.user.subscription ? true : false;
+    },
+
+    subscriptionIconLinkTo() {
+      return { name: 'subscription' };
+    },
+
+    subscriptionIconColor() {
+      let color;
+
+      const { subscription } = this.user;
+
+      if (this.hasSubscription && subscription.status === 'valid') {
+        switch (subscription.type) {
+          case 'standard':
+            color = STANDARD_SUBSCRIPTION_COLOR;
+            break;
+          case 'pro':
+            color = PRO_SUBSCRIPTION_COLOR;
+            break;
+        }
+      }
+
+      return color;
+    },
+
+    subscriptionIconName() {
+      let name;
+
+      const { subscription } = this.user;
+
+      if (this.hasSubscription && subscription.status === 'valid') {
+        switch (subscription.type) {
+          case 'standard':
+            name = '标准';
+            break;
+          case 'pro':
+            name = '专业';
+            break;
+        }
+      }
+
+      return name;
+    },
   },
 
   /**
@@ -67,7 +124,9 @@ export default defineComponent({
   /**
    * 使用组件
    */
-  components: {},
+  components: {
+    SubscriptionIcon,
+  },
 });
 </script>
 
