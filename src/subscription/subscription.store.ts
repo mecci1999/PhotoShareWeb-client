@@ -1,13 +1,19 @@
 import { Module } from 'vuex';
 import { RootState } from '@/app/app.store';
-import { SubscriptionSignupStoreState, subscriptionSignupStoreModule } from '@/subscription/signup/subscription-signup.store';
+import {
+  SubscriptionSignupStoreState,
+  subscriptionSignupStoreModule,
+} from '@/subscription/signup/subscription-signup.store';
 
 export interface SubscriptionStoreState {
   signup: SubscriptionSignupStoreState;
   name: string;
 }
 
-export const subscriptionStoreModule: Module<SubscriptionStoreState, RootState> = {
+export const subscriptionStoreModule: Module<
+  SubscriptionStoreState,
+  RootState
+> = {
   /**
    * 命名空间
    */
@@ -23,23 +29,17 @@ export const subscriptionStoreModule: Module<SubscriptionStoreState, RootState> 
   /**
    * 获取器
    */
-  getters: {
-   
-  },
+  getters: {},
 
   /**
    * 修改器
    */
-  mutations: {
-
-  },
+  mutations: {},
 
   /**
    * 动作
    */
-  actions: {
-
-  },
+  actions: {},
 
   /**
    * 模块

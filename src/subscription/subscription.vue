@@ -1,14 +1,22 @@
 <template>
   <div class="subscription">
-    Subscription
+    <SubscriptionSignup />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import SubscriptionSignup from '@/subscription/signup/subscription-signup.vue';
 
 export default defineComponent({
   name: 'Subscription',
+
+  /**
+   * 标题
+   */
+  title() {
+    return '订阅';
+  },
 
   /**
    * 属性
@@ -25,26 +33,25 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {
-  },
+  computed: {},
 
   /**
    * 已创建
    */
   created() {
-  // 
+    //
   },
 
   /**
    * 组件方法
    */
-  methods: {
-  },
+  methods: {},
 
   /**
    * 使用组件
    */
   components: {
+    SubscriptionSignup,
   },
 });
 </script>

@@ -1,0 +1,13 @@
+/* subscription-signup-header */
+.subscription-signup-header > .title {
+  font-size: 32px;
+  margin-bottom: 16px;
+  font-weight: bold;
+  padding-bottom: 0;
+}
+
+.subscription-signup-header > .description {
+  font-weight: lighter;
+  color: var(--secondary-text-color);
+  margin-bottom: 32px;
+}

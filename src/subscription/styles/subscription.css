@@ -1,1 +1,6 @@
 /* subscription */
+.subscription {
+  max-width: 572px;
+  margin: 0 auto;
+  padding: 32px;
+}
