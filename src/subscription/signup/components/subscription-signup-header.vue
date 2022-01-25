@@ -2,12 +2,16 @@
   <div class="subscription-signup-header">
     <div class="title">{{ currentStep.title }}</div>
     <div class="description">{{ currentStep.description }}</div>
+    <div class="content">
+      <AppSteps :steps="steps" :current="currentStepName" />
+    </div>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import AppSteps from '@/app/components/app-steps.vue';
 
 export default defineComponent({
   name: 'SubscriptionSignupHeader',
@@ -30,6 +34,8 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       currentStep: 'subscription/signup/currentStep',
+      currentStepName: 'subscription/signup/currentStepName',
+      steps: 'subscription/signup/steps',
     }),
   },
 
@@ -51,7 +57,9 @@ export default defineComponent({
   /**
    * 使用组件
    */
-  components: {},
+  components: {
+    AppSteps,
+  },
 });
 </script>
 
