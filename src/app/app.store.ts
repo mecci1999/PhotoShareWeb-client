@@ -31,6 +31,10 @@ import {
   ProductStoreState,
 } from '../product/product.store';
 import { replyStoreModule, ReplyStoreState } from '../reply/reply.store';
+import {
+  subscriptionStoreModule,
+  SubscriptionStoreState,
+} from '../subscription/subscription.store';
 import { userStoreModule, UserStoreState } from '../user/user.store';
 import { weixinStoreModule, WeixinStoreState } from '../weixin/weixin.store';
 import { LocalStorageStroePlugin } from './app.store.plugin';
@@ -70,6 +74,7 @@ export interface RootState {
   payment: PaymentStoreState;
   product: ProductStoreState;
   order: OrderStoreState;
+  subscription: SubscriptionStoreState;
 }
 
 /**
@@ -101,6 +106,7 @@ const store = createStore({
     payment: paymentStoreModule,
     product: productStoreModule,
     order: orderStoreModule,
+    subscription: subscriptionStoreModule,
   },
 
   plugins: [LocalStorageStroePlugin],
