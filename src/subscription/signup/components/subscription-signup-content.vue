@@ -1,12 +1,17 @@
 <template>
-  <div class="subscription-signup-content">
-    SubscriptionSignupContent
+  <div :class="subscriptionSignupContent">
+    <SubscriptionSignupCard
+      v-for="product in subscriptionProducts"
+      :key="product.id"
+      :product="product"
+    />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import SubscriptionSignupCard from '@/subscription/signup/components/subscription-signup-card.vue';
 
 export default defineComponent({
   name: 'SubscriptionSignupContent',
@@ -29,7 +34,15 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       subscriptionProducts: 'product/show/subscriptionProducts',
+      selectedSubscriptionType: 'product/select/selectedSubscriptionType',
     }),
+
+    subscriptionSignupContent() {
+      return [
+        'subscription-signup-content',
+        { stack: this.selectedSubscriptionType },
+      ];
+    },
   },
 
   /**
@@ -59,7 +72,9 @@ export default defineComponent({
   /**
    * 使用组件
    */
-  components: {},
+  components: {
+    SubscriptionSignupCard,
+  },
 });
 </script>
 
