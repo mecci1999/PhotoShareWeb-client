@@ -1,5 +1,5 @@
 <template>
-  <div class="subscription-signup-card">
+  <div class="subscription-signup-card" v-if="showSubscriptionSignupCard">
     <subscription-card
       :class="subscriptionCardClasses"
       :style="subscriptionCardStyles"
@@ -27,7 +27,9 @@
         </div>
       </template>
       <template #action>
-        <button class="button outline">{{ actionButtonText }}</button>
+        <button class="button outline" @click="onClickActionButton">
+          {{ actionButtonText }}
+        </button>
       </template>
     </subscription-card>
   </div>
@@ -65,6 +67,7 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       selectedSubscriptionType: 'product/select/selectedSubscriptionType',
+      currentStepName: 'subscription/signup/currentStepName',
     }),
 
     subscriptionType() {
@@ -83,8 +86,22 @@ export default defineComponent({
       return { '--color': this.color };
     },
 
+    isSelected() {
+      return this.subscriptionType === this.selectedSubscriptionType;
+    },
+
     actionButtonText() {
-      return '选择';
+      let actionButtonText = '选择';
+
+      if (this.isSelected) {
+        actionButtonText = '重新选择';
+      }
+
+      return actionButtonText;
+    },
+
+    showSubscriptionSignupCard() {
+      return this.selectedSubscriptionType ? this.isSelected : true;
     },
   },
 
@@ -99,8 +116,26 @@ export default defineComponent({
    * 组件方法
    */
   methods: {
-    ...mapMutations({}),
+    ...mapMutations({
+      setCurrentStepName: 'subscription/signup/setCurrentStepName',
+      setSelectedSubscriptionType: 'product/select/setSelectedSubscriptionType',
+    }),
+
     ...mapActions({}),
+
+    onClickActionButton() {
+      if (!this.selectedSubscriptionType) {
+        this.setSelectedSubscriptionType(this.subscriptionType);
+        this.setCurrentStepName('payment');
+        return;
+      }
+
+      if (this.currentStepName === 'payment') {
+        this.setSelectedSubscriptionType('');
+        this.setCurrentStepName('select');
+        return;
+      }
+    },
   },
 
   /**
