@@ -26,10 +26,13 @@
   height: 20px;
   border: 1px solid var(--line-color);
   border-radius: 50%;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
 }
 
 .app-step.active > .number {
   border-color: var(--primary-text-color);
+  background-color: var(--primary-text-color);
+  color: var(--primary-background);
 }
 
 .app-step > .text {

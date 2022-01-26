@@ -1,6 +1,7 @@
 <template>
   <div class="subscription-signup">
     <SubscriptionSignupHeader />
+    <SubscriptionSignupContent />
   </div>
 </template>
 
@@ -8,6 +9,7 @@
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import SubscriptionSignupHeader from '@/subscription/signup/components/subscription-signup-header.vue';
+import SubscriptionSignupContent from '@/subscription/signup/components/subscription-signup-content.vue';
 
 export default defineComponent({
   name: 'SubscriptionSignup',
@@ -50,6 +52,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    SubscriptionSignupContent,
     SubscriptionSignupHeader,
   },
 });
