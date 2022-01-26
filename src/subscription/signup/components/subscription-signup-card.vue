@@ -1,8 +1,35 @@
 <template>
   <div class="subscription-signup-card">
-    <SubscriptionCard />
-    <SubscriptionIcon />
-    <ProductPrice />
+    <subscription-card
+      :class="subscriptionCardClasses"
+      :style="subscriptionCardStyles"
+    >
+      <template #thumbnail>
+        <SubscriptionIcon size="large" :color="color"></SubscriptionIcon>
+      </template>
+      <template #header>
+        {{ product.title }}
+      </template>
+      <template #meta>
+        <ProductPrice
+          :price="product.price"
+          :salePrice="product.salePrice"
+          :unit="product.meta.unit"
+        ></ProductPrice>
+      </template>
+      <template #description>
+        <div
+          class="line"
+          v-for="(line, index) in product.description"
+          :key="index"
+        >
+          {{ line }}
+        </div>
+      </template>
+      <template #action>
+        <button class="button outline">{{ actionButtonText }}</button>
+      </template>
+    </subscription-card>
   </div>
 </template>
 
@@ -36,7 +63,29 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      selectedSubscriptionType: 'product/select/selectedSubscriptionType',
+    }),
+
+    subscriptionType() {
+      return this.product.meta.subscriptionType;
+    },
+
+    color() {
+      return this.product.meta.color;
+    },
+
+    subscriptionCardClasses() {
+      return ['colored', 'shadow', { stack: this.selectedSubscriptionType }];
+    },
+
+    subscriptionCardStyles() {
+      return { '--color': this.color };
+    },
+
+    actionButtonText() {
+      return '选择';
+    },
   },
 
   /**
