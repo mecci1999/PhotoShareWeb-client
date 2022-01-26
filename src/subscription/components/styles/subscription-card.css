@@ -1,1 +1,66 @@
 /* subscription-card */
+.subscription-card {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 270px;
+  padding: 32px;
+  box-sizing: border-box;
+  color: var(--secondary-text-color);
+  border: 1px solid var(--line-color);
+  border-radius: 5px;
+  background: var(--primary-background);
+  margin-bottom: 32px;
+  transition: box-shadow 0.3s;
+}
+
+.subscription-card.colored {
+  border-color: var(--color);
+}
+
+.subscription-card.colored > .action > .button {
+  color: var(--color) !important;
+  border-color: var(--color) !important;
+}
+
+.subscription-card.shadow:hover {
+  box-shadow: 0 15px 30px var(--color);
+}
+
+.subscription-card > .thumbnail {
+  display: flex;
+  align-items: center;
+  font-size: 64px;
+  min-height: 120px;
+}
+
+.subscription-card > .content > .header {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.subscription-card > .content > .meta {
+  min-height: 40px;
+  margin-bottom: 32px;
+}
+
+.subscription-card > .content > .description {
+  font-size: 14px;
+  font-weight: lighter;
+  line-height: 1.5;
+  margin-bottom: 32px;
+}
+
+.subscription-card > .action {
+  width: 100%;
+}
+
+.subscription-card > .action > .button {
+  width: 100%;
+  font-size: 16px !important;
+  padding: 12px !important;
+}
