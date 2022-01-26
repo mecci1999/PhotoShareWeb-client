@@ -1,5 +1,6 @@
 <template>
   <div class="subscription-signup-card">
+    <SubscriptionCard />
     <SubscriptionIcon />
     <ProductPrice />
   </div>
@@ -10,6 +11,7 @@ import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import ProductPrice from '@/product/components/product-price.vue';
 import SubscriptionIcon from '@/subscription/components/subscription-icon.vue';
+import SubscriptionCard from '@/subscription/components/subscription-card.vue';
 
 export default defineComponent({
   name: 'SubscriptionSignupCard',
@@ -56,6 +58,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    SubscriptionCard,
     SubscriptionIcon,
     ProductPrice,
   },
