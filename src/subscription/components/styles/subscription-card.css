@@ -46,6 +46,8 @@
 .subscription-card > .content > .meta {
   min-height: 40px;
   margin-bottom: 32px;
+  display: flex;
+  align-items: center;
 }
 
 .subscription-card > .content > .description {
@@ -63,4 +65,36 @@
   width: 100%;
   font-size: 16px !important;
   padding: 12px !important;
+}
+
+.subscription-card.stack {
+  display: grid;
+  grid-template-columns: 100px 1fr 100px;
+  padding: 24px;
+}
+
+.subscription-card.stack > .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 24px;
+}
+
+.subscription-card.stack > .content > .header {
+  text-align: left;
+  font-size: 16px !important;
+}
+
+.subscription-card.stack > .content > .meta {
+  margin-bottom: 16px;
+}
+
+.subscription-card.stack > .content > .description {
+  margin-bottom: 0;
+  font-weight: 300;
+}
+
+.subscription-card.stack > .action > .button {
+  font-size: 14px !important;
+  padding: 8px !important;
 }
