@@ -92,6 +92,28 @@ export const orderCreateStoreModule: Module<
         ? true
         : false;
     },
+
+    currentOrder(state, getters, rootState, rootGetters) {
+      const selectedProductType =
+        rootGetters['product/select/selectedProductType'];
+
+      const selectedSubscriptionType =
+        rootGetters['product/select/selectedSubscriptionType'];
+
+      if (selectedProductType === 'license') {
+        return getters.licenseOrder;
+      }
+
+      if (selectedProductType === 'subscription') {
+        if (selectedSubscriptionType === 'pro') {
+          return getters.proSubscriptionOrder;
+        }
+
+        if (selectedSubscriptionType === 'standard') {
+          return getters.standardSubscriptionOrder;
+        }
+      }
+    },
   },
 
   /**
