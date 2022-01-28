@@ -98,3 +98,20 @@
   font-size: 14px !important;
   padding: 8px !important;
 }
+
+.subscription-card.bordered-meta > .content > .meta {
+  border-top: 1px solid var(--line-color);
+  order: 3;
+  font-size: 14px;
+  padding-top: 8px;
+  margin-top: 8px;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  min-height: 32px;
+}
+
+.subscription-card.stack > .content > .meta > .action > .button {
+  font-size: 12px !important;
+  padding: 4px 8px;
+}
