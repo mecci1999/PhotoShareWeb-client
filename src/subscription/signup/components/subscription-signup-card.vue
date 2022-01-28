@@ -119,6 +119,7 @@ export default defineComponent({
     ...mapMutations({
       setCurrentStepName: 'subscription/signup/setCurrentStepName',
       setSelectedSubscriptionType: 'product/select/setSelectedSubscriptionType',
+      setSelectedProductType: 'product/select/setSelectedProductType',
     }),
 
     ...mapActions({}),
@@ -127,6 +128,7 @@ export default defineComponent({
       if (!this.selectedSubscriptionType) {
         this.setSelectedSubscriptionType(this.subscriptionType);
         this.setCurrentStepName('payment');
+        this.setSelectedProductType('subscription');
         return;
       }
 

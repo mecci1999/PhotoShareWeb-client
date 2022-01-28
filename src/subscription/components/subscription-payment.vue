@@ -11,9 +11,20 @@
       <template #description>
         {{ selectedPayment.description }}
       </template>
-      <template #meta></template>
+      <template #meta v-if="currentOrder">
+        <div class="content">应付金额: ¥{{ currentOrder.totalAmount }}</div>
+        <div class="action" v-if="paymentLink">
+          <a class="button" :href="paymentLink" target="_blank">立即支付</a>
+        </div>
+      </template>
       <template #action>
-        <AppQrcode color="#000" background="none" :padding="0" :size="100" />
+        <AppQrcode
+          color="#000"
+          background="none"
+          :padding="0"
+          :size="100"
+          :content="qrcodeContent"
+        />
       </template>
     </subscription-card>
     <PaymentSelect />
@@ -50,6 +61,9 @@ export default defineComponent({
     ...mapGetters({
       hasPayments: 'payment/index/hasPayments',
       selectedPayment: 'payment/select/selectedPayment',
+      selectedPaymentName: 'payment/select/selectedPaymentName',
+      currentOrder: 'order/create/currentOrder',
+      prePay: 'order/pay/prePay',
     }),
 
     color() {
@@ -74,6 +88,14 @@ export default defineComponent({
     subscriptionCardStyles() {
       return { '--color': this.color };
     },
+
+    qrcodeContent() {
+      return this.prePay ? this.prePay.codeUrl : '';
+    },
+
+    paymentLink() {
+      return this.prePay ? this.prePay.offSiteUrl : '';
+    },
   },
 
   /**
@@ -81,6 +103,21 @@ export default defineComponent({
    */
   async created() {
     await this.getPayments();
+
+    const order = await this.createOrderResolver();
+
+    await this.payOrder(order.id);
+  },
+
+  /**
+   * 监视
+   */
+  watch: {
+    async selectedPaymentName(value, oldValue) {
+      if (oldValue) {
+        await this.updateOrderResolver();
+      }
+    },
   },
 
   /**
@@ -91,6 +128,9 @@ export default defineComponent({
 
     ...mapActions({
       getPayments: 'payment/index/getPayments',
+      createOrderResolver: 'order/create/createOrderResolver',
+      updateOrderResolver: 'order/edit/updateOrderResolver',
+      payOrder: 'order/pay/payOrder',
     }),
   },
 
