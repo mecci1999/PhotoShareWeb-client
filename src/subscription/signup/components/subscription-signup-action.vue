@@ -3,6 +3,7 @@
     <transition name="subscription-payment">
       <SubscriptionPayment v-if="showSubscriptionPayment" />
     </transition>
+    <button class="button" v-if="showSubscriptionButton">查看订阅</button>
   </div>
 </template>
 
@@ -36,6 +37,10 @@ export default defineComponent({
 
     showSubscriptionPayment() {
       return this.currentStepName === 'payment';
+    },
+
+    showSubscriptionButton() {
+      return this.currentStepName === 'complete';
     },
   },
 

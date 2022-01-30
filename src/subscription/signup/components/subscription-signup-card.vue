@@ -101,6 +101,8 @@ export default defineComponent({
     },
 
     showSubscriptionSignupCard() {
+      if (this.currentStepName === 'complete') return false;
+
       return this.selectedSubscriptionType ? this.isSelected : true;
     },
   },
