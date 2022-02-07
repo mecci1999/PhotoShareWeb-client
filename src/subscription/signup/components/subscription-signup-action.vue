@@ -3,7 +3,13 @@
     <transition name="subscription-payment">
       <SubscriptionPayment v-if="showSubscriptionPayment" />
     </transition>
-    <button class="button" v-if="showSubscriptionButton">查看订阅</button>
+    <button
+      class="button"
+      v-if="showSubscriptionButton"
+      @click="onClickSubscriptionButton"
+    >
+      查看订阅
+    </button>
   </div>
 </template>
 
@@ -56,7 +62,14 @@ export default defineComponent({
    */
   methods: {
     ...mapMutations({}),
-    ...mapActions({}),
+
+    ...mapActions({
+      getValidSubscription: 'subscription/info/getValidSubscription',
+    }),
+
+    onClickSubscriptionButton() {
+      this.getValidSubscription();
+    },
   },
 
   /**
