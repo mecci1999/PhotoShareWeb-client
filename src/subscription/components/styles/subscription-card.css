@@ -115,3 +115,28 @@
   font-size: 12px !important;
   padding: 4px 8px;
 }
+
+.subscription-card .meta > .item {
+  display: flex;
+}
+
+.subscription-card .meta > .item > .value {
+  margin-left: 4px;
+  font-weight: 200;
+}
+
+.subscription-card.pointer {
+  cursor: pointer;
+}
+
+.subscription-card.inactive {
+  border-color: var(--line-color);
+}
+
+.subscription-card.inactive:hover {
+  box-shadow: none;
+}
+
+.subscription-card.inactive > .thumbnail > .subscription-icon {
+  color: var(--secondary-text-color) !important;
+}

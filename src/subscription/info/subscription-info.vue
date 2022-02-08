@@ -1,12 +1,13 @@
 <template>
   <div class="subscription-info">
-    SubscriptionInfo
+    <SubscriptionInfoCard />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import SubscriptionInfoCard from '@/subscription/info/subscription-info-card.vue';
 
 export default defineComponent({
   name: 'SubscriptionInfo',
@@ -34,7 +35,7 @@ export default defineComponent({
    * 已创建
    */
   created() {
-  // 
+    //
   },
 
   /**
@@ -49,6 +50,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    SubscriptionInfoCard,
   },
 });
 </script>
