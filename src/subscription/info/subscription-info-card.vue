@@ -23,6 +23,23 @@
           <div class="value">{{ item.value }}</div>
         </div>
       </template>
+      <template #action>
+        <button
+          class="button outline"
+          @click.stop="onClickUpgradeButton"
+          v-if="showUpgradeButton"
+          :disabled="disabledUpgradeButton"
+        >
+          {{ upgradeButtonText }}
+        </button>
+        <button
+          class="button outline"
+          @click.stop="onClickSubscribeButton"
+          :disabled="disabledSubscribeButton"
+        >
+          {{ subscribeButtonText }}
+        </button>
+      </template>
     </subscription-card>
   </div>
 </template>
@@ -46,8 +63,16 @@ export default defineComponent({
    * 数据
    */
   data() {
-    return {};
+    return {
+      isUpgrading: false,
+      isSubscribing: false,
+    };
   },
+
+  /**
+   * 事件
+   */
+  emits: ['change'],
 
   /**
    * 计算属性
@@ -95,19 +120,69 @@ export default defineComponent({
         '--color': this.subscription.meta.color,
       };
     },
+
+    subscribeButtonText() {
+      let subscribeButtonText;
+
+      if (this.isSubscribing) {
+        subscribeButtonText = this.validSubscription.isExpired
+          ? '取消重订'
+          : '取消订阅';
+      } else {
+        subscribeButtonText = this.validSubscription.isExpired
+          ? '重订'
+          : '续订';
+      }
+
+      return subscribeButtonText;
+    },
+
+    upgradeButtonText() {
+      return this.isUpgrading ? '取消升级' : '升级';
+    },
+
+    showUpgradeButton() {
+      return this.validSubscription.type === 'standard';
+    },
+
+    disabledUpgradeButton() {
+      return this.isSubscribing;
+    },
+
+    disabledSubscribeButton() {
+      return this.isUpgrading;
+    },
   },
 
   /**
    * 已创建
    */
   created() {
-    //
+    console.log(this.validSubscription);
   },
 
   /**
    * 组件方法
    */
-  methods: {},
+  methods: {
+    onClickSubscribeButton() {
+      this.isSubscribing = !this.isSubscribing;
+
+      this.$emit('change', {
+        actionType: this.isSubscribing ? 'subscribe' : 'cancel',
+        validSubscription: this.validSubscription,
+      });
+    },
+
+    onClickUpgradeButton() {
+      this.isUpgrading = !this.isUpgrading;
+
+      this.$emit('change', {
+        actionType: this.isUpgrading ? 'upgrading' : 'cancel',
+        validSubscription: this.validSubscription,
+      });
+    },
+  },
 
   /**
    * 使用组件

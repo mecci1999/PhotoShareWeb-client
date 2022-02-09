@@ -97,6 +97,11 @@
 .subscription-card.stack > .action > .button {
   font-size: 14px !important;
   padding: 8px !important;
+  margin-bottom: 8px;
+}
+
+.subscription-card.stack > .action > .button:last-child {
+  margin-bottom: 0;
 }
 
 .subscription-card.bordered-meta > .content > .meta {
