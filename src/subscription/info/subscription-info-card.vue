@@ -15,7 +15,7 @@
         {{ subscription.title }}
       </template>
       <template #description>
-        至 {{ validSubscription.expired }} 到期
+        至 <AppDatetime :date="validSubscription.expired" /> 到期
       </template>
       <template #meta>
         <div class="item" v-for="(item, index) in metaItems" :key="index">
@@ -32,6 +32,7 @@ import { defineComponent } from 'vue';
 import { mapGetters } from 'vuex';
 import SubscriptionCard from '@/subscription/components/subscription-card.vue';
 import SubscriptionIcon from '@/subscription/components/subscription-icon.vue';
+import AppDatetime from '@/app/components/app-datetime.vue';
 
 export default defineComponent({
   name: 'SubscriptionInfoCard',
@@ -112,6 +113,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    AppDatetime,
     SubscriptionCard,
     SubscriptionIcon,
   },
