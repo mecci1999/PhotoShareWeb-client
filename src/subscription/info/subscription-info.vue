@@ -12,6 +12,7 @@ import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import SubscriptionInfoCard from '@/subscription/info/subscription-info-card.vue';
 import SubscriptionPayment from '@/subscription/components/subscription-payment';
+import { socket } from '@/app/app.service';
 
 export default defineComponent({
   name: 'SubscriptionInfo',
@@ -41,7 +42,14 @@ export default defineComponent({
    * 已创建
    */
   created() {
-    //
+    socket.on('subscriptionChanged', this.onChangeSubscriptionChanged);
+  },
+
+  /**
+   * 取消挂载
+   */
+  unmounted() {
+    socket.off('subscriptionChanged', this.onChangeSubscriptionChanged);
   },
 
   /**
@@ -51,9 +59,13 @@ export default defineComponent({
     ...mapMutations({
       setSelectedSubscriptionType: 'product/select/setSelectedSubscriptionType',
       setSelectedProductType: 'product/select/setSelectedProductType',
+      setSubscriptionOrders: 'order/create/setSubscriptionOrders',
     }),
 
-    ...mapActions({}),
+    ...mapActions({
+      pushMessage: 'notification/pushMessage',
+      getValidSubscription: 'subscription/info/getValidSubscription',
+    }),
 
     onChangeSubscriptionInfoCard({ actionType, validSubscription }) {
       if (actionType === 'upgrade') {
@@ -71,6 +83,27 @@ export default defineComponent({
       } else {
         this.showSubscriptionPayment = false;
       }
+    },
+
+    onChangeSubscriptionChanged({ action }) {
+      let content;
+
+      switch (action) {
+        case 'renewed':
+          content = '续订成功';
+          break;
+        case 'upgraded':
+          content = '升级成功';
+          break;
+        case 'resubscribed':
+          content = '重订成功';
+          break;
+      }
+
+      this.pushMessage({ content });
+      this.getValidSubscription();
+      this.setSubscriptionOrders(null);
+      this.showSubscriptionPayment = false;
     },
   },
 

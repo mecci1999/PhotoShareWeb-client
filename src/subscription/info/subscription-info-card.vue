@@ -50,6 +50,7 @@ import { mapGetters } from 'vuex';
 import SubscriptionCard from '@/subscription/components/subscription-card.vue';
 import SubscriptionIcon from '@/subscription/components/subscription-icon.vue';
 import AppDatetime from '@/app/components/app-datetime.vue';
+import { socket } from '@/app/app.service';
 
 export default defineComponent({
   name: 'SubscriptionInfoCard',
@@ -158,7 +159,14 @@ export default defineComponent({
    * 已创建
    */
   created() {
-    console.log(this.validSubscription);
+    socket.on('subscriptionChanged', this.onChangeSubscriptionChanged);
+  },
+
+  /**
+   * 取消挂载
+   */
+  unmounted() {
+    socket.off('subscriptionChanged', this.onChangeSubscriptionChanged);
   },
 
   /**
@@ -181,6 +189,11 @@ export default defineComponent({
         actionType: this.isUpgrading ? 'upgrading' : 'cancel',
         validSubscription: this.validSubscription,
       });
+    },
+
+    onChangeSubscriptionChanged() {
+      this.isUpgrading = false;
+      this.isSubscribing = false;
     },
   },
 
