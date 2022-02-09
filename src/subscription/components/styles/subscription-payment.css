@@ -1,11 +1,20 @@
 /* subscription-payment */
 .subscription-payment-enter-active {
   opacity: 0;
-  transform: translateY(-30px);
+  transform: translateY(-16px);
   transition: 0.3s;
 }
 
 .subscription-payment-enter-to {
   opacity: 1;
   transform: translateY(0);
+}
+
+.subscription-payment-leave-active {
+  transition: 0.3s;
+}
+
+.subscription-payment-leave-to {
+  opacity: 0;
+  transform: translateY(-16px);
 }
