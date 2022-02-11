@@ -4,6 +4,7 @@
       v-if="showSubscriptionInfoCard"
       :class="subscriptionInfoCardClasses"
       :style="subscriptionInfoCardStyles"
+      @click="onClickSubscriptionCard"
     >
       <template #thumbnail>
         <SubscriptionIcon
@@ -40,6 +41,11 @@
           {{ subscribeButtonText }}
         </button>
       </template>
+      <template #extra>
+        <SubscriptionHistory
+          v-show="showSubscriptionHistory"
+        ></SubscriptionHistory>
+      </template>
     </subscription-card>
   </div>
 </template>
@@ -51,6 +57,7 @@ import SubscriptionCard from '@/subscription/components/subscription-card.vue';
 import SubscriptionIcon from '@/subscription/components/subscription-icon.vue';
 import AppDatetime from '@/app/components/app-datetime.vue';
 import { socket } from '@/app/app.service';
+import SubscriptionHistory from '@/subscription/components/subscription-history.vue';
 
 export default defineComponent({
   name: 'SubscriptionInfoCard',
@@ -67,6 +74,7 @@ export default defineComponent({
     return {
       isUpgrading: false,
       isSubscribing: false,
+      showSubscriptionHistory: false,
     };
   },
 
@@ -195,12 +203,17 @@ export default defineComponent({
       this.isUpgrading = false;
       this.isSubscribing = false;
     },
+
+    onClickSubscriptionCard() {
+      this.showSubscriptionHistory = !this.showSubscriptionHistory;
+    },
   },
 
   /**
    * 使用组件
    */
   components: {
+    SubscriptionHistory,
     AppDatetime,
     SubscriptionCard,
     SubscriptionIcon,

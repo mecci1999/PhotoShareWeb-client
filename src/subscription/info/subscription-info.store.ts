@@ -86,10 +86,7 @@ export const subscriptionInfoStoreModule: Module<
    * 动作
    */
   actions: {
-    async getValidSubscription(
-      { commit, dispatch },
-      options: GetValidSubscriptionOptions = {},
-    ) {
+    async getValidSubscription({ commit, dispatch }) {
       commit('setLoading', true);
 
       try {

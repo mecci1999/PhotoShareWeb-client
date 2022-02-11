@@ -145,3 +145,7 @@
 .subscription-card.inactive > .thumbnail > .subscription-icon {
   color: var(--secondary-text-color) !important;
 }
+
+.subscription-card.stack > .extra {
+  grid-column: 1 / 4;
+}

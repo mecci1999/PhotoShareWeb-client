@@ -17,6 +17,9 @@
     <div class="action">
       <slot name="action"></slot>
     </div>
+    <div class="extra" v-if="$slots.extra">
+      <slot name="extra"></slot>
+    </div>
   </div>
 </template>
 
