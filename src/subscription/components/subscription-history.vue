@@ -1,12 +1,17 @@
 <template>
   <div class="subscription-history">
-    SubscriptionHistory
+    <SubscriptionHistoryItem
+      v-for="item in subscriptionHistory"
+      :key="item.id"
+      :item="item"
+    />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import SubscriptionHistoryItem from '@/subscription/components/subscription-history-item.vue';
 
 export default defineComponent({
   name: 'SubscriptionHistory',
@@ -27,14 +32,17 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      subscriptionHistory: 'subscription/info/subscriptionHistory',
+    }),
   },
 
   /**
    * 已创建
    */
   created() {
-  // 
+    this.getSubscriptionHistory();
+    console.log(this.subscriptionHistory);
   },
 
   /**
@@ -42,13 +50,17 @@ export default defineComponent({
    */
   methods: {
     ...mapMutations({}),
-    ...mapActions({}),
+
+    ...mapActions({
+      getSubscriptionHistory: 'subscription/info/getSubscriptionHistory',
+    }),
   },
 
   /**
    * 使用组件
    */
   components: {
+    SubscriptionHistoryItem,
   },
 });
 </script>

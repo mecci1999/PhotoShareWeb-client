@@ -65,7 +65,6 @@ export const subscriptionInfoStoreModule: Module<
           case 'create':
             action = '创建';
             break;
-
           case 'renewed':
             action = '续订';
             break;
@@ -85,11 +84,11 @@ export const subscriptionInfoStoreModule: Module<
             item.content = `${action}专业版订阅`;
           }
         } else {
-          if (item.meta.type === 'standard') {
+          if (item.meta.subscriptionType === 'standard') {
             item.content = `${action}标准版订阅`;
           }
 
-          if (item.meta.type === 'pro') {
+          if (item.meta.subscriptionType === 'pro') {
             item.content = `${action}专业版订阅`;
           }
         }
