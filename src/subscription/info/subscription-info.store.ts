@@ -16,7 +16,17 @@ export interface ValidSubscription {
   weeklyDownloadsLimit: number;
 }
 
+export interface SubscriptionHistoryItem {
+  id: number;
+  action: string;
+  meta: any;
+  created: number;
+  totalAmount: string;
+  content?: string;
+}
+
 export interface SubscriptionInfoStoreState {
+  subscriptionHistory: Array<SubscriptionHistoryItem>;
   validSubscription: ValidSubscription | null;
   loading: boolean;
 }
@@ -38,6 +48,7 @@ export const subscriptionInfoStoreModule: Module<
    * 数据
    */
   state: {
+    subscriptionHistory: [],
     validSubscription: null,
     loading: false,
   } as SubscriptionInfoStoreState,
@@ -46,6 +57,47 @@ export const subscriptionInfoStoreModule: Module<
    * 获取器
    */
   getters: {
+    subscriptionHistory(state) {
+      return state.subscriptionHistory.map(item => {
+        let action = '';
+
+        switch (item.action) {
+          case 'create':
+            action = '创建';
+            break;
+
+          case 'renewed':
+            action = '续订';
+            break;
+          case 'upgraded':
+            action = '升级';
+            break;
+          case 'resubscribed':
+            action = '重订';
+            break;
+        }
+
+        if (item.action === 'create') {
+          if (item.meta.subscriptionType === 'standard') {
+            item.content = `${action}标准版订阅`;
+          }
+          if (item.meta.subscriptionType === 'pro') {
+            item.content = `${action}专业版订阅`;
+          }
+        } else {
+          if (item.meta.type === 'standard') {
+            item.content = `${action}标准版订阅`;
+          }
+
+          if (item.meta.type === 'pro') {
+            item.content = `${action}专业版订阅`;
+          }
+        }
+
+        return item;
+      });
+    },
+
     validSubscription(state) {
       return state.validSubscription;
     },
@@ -73,6 +125,10 @@ export const subscriptionInfoStoreModule: Module<
    * 修改器
    */
   mutations: {
+    setSubscriptionHistory(state, data) {
+      state.subscriptionHistory = data;
+    },
+
     setValidSubscription(state, data) {
       state.validSubscription = data;
     },
@@ -98,6 +154,27 @@ export const subscriptionInfoStoreModule: Module<
         dispatch('product/show/getSubscriptionProducts', null, { root: true });
 
         return response;
+      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const _error = error as any;
+
+        commit('setLoading', false);
+
+        throw _error.response;
+      }
+    },
+
+    async getSubscriptionHistory({ commit, state }) {
+      commit('setLoading', true);
+
+      try {
+        const response = await apiHttpClient.get(
+          `/subscriptions/${state.validSubscription?.id}/history`,
+        );
+
+        commit('setLoading', false);
+
+        commit('setSubscriptionHistory', response.data);
       } catch (error) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const _error = error as any;

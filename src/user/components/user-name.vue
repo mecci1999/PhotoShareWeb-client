@@ -97,10 +97,10 @@ export default defineComponent({
       if (this.hasSubscription && subscription.status === 'valid') {
         switch (subscription.type) {
           case 'standard':
-            name = '标准';
+            name = '标准版';
             break;
           case 'pro':
-            name = '专业';
+            name = '专业版';
             break;
         }
       }
