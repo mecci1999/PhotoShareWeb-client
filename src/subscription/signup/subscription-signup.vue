@@ -41,6 +41,8 @@ export default defineComponent({
    */
   created() {
     socket.on('subscriptionChanged', this.onSubscriptionChanged);
+
+    this.setCurrentStepName('select');
   },
 
   /**
