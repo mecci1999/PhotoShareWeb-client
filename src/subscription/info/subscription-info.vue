@@ -35,7 +35,9 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      currentUser: 'user/currentUser',
+    }),
   },
 
   /**
@@ -65,6 +67,7 @@ export default defineComponent({
     ...mapActions({
       pushMessage: 'notification/pushMessage',
       getValidSubscription: 'subscription/info/getValidSubscription',
+      getCurrentUser: 'user/getCurrentUser',
     }),
 
     onChangeSubscriptionInfoCard({ actionType, validSubscription }) {
@@ -104,6 +107,7 @@ export default defineComponent({
       this.getValidSubscription();
       this.setSubscriptionOrders(null);
       this.showSubscriptionPayment = false;
+      this.getCurrentUser(this.currentUser.id);
     },
   },
 

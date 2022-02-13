@@ -33,7 +33,9 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      currentUser: 'user/currentUser',
+    }),
   },
 
   /**
@@ -61,11 +63,14 @@ export default defineComponent({
       setSubscriptionOrders: 'order/create/setSubscriptionOrders',
     }),
 
-    ...mapActions({}),
+    ...mapActions({
+      getCurrentUser: 'user/getCurrentUser',
+    }),
 
     onSubscriptionChanged() {
       this.setSubscriptionOrders(null);
       this.setCurrentStepName('complete');
+      this.getCurrentUser(this.currentUser.id);
     },
   },
 
