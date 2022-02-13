@@ -12,7 +12,10 @@
         {{ selectedPayment.description }}
       </template>
       <template #meta v-if="currentOrder">
-        <div class="content">应付金额: ¥{{ currentOrder.totalAmount }}</div>
+        <div class="item">
+          <div class="title">应付金额</div>
+          <div class="value">¥ {{ currentOrder.totalAmount }}</div>
+        </div>
         <div class="action" v-if="paymentLink">
           <a class="button" :href="paymentLink" target="_blank">立即支付</a>
         </div>
