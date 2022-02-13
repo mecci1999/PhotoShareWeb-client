@@ -58,11 +58,13 @@ export default defineComponent({
   methods: {
     ...mapMutations({
       setCurrentStepName: 'subscription/signup/setCurrentStepName',
+      setSubscriptionOrders: 'order/create/setSubscriptionOrders',
     }),
 
     ...mapActions({}),
 
     onSubscriptionChanged() {
+      this.setSubscriptionOrders(null);
       this.setCurrentStepName('complete');
     },
   },
