@@ -1,23 +1,20 @@
 <template>
-  <div class="license-index">
-    <LicenseList></LicenseList>
+  <div class="license-list">
+    <LicenseListItem
+      v-for="license in licenses"
+      :key="license.id"
+      :item="license"
+    />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
-import LicenseList from './components/license-list.vue';
+import LicenseListItem from '@/license/index/components/license-list-item.vue';
 
 export default defineComponent({
-  name: 'LicenseIndex',
-
-  /**
-   * 标题
-   */
-  title() {
-    return '许可';
-  },
+  name: 'LicenseList',
 
   /**
    * 属性
@@ -35,14 +32,16 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      licenses: 'license/index/licenses',
+    }),
   },
 
   /**
    * 已创建
    */
   created() {
-    //
+    this.getLicenses();
   },
 
   /**
@@ -50,18 +49,21 @@ export default defineComponent({
    */
   methods: {
     ...mapMutations({}),
-    ...mapActions({}),
+
+    ...mapActions({
+      getLicenses: 'license/index/getLicenses',
+    }),
   },
 
   /**
    * 使用组件
    */
   components: {
-    LicenseList,
+    LicenseListItem,
   },
 });
 </script>
 
 <style scoped>
-@import './styles/license-index.css';
+@import './styles/license-list.css';
 </style>

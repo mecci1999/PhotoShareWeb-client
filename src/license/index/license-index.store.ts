@@ -87,7 +87,7 @@ export const licenseIndexStoreModule: Module<
    * 动作
    */
   actions: {
-    async getLicenses({ commit }, options: GetLicensesOptions = {}) {
+    async getLicenses({ commit }) {
       commit('setLoading', true);
 
       try {
