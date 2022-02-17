@@ -7,6 +7,7 @@ import manageRoutes from '@/manage/manage.routes';
 import dashboardRoutes from '@/dashboard/dashboard.routes';
 import weixinRoutes from '@/weixin/weixin.routes';
 import subscriptionRoutes from '@/subscription/subscription.routes';
+import licenseRoutes from '@/license/license.routes';
 import { appToolbarItemGuard, authGuard } from './app.router.guard';
 
 /**
@@ -23,6 +24,7 @@ const router = createRouter({
     ...dashboardRoutes,
     ...weixinRoutes,
     ...subscriptionRoutes,
+    ...licenseRoutes,
   ],
 });
 

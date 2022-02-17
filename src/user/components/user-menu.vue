@@ -104,6 +104,13 @@ export default defineComponent({
             },
             text: '订阅',
           },
+          {
+            linkTo: {
+              name: 'licenseIndex',
+              params: { userId: this.currentUser.id },
+            },
+            text: '许可',
+          },
         ],
       ];
     },
