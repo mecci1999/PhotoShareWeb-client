@@ -1,0 +1,15 @@
+/* payment-name */
+.payment-name {
+  display: flex;
+  align-items: center;
+}
+
+.payment-name > .icon > .payment-icon {
+  font-size: 16px !important;
+}
+
+.payment-name > .title {
+  font-size: 14px;
+  color: var(--secondary-text-color);
+  margin-left: 4px;
+}
