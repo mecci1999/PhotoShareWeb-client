@@ -3,7 +3,7 @@ import { RootState } from '@/app/app.store';
 import { apiHttpClient, queryStringProcess } from '@/app/app.service';
 import { filterProcess } from '../../post/post.service';
 import { StringifiableRecord } from 'query-string';
-import { COMMENTS_PRE_PAGE } from '../../app/app.config';
+import { COMMENTS_PER_PAGE } from '../../app/app.config';
 
 export interface CommentListItem {
   id: number;
@@ -228,7 +228,7 @@ export const commentIndexStoreModule: Module<
         response.headers['X-Total-Count'] || response.headers['x-total-count'];
 
       // 总页数
-      const totalPages = Math.ceil(total / COMMENTS_PRE_PAGE);
+      const totalPages = Math.ceil(total / COMMENTS_PER_PAGE);
 
       commit('setTotalPages', totalPages);
 
