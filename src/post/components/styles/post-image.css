@@ -1,0 +1,11 @@
+/* post-image */
+.post-image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.post-image > .image {
+  width: 100%;
+  object-fit: cover;
+}
