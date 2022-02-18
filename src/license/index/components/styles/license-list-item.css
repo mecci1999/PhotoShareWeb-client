@@ -1,1 +1,73 @@
 /* license-list-item */
+.license-list-item > .card {
+  color: #000;
+  padding: 24px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  background: #f8f2b7;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  outline: 2px solid var(--primary-text-color);
+  outline-offset: -10px;
+}
+
+.license-list-item > .card .link {
+  color: var(--primary-text-color);
+}
+
+.license-list-item > .card > .content {
+  flex-grow: 2;
+}
+
+.license-list-item > .card > .content > .header {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.license-list-item > .card > .content > .title {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.license-list-item > .card > .content > .action {
+  margin-bottom: 8px;
+}
+
+.license-list-item > .card > .content > .meta {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  font-size: 12px;
+}
+
+.license-list-item .user-avatar {
+  width: 16px;
+  height: 16px;
+}
+
+.license-list-item .user-name {
+  margin: 0 4px;
+}
+
+.license-list-item > .card > .thumbnail {
+  width: 112px;
+  height: 112px;
+  cursor: pointer;
+}
+
+.license-list-item > .card > .thumbnail .image {
+  border-radius: 50%;
+  border: 2px solid var(--primary-text-color);
+  padding: 3px;
+  box-sizing: border-box;
+  background: #faef89;
+}
+
+.license-list-item > .meta {
+  font-size: 12px;
+  color: var(--secondary-text-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
