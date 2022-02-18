@@ -6,7 +6,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { APP_BASE_URL } from '@/app/app.config';
+import { API_BASE_URL } from '@/app/app.config';
 
 export default defineComponent({
   name: 'PostImage',
@@ -37,7 +37,7 @@ export default defineComponent({
    */
   computed: {
     imageUrl() {
-      return `${APP_BASE_URL}/files/${this.file.id}/serve?size=${this.size}`;
+      return `${API_BASE_URL}/files/${this.file.id}/serve?size=${this.size}`;
     },
   },
 
