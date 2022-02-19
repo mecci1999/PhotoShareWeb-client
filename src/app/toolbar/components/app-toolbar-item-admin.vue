@@ -59,7 +59,13 @@ export default defineComponent({
     onClickAdminButton() {
       this.setUseAdmin(!this.useAdmin);
 
-      const query = this.useAdmin ? { admin: true } : {};
+      const query = { ...this.$route.query };
+
+      if (this.useAdmin) {
+        query.admin = true;
+      } else {
+        delete query.admin;
+      }
 
       this.$router.replace({ query });
     },

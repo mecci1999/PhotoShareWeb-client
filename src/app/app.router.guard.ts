@@ -32,6 +32,7 @@ export const appToolbarItemGuard = (
       break;
     case 'orderIndex':
       showSideSheetItem = true;
+      showAdminItem = true;
       break;
   }
 

@@ -38,7 +38,9 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      useAdmin: 'user/useAdmin',
+    }),
   },
 
   /**
@@ -46,6 +48,18 @@ export default defineComponent({
    */
   created() {
     this.setSideSheetComponent('OrderIndexSideSheet');
+
+    const { admin } = this.$route.query;
+
+    if (admin === 'true') {
+      this.setUseAdmin(true);
+    }
+
+    if (this.useAdmin) {
+      const query = { ...this.$route.query, admin: true };
+
+      this.$router.replace({ query });
+    }
   },
 
   /**
@@ -54,6 +68,7 @@ export default defineComponent({
   methods: {
     ...mapMutations({
       setSideSheetComponent: 'layout/setSideSheetComponent',
+      setUseAdmin: 'user/setUseAdmin',
     }),
 
     ...mapActions({}),
