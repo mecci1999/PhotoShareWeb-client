@@ -1,6 +1,7 @@
 import { Module } from 'vuex';
 import { RootState } from '@/app/app.store';
 import { apiHttpClient } from '@/app/app.service';
+import { LICENSES_PER_PAGE } from '../../app/app.config';
 
 export interface LicenseListItem {
   id: number;
@@ -32,6 +33,8 @@ export interface LicenseListItem {
 }
 
 export interface LicenseIndexStoreState {
+  totalPages: number;
+  nextPage: number;
   loading: boolean;
   licenses: Array<LicenseListItem>;
 }
@@ -53,6 +56,8 @@ export const licenseIndexStoreModule: Module<
    * 数据
    */
   state: {
+    totalPages: 1,
+    nextPage: 1,
     loading: false,
     licenses: [],
   } as LicenseIndexStoreState,
@@ -61,6 +66,14 @@ export const licenseIndexStoreModule: Module<
    * 获取器
    */
   getters: {
+    totalPages(state) {
+      return state.totalPages;
+    },
+
+    nextPage(state) {
+      return state.nextPage;
+    },
+
     loading(state) {
       return state.loading;
     },
@@ -68,12 +81,28 @@ export const licenseIndexStoreModule: Module<
     licenses(state) {
       return state.licenses;
     },
+
+    hasMore(state) {
+      return state.totalPages - state.nextPage >= 0;
+    },
   },
 
   /**
    * 修改器
    */
   mutations: {
+    setNextPage(state, data) {
+      if (data) {
+        state.nextPage = data;
+      } else {
+        state.nextPage++;
+      }
+    },
+
+    setTotalPages(state, data) {
+      state.totalPages = data;
+    },
+
     setLoading(state, data) {
       state.loading = data;
     },
@@ -87,14 +116,15 @@ export const licenseIndexStoreModule: Module<
    * 动作
    */
   actions: {
-    async getLicenses({ commit }) {
+    async getLicenses({ commit, state, dispatch }) {
       commit('setLoading', true);
 
       try {
-        const response = await apiHttpClient.get(`licenses`);
+        const response = await apiHttpClient.get(
+          `licenses?page=${state.nextPage}`,
+        );
 
-        commit('setLicenses', response.data);
-        commit('setLoading', false);
+        dispatch('getLicensesPostProcess', response);
 
         return response;
       } catch (error) {
@@ -105,6 +135,25 @@ export const licenseIndexStoreModule: Module<
 
         throw _error.response;
       }
+    },
+
+    getLicensesPostProcess({ commit, state }, response) {
+      if (state.nextPage === 1) {
+        commit('setLicenses', response.data);
+      } else {
+        commit('setLicenses', [...state.licenses, ...response.data]);
+      }
+
+      commit('setLoading', false);
+
+      const total =
+        response.headers['X-Total-Count'] || response.headers['x-total-count'];
+
+      const totalPages = Math.ceil(total / LICENSES_PER_PAGE);
+
+      commit('setTotalPages', totalPages);
+
+      commit('setNextPage');
     },
   },
 
