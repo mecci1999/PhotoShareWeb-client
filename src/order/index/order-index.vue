@@ -45,14 +45,17 @@ export default defineComponent({
    * 已创建
    */
   created() {
-    //
+    this.setSideSheetComponent('OrderIndexSideSheet');
   },
 
   /**
    * 组件方法
    */
   methods: {
-    ...mapMutations({}),
+    ...mapMutations({
+      setSideSheetComponent: 'layout/setSideSheetComponent',
+    }),
+
     ...mapActions({}),
   },
 

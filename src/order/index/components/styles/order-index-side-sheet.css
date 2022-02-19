@@ -1,0 +1,30 @@
+/* order-index-side-sheet */
+.order-index-side-sheet {
+  padding: 16px;
+  padding-top: 32px;
+  margin-top: 40px;
+  color: var(--secondary-text-color);
+}
+
+.order-index-side-sheet > .filter {
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+}
+
+.order-index-side-sheet > .filter > .header {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line-color);
+}
+
+.order-index-side-sheet .input {
+  border: none !important;
+  padding: 10px 12px !important;
+  border-radius: 3px;
+}
+
+.order-index-side-sheet .field {
+  margin-bottom: 8px !important;
+}

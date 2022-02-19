@@ -19,6 +19,7 @@ import CommentSideSheet from '@/comment/components/comment-side-sheet.vue';
 import CloseButton from '@/app/components/close-button.vue';
 import ManagePostSideSheet from '@/manage/post/components/manage-post-side-sheet.vue';
 import PostSideSheet from '@/post/side-sheet/post-side-sheet.vue';
+import OrderIndexSideSheet from '@/order/index/components/order-index-side-sheet.vue';
 
 export default defineComponent({
   name: 'PageSideSheet',
@@ -98,6 +99,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    OrderIndexSideSheet,
     ManagePostSideSheet,
     CommentSideSheet,
     CloseButton,

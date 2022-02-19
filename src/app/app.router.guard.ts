@@ -30,6 +30,9 @@ export const appToolbarItemGuard = (
       showSideSheetItem = true;
       showAdminItem = true;
       break;
+    case 'orderIndex':
+      showSideSheetItem = true;
+      break;
   }
 
   appStore.commit(
