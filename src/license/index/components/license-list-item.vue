@@ -9,7 +9,7 @@
           {{ item.resource.title }}
         </div>
         <div class="action">
-          <button class="button basic">
+          <button class="button basic" @click="onClickQrcodeButton">
             <AppIcon name="qr_code" color="#000" />
           </button>
         </div>
@@ -19,8 +19,21 @@
         </div>
       </div>
       <div class="thumbnail">
-        <PostImage :file="item.file" @click="onClickPostImage" />
-        <AppQrcode v-if="false" />
+        <transition name="license-list-item-thumbnail">
+          <PostImage
+            :file="item.file"
+            @click="onClickPostImage"
+            v-if="!showQrcode"
+          />
+        </transition>
+        <transition name="license-list-item-thumbnail">
+          <AppQrcode
+            v-if="showQrcode"
+            :padding="8"
+            :size="112"
+            background="none"
+          />
+        </transition>
       </div>
     </div>
     <div class="meta">
@@ -34,13 +47,13 @@
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapActions } from 'vuex';
-import AppDatetime from '@/app/components/app-datetime';
-import AppIcon from '@/app/components/app-icon';
-import AppQrcode from '@/app/components/app-qrcode';
-import PaymentName from '@/payment/components/payment-name';
-import PostImage from '@/post/components/post-image';
-import UserAvatar from '@/user/components/user-avatar';
-import UserName from '@/user/components/user-name';
+import AppDatetime from '@/app/components/app-datetime.vue';
+import AppIcon from '@/app/components/app-icon.vue';
+import AppQrcode from '@/app/components/app-qrcode.vue';
+import PaymentName from '@/payment/components/payment-name.vue';
+import PostImage from '@/post/components/post-image.vue';
+import UserAvatar from '@/user/components/user-avatar.vue';
+import UserName from '@/user/components/user-name.vue';
 
 export default defineComponent({
   name: 'LicenseListItem',
@@ -58,7 +71,9 @@ export default defineComponent({
    * 数据
    */
   data() {
-    return {};
+    return {
+      showQrcode: false,
+    };
   },
 
   /**
@@ -107,6 +122,10 @@ export default defineComponent({
     async onClickPostImage() {
       await this.generateDownload();
       this.$refs.downloadLink.click();
+    },
+
+    async onClickQrcodeButton() {
+      this.showQrcode = !this.showQrcode;
     },
   },
 
