@@ -25,7 +25,9 @@ export default defineComponent({
    * 数据
    */
   data() {
-    return {};
+    return {
+      prevScrollTop: 0,
+    };
   },
 
   /**
@@ -34,6 +36,8 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       licenses: 'license/index/licenses',
+      hasMore: 'license/index/hasMore',
+      loading: 'license/index/loading',
     }),
   },
 
@@ -42,6 +46,20 @@ export default defineComponent({
    */
   created() {
     this.getLicenses();
+
+    if (window) {
+      window.addEventListener('scroll', this.onScrollWindow);
+      window.scrollTo({ top: 0 });
+    }
+  },
+
+  /**
+   * 取消挂载
+   */
+  unmounted() {
+    if (window) {
+      window.removeEventListener('scroll', this.onScrollWindow);
+    }
   },
 
   /**
@@ -53,6 +71,28 @@ export default defineComponent({
     ...mapActions({
       getLicenses: 'license/index/getLicenses',
     }),
+
+    onScrollWindow() {
+      if (document) {
+        const {
+          scrollHeight,
+          scrollTop,
+          clientHeight,
+        } = document.documentElement;
+
+        const height = clientHeight + scrollTop + 200;
+
+        const touchDown = scrollHeight - height < 0;
+
+        const scrollDown = scrollTop > this.prevScrollTop;
+
+        if (touchDown && scrollDown && !this.loading && this.hasMore) {
+          this.getLicenses();
+        }
+
+        this.prevScrollTop = scrollTop;
+      }
+    },
   },
 
   /**
