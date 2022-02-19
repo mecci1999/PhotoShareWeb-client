@@ -32,6 +32,7 @@
             :padding="8"
             :size="112"
             background="none"
+            :content="localFileDownloadUrl"
           />
         </transition>
       </div>
@@ -54,6 +55,7 @@ import PaymentName from '@/payment/components/payment-name.vue';
 import PostImage from '@/post/components/post-image.vue';
 import UserAvatar from '@/user/components/user-avatar.vue';
 import UserName from '@/user/components/user-name.vue';
+import { socket } from '@/app/app.service';
 
 export default defineComponent({
   name: 'LicenseListItem',
@@ -73,6 +75,8 @@ export default defineComponent({
   data() {
     return {
       showQrcode: false,
+      localDownload: null,
+      localFileDownloadUrl: '',
     };
   },
 
@@ -82,6 +86,7 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       fileDownloadUrl: 'download/create/fileDownloadUrl',
+      download: 'download/create/download',
     }),
 
     licenseNumber() {
@@ -93,7 +98,14 @@ export default defineComponent({
    * 已创建
    */
   created() {
-    //
+    socket.on('fileDownloadUsed', this.onFileDownloadUsed);
+  },
+
+  /**
+   * 取消挂载
+   */
+  unmounted() {
+    socket.off('fileDownloadUsed', this.onFileDownloadUsed);
   },
 
   /**
@@ -125,7 +137,23 @@ export default defineComponent({
     },
 
     async onClickQrcodeButton() {
+      if (!this.localDownload) {
+        await this.generateDownload();
+        this.localDownload = this.download;
+        this.localFileDownloadUrl = this.fileDownloadUrl;
+      }
+
       this.showQrcode = !this.showQrcode;
+    },
+
+    onFileDownloadUsed({ id }) {
+      if (!this.localDownload) return;
+
+      if (this.localDownload.id === id) {
+        this.showQrcode = false;
+        this.localDownload = null;
+        this.localFileDownloadUrl = '';
+      }
     },
   },
 

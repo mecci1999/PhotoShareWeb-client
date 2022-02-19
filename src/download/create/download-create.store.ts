@@ -1,7 +1,6 @@
 import { Module } from 'vuex';
 import { RootState } from '@/app/app.store';
 import { apiHttpClient, queryStringProcess } from '@/app/app.service';
-import { Stringifiable } from 'query-string';
 import { API_BASE_URL } from '../../app/app.config';
 
 export interface Download {
