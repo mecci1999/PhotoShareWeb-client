@@ -36,3 +36,11 @@ export const LICENSES_PER_PAGE = parseInt(
   process.env.VUE_APP_LICENSES_PER_PAGE,
   10,
 );
+
+/**
+ * 订单
+ */
+export const ORDERS_PER_PAGE = parseInt(
+  process.env.VUE_APP_ORDERS_PER_PAGE,
+  10,
+);
