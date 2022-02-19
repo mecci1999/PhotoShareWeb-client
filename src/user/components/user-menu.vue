@@ -111,6 +111,13 @@ export default defineComponent({
             },
             text: '许可',
           },
+          {
+            linkTo: {
+              name: 'orderIndex',
+              params: { userId: this.currentUser.id },
+            },
+            text: '订单',
+          },
         ],
       ];
     },
