@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="thumbnail">
-        <PostImage :file="item.file" />
+        <PostImage :file="item.file" @click="onClickPostImage" />
         <AppQrcode v-if="false" />
       </div>
     </div>
@@ -27,11 +27,13 @@
       <PaymentName :name="item.order.payment" />
       <AppDatetime :date="item.created" />
     </div>
+    <a :href="fileDownloadUrl" ref="downloadLink"></a>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import { mapGetters, mapActions } from 'vuex';
 import AppDatetime from '@/app/components/app-datetime';
 import AppIcon from '@/app/components/app-icon';
 import AppQrcode from '@/app/components/app-qrcode';
@@ -63,6 +65,10 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
+    ...mapGetters({
+      fileDownloadUrl: 'download/create/fileDownloadUrl',
+    }),
+
     licenseNumber() {
       return `${this.item.id}`.padStart(7, '0');
     },
@@ -78,7 +84,31 @@ export default defineComponent({
   /**
    * 组件方法
    */
-  methods: {},
+  methods: {
+    ...mapActions({
+      createDownload: 'download/create/createDownload',
+      pushMessage: 'notification/pushMessage',
+    }),
+
+    async generateDownload() {
+      try {
+        await this.createDownload({
+          fileId: this.item.file.id,
+          data: {
+            resourceType: 'post',
+            resourceId: this.item.resource.id,
+          },
+        });
+      } catch (error) {
+        this.pushMessage({ content: error.data.message });
+      }
+    },
+
+    async onClickPostImage() {
+      await this.generateDownload();
+      this.$refs.downloadLink.click();
+    },
+  },
 
   /**
    * 使用组件
