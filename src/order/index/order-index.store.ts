@@ -1,9 +1,27 @@
 import { Module } from 'vuex';
 import { RootState } from '@/app/app.store';
-import { apiHttpClient } from '@/app/app.service';
+import { apiHttpClient, queryStringProcess } from '@/app/app.service';
+import { ORDERS_PER_PAGE } from '../../app/app.config';
 
 export interface OrderListItem {
-  data: null;
+  id: number;
+  payment: string;
+  totalAmount: string;
+  status: string;
+  created: string;
+  updated: string;
+  user: {
+    id: number;
+    name: string;
+    avatar: number | null;
+    subscription: { type: string; status: string } | null;
+  };
+  product: {
+    id: number;
+    meta: any;
+    type: string;
+    title: string;
+  };
 }
 
 export type Orders = Array<OrderListItem>;
@@ -13,14 +31,17 @@ export interface OrderIndexStoreState {
   totalPages: number;
   dateTimeRange: string;
   queryString: string;
-  filter: string;
-  orderCount: string;
+  filter: { [name: string]: string } | null;
+  ordersCount: {
+    count: number;
+    totalAmount: string;
+  } | null;
   loading: boolean;
-  orders: Orders | null;
+  orders: Orders;
 }
 
 export interface GetOrdersOptions {
-  data?: null;
+  filter?: { [name: string]: string };
 }
 
 export const orderIndexStoreModule: Module<OrderIndexStoreState, RootState> = {
@@ -37,10 +58,10 @@ export const orderIndexStoreModule: Module<OrderIndexStoreState, RootState> = {
     totalPages: 1,
     dateTimeRange: '',
     queryString: '',
-    filter: '',
-    orderCount: '',
+    filter: null,
+    ordersCount: null,
     loading: false,
-    orders: null,
+    orders: [],
   } as OrderIndexStoreState,
 
   /**
@@ -67,8 +88,8 @@ export const orderIndexStoreModule: Module<OrderIndexStoreState, RootState> = {
       return state.filter;
     },
 
-    orderCount(state) {
-      return state.orderCount;
+    ordersCount(state) {
+      return state.ordersCount;
     },
 
     loading(state) {
@@ -78,6 +99,10 @@ export const orderIndexStoreModule: Module<OrderIndexStoreState, RootState> = {
     orders(state) {
       return state.orders;
     },
+
+    hasMore(state) {
+      return state.totalPages - state.nextPage >= 0;
+    },
   },
 
   /**
@@ -85,7 +110,11 @@ export const orderIndexStoreModule: Module<OrderIndexStoreState, RootState> = {
    */
   mutations: {
     setNextPage(state, data) {
-      state.nextPage = data;
+      if (data) {
+        state.nextPage = data;
+      } else {
+        state.nextPage++;
+      }
     },
 
     setTotalPages(state, data) {
@@ -104,8 +133,8 @@ export const orderIndexStoreModule: Module<OrderIndexStoreState, RootState> = {
       state.filter = data;
     },
 
-    setOrderCount(state, data) {
-      state.orderCount = data;
+    setOrdersCount(state, data) {
+      state.ordersCount = data;
     },
 
     setLoading(state, data) {
@@ -121,11 +150,19 @@ export const orderIndexStoreModule: Module<OrderIndexStoreState, RootState> = {
    * 动作
    */
   actions: {
-    async getOrders({ commit, dispatch }, options: GetOrdersOptions = {}) {
-      dispatch('getOrdersPreProcess', options);
+    async getOrders(
+      { commit, dispatch, state },
+      options: GetOrdersOptions = {},
+    ) {
+      const getOrdersQueryString = await dispatch(
+        'getOrdersPreProcess',
+        options,
+      );
 
       try {
-        const response = await apiHttpClient.get(`resources`);
+        const response = await apiHttpClient.get(
+          `orders?page=${state.nextPage}&${getOrdersQueryString}`,
+        );
 
         dispatch('getOrdersPostProcess', response);
 
@@ -140,13 +177,54 @@ export const orderIndexStoreModule: Module<OrderIndexStoreState, RootState> = {
       }
     },
 
-    async getOrdersPreProcess({ commit }, options: GetOrdersOptions = {}) {
+    async getOrdersPreProcess(
+      { commit, state },
+      options: GetOrdersOptions = {},
+    ) {
       commit('setLoading', true);
+
+      commit('filter', options.filter);
+
+      const getOrdersQueryString = queryStringProcess({ ...state.filter });
+
+      if (state.queryString !== getOrdersQueryString) {
+        commit('setNextPage', 1);
+      }
+
+      // 赋值给查询符
+      commit('setQueryString', getOrdersQueryString);
+
+      // return quertString
+      return getOrdersQueryString;
     },
 
-    async getOrdersPostProcess({ commit }, response) {
+    async getOrdersPostProcess({ commit, state }, response) {
+      // 需要解构data中的页数数据
+      const {
+        data: { orders, ordersCount },
+      } = response;
+
+      // 根据页数来分配请求
+      if (state.nextPage === 1) {
+        commit('setOrders', orders);
+      } else {
+        commit('setOrders', [...state.orders, orders]);
+      }
+
+      commit('setOrdersCount', ordersCount);
+
       commit('setLoading', false);
-      commit('setOrders', response.data);
+
+      // 从响应头部拿到整个订单数量
+      const total =
+        response.headers['X-Total-Count'] || response.headers['x-total-count'];
+
+      // 计算出订单总页数,并向上取整
+      const totalPages = Math.ceil(total / ORDERS_PER_PAGE);
+
+      commit('setTotalPages', totalPages);
+
+      commit('setNextPage');
     },
   },
 

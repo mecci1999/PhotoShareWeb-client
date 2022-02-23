@@ -25,27 +25,24 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {
-  },
+  computed: {},
 
   /**
    * 已创建
    */
   created() {
-  // 
+    //
   },
 
   /**
    * 组件方法
    */
-  methods: {
-  },
+  methods: {},
 
   /**
    * 使用组件
    */
-  components: {
-  },
+  components: {},
 });
 </script>
 
