@@ -28,6 +28,13 @@
 
   /* Reply */
   --reply-filter: drop-shadow(rgba(0, 0, 0, 0.1) 0 2px 0);
+
+  /* badge */
+  --green-badge-background: rgba(129, 199, 132, 0.38);
+  --green-badge-text-color: #43a047;
+
+  --purple-badge-background: rgba(129, 104, 232, 0.2);
+  --purple-badge-text-color: #7067f7;
 }
 
 .page.dark {
@@ -60,4 +67,11 @@
 
   /* Reply */
   --reply-filter: drop-shadow(rgba(255, 255, 255, 0.1) 0 2px 0);
+
+  /* badge */
+  --green-badge-background: rgba(40, 155, 45, 0.26);
+  --green-badge-text-color: #43a047;
+
+  --purple-badge-background: rgba(71, 63, 189, 0.2);
+  --purple-badge-text-color: #7067f7;
 }

@@ -1,0 +1,18 @@
+/* order-status */
+.order-status {
+  font-size: 12px;
+  padding: 4px 8px;
+  display: inline-block;
+  border-radius: 20px;
+  background: var(--light-background);
+}
+
+.order-status.purple {
+  background: var(--purple-badge-background);
+  color: var(--purple-badge-text-color);
+}
+
+.order-status.green {
+  background: var(--green-badge-background);
+  color: var(--green-badge-text-color);
+}
