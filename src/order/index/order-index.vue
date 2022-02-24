@@ -1,12 +1,15 @@
 <template>
   <div class="order-index">
-    OrderIndex
+    <div class="content">
+      <OrderList :filter="filter" />
+    </div>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import OrderList from '@/order/index/components/order-list.vue';
 
 export default defineComponent({
   name: 'OrderIndex',
@@ -77,7 +80,9 @@ export default defineComponent({
   /**
    * 使用组件
    */
-  components: {},
+  components: {
+    OrderList,
+  },
 });
 </script>
 
