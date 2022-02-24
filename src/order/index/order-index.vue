@@ -1,5 +1,8 @@
 <template>
   <div class="order-index">
+    <div class="header">
+      <OrderCounter />
+    </div>
     <div class="content">
       <OrderList :filter="filter" />
     </div>
@@ -10,6 +13,7 @@
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import OrderList from '@/order/index/components/order-list.vue';
+import OrderCounter from '@/order/index/components/order-counter.vue';
 
 export default defineComponent({
   name: 'OrderIndex',
@@ -81,6 +85,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    OrderCounter,
     OrderList,
   },
 });

@@ -1,1 +1,7 @@
 /* order-index */
+.order-index > .header {
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+  margin-bottom: 32px;
+}

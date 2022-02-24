@@ -1,0 +1,19 @@
+/* order-counter */
+.order-counter {
+  display: flex;
+  color: var(--secondary-text-color);
+}
+
+.order-counter > .item {
+  display: flex;
+  margin-right: 16px;
+}
+
+.order-counter > .item:last-child {
+  margin-right: 0;
+}
+
+.order-counter > .item > .value {
+  margin-left: 8px;
+  font-weight: 200;
+}
