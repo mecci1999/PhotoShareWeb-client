@@ -183,7 +183,7 @@ export const orderIndexStoreModule: Module<OrderIndexStoreState, RootState> = {
     ) {
       commit('setLoading', true);
 
-      commit('filter', options.filter);
+      commit('setFilter', options.filter);
 
       const getOrdersQueryString = queryStringProcess({ ...state.filter });
 
@@ -208,7 +208,7 @@ export const orderIndexStoreModule: Module<OrderIndexStoreState, RootState> = {
       if (state.nextPage === 1) {
         commit('setOrders', orders);
       } else {
-        commit('setOrders', [...state.orders, orders]);
+        commit('setOrders', [...state.orders, ...orders]);
       }
 
       commit('setOrdersCount', ordersCount);

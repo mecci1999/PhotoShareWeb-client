@@ -1,1 +1,53 @@
 /* order-list-item */
+.order-list-item {
+  cursor: pointer;
+  border-bottom: 1px solid var(--line-color);
+}
+
+.order-list-item > .content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--secondary-text-color);
+  padding: 24px 0;
+  font-size: 14px;
+  background: var(--primary-background);
+  position: relative;
+  z-index: 10;
+}
+
+.order-list-item > .content > .id {
+  min-width: 100px;
+}
+
+.order-list-item > .content > .user {
+  min-width: 200px;
+  display: flex;
+}
+
+.order-list-item > .content > .payment {
+  min-width: 100px;
+}
+
+.order-list-item > .content > .total-amount {
+  min-width: 100px;
+}
+
+.order-list-item > .content > .status {
+  min-width: 100px;
+}
+
+.order-list-item > .content > .created {
+  min-width: 100px;
+  text-align: right;
+}
+
+.order-list-item > .content > .user > .user-avatar {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+}
+
+.order-list-item > .content > .user > .user-name .link {
+  color: var(--secondary-text-color);
+}

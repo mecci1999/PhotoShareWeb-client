@@ -1,1 +1,36 @@
 /* order-list-header */
+.order-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--secondary-text-color);
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line-color);
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.order-list-header > .id {
+  min-width: 100px;
+}
+
+.order-list-header > .user {
+  min-width: 200px;
+}
+
+.order-list-header > .payment {
+  min-width: 100px;
+}
+
+.order-list-header > .total-amount {
+  min-width: 100px;
+}
+
+.order-list-header > .status {
+  min-width: 100px;
+}
+
+.order-list-header > .created {
+  min-width: 100px;
+  text-align: center;
+}

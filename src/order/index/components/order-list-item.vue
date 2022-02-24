@@ -16,7 +16,7 @@
         <OrderStatus :status="item.status" />
       </div>
       <div class="created">
-        <AppDatetime :date="item.created" />
+        <AppDatetime :date="item.created" format="short" />
       </div>
     </div>
   </div>

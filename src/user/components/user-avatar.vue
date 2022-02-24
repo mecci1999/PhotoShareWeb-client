@@ -77,6 +77,7 @@ export default defineComponent({
       ) {
         avatarSource = this.avatarPreviewImage;
       }
+
       return avatarSource;
     },
 
