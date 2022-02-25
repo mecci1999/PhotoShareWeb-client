@@ -2,6 +2,7 @@
   <div class="order-index">
     <div class="header">
       <OrderCounter />
+      <OrderDateTimeRangeFilter name="order-index-date-time-range" />
     </div>
     <div class="content">
       <OrderList :filter="filter" />
@@ -14,6 +15,7 @@ import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import OrderList from '@/order/index/components/order-list.vue';
 import OrderCounter from '@/order/index/components/order-counter.vue';
+import OrderDateTimeRangeFilter from '@/order/index/components/order-date-time-range-filter.vue';
 
 export default defineComponent({
   name: 'OrderIndex',
@@ -85,6 +87,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    OrderDateTimeRangeFilter,
     OrderCounter,
     OrderList,
   },
