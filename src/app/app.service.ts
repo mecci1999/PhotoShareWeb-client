@@ -44,3 +44,58 @@ export const queryStringProcess = (queryStringObject: StringifiableRecord) => {
  * Socket
  */
 export const socket = io(API_BASE_URL);
+
+/**
+ * 日期范围
+ */
+export const getDateTimeRange = () => {
+  // 选项
+  const options = {
+    year: 'numeric',
+    month: '2-digit',
+    day: 'numeric',
+  } as Intl.DateTimeFormatOptions;
+
+  // 语言
+  const { language } = navigator;
+
+  // 现在
+  const now = new Date();
+
+  // 当前日期
+  const currentDate = new Date()
+    .toLocaleDateString(language, options)
+    .split('/')
+    .join('-');
+
+  // 一个月前
+  const oneMonthAgo = new Date(now.setMonth(now.getMonth() - 1))
+    .toLocaleDateString(language, options)
+    .split('/')
+    .join('-');
+
+  // 三个月前
+  const threeMonthAgo = new Date(now.setMonth(now.getMonth() - 3))
+    .toLocaleDateString(language, options)
+    .split('/')
+    .join('-');
+
+  return [
+    {
+      text: '全部',
+      value: [''],
+    },
+    {
+      text: '一天',
+      value: [currentDate, currentDate],
+    },
+    {
+      text: '一个月',
+      value: [oneMonthAgo, currentDate],
+    },
+    {
+      text: '三个月',
+      value: [threeMonthAgo, currentDate],
+    },
+  ];
+};
