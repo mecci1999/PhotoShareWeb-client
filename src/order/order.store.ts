@@ -4,8 +4,10 @@ import { OrderCreateStoreState, orderCreateStoreModule } from '@/order/create/or
 import { OrderPayStoreState, orderPayStoreModule } from '@/order/pay/order-pay.store';
 import { OrderEditStoreState, orderEditStoreModule } from '@/order/edit/order-edit.store';
 import { OrderIndexStoreState, orderIndexStoreModule } from '@/order/index/order-index.store';
+import { OrderShowStoreState, orderShowStoreModule } from '@/order/show/order-show.store';
 
 export interface OrderStoreState {
+  show: OrderShowStoreState;
   index: OrderIndexStoreState;
   edit: OrderEditStoreState;
   pay: OrderPayStoreState;
@@ -51,6 +53,7 @@ export const orderStoreModule: Module<OrderStoreState, RootState> = {
    * 模块
    */
   modules: {
+    show: orderShowStoreModule,
     index: orderIndexStoreModule,
     edit: orderEditStoreModule,
     pay: orderPayStoreModule,
