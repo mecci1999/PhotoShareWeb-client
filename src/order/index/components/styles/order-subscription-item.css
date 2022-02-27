@@ -1,0 +1,20 @@
+/* order-subscription-item */
+.order-subscription-item {
+  display: flex;
+}
+
+.order-subscription-item > .thumbnail {
+  font-size: 96px;
+  margin-right: 20px;
+}
+
+.order-subscription-item > .content {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+}
+
+.order-subscription-item > .content .header {
+  font-weight: bold;
+  margin-bottom: 16px;
+}
