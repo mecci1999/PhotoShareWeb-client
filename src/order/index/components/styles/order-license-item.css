@@ -1,0 +1,47 @@
+/* order-license-item */
+.order-license-item {
+  display: flex;
+}
+
+.order-license-item .link {
+  color: var(--secondary-text-color) !important;
+}
+
+.order-license-item > .thumbnail {
+  margin-right: 16px;
+}
+
+.order-license-item > .thumbnail .image {
+  border-radius: 3px;
+  width: 112px;
+  height: 112px;
+}
+
+.order-license-item > .content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.order-license-item > .content > .header {
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.order-license-item > .content > .meta {
+  margin-bottom: 24px;
+}
+
+.order-license-item > .content > .extra {
+  display: flex;
+}
+
+.order-license-item .user-avatar {
+  width: 16px;
+  height: 16px;
+}
+
+.order-license-item .user-name {
+  font-size: 14px;
+  margin: 0 4px;
+}
