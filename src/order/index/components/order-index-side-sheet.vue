@@ -1,12 +1,14 @@
 <template>
   <div class="order-index-side-sheet">
     <OrderDateTimeFilter class="filter" />
+    <OrderStatusFilter class="filter" />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import OrderDateTimeFilter from '@/order/index/components/order-date-time-filter.vue';
+import OrderStatusFilter from '@/order/index/components/order-status-filter.vue';
 
 export default defineComponent({
   name: 'OrderIndexSideSheet',
@@ -44,6 +46,7 @@ export default defineComponent({
    * 使用组件
    */
   components: {
+    OrderStatusFilter,
     OrderDateTimeFilter,
   },
 });

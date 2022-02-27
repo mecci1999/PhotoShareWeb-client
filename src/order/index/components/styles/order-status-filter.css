@@ -1,0 +1,4 @@
+/* order-status-filter */
+.order-status-filter > .content {
+  display: flex;
+}
