@@ -1,0 +1,16 @@
+/* order-item-sales */
+.order-item-sales {
+  display: flex;
+  font-size: 14px;
+  color: var(--secondary-text-color);
+}
+
+.order-item-sales > .item {
+  display: flex;
+  margin-right: 16px;
+}
+
+.order-item-sales > .item > .value {
+  margin-left: 8px;
+  font-weight: 200;
+}
