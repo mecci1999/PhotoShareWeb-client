@@ -1,0 +1,4 @@
+/* order-payment-filter */
+.order-payment-filter > .content {
+  display: flex;
+}
