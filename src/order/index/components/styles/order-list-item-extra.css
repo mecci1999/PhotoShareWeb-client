@@ -1,0 +1,20 @@
+/* order-list-item-extra */
+.order-list-item-extra-enter-active {
+  opacity: 0;
+  transform: translateY(-60px);
+  transition: 0.3s;
+}
+
+.order-list-item-extra-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.order-list-item-extra-leave-active {
+  transition: 0.3s;
+}
+
+.order-list-item-extra-leave-to {
+  opacity: 0;
+  transform: translateY(-60px);
+}

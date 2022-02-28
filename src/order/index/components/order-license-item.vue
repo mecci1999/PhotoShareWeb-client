@@ -84,7 +84,7 @@ export default defineComponent({
     // 使用getLicenseItem动作
     try {
       const response = await this.getOrderLicenseItem({
-        order: this.order.id,
+        orderId: this.order.id,
       });
 
       this.orderLicenseItem = response.data;

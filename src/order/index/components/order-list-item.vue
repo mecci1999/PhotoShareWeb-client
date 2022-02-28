@@ -1,5 +1,5 @@
 <template>
-  <div class="order-list-item">
+  <div class="order-list-item" @click="onClickOrderListItem">
     <div class="content">
       <div class="id">{{ item.id }}</div>
       <div class="user">
@@ -19,6 +19,11 @@
         <AppDatetime :date="item.created" format="short" />
       </div>
     </div>
+    <transition name="order-list-item-extra">
+      <div class="extra" v-if="showOrderListItemExtra">
+        <OrderListItemExtra :item="item" />
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -29,6 +34,7 @@ import OrderStatus from '@/order/components/order-status.vue';
 import PaymentName from '@/payment/components/payment-name.vue';
 import UserAvatar from '@/user/components/user-avatar.vue';
 import UserName from '@/user/components/user-name.vue';
+import OrderListItemExtra from '@/order/index/components/order-list-item-extra.vue';
 
 export default defineComponent({
   name: 'OrderListItem',
@@ -46,7 +52,9 @@ export default defineComponent({
    * 数据
    */
   data() {
-    return {};
+    return {
+      showOrderListItemExtra: false,
+    };
   },
 
   /**
@@ -64,12 +72,17 @@ export default defineComponent({
   /**
    * 组件方法
    */
-  methods: {},
+  methods: {
+    onClickOrderListItem() {
+      this.showOrderListItemExtra = !this.showOrderListItemExtra;
+    },
+  },
 
   /**
    * 使用组件
    */
   components: {
+    OrderListItemExtra,
     UserAvatar,
     UserName,
     PaymentName,

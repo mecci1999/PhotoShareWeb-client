@@ -50,7 +50,7 @@ export default defineComponent({
     },
 
     color() {
-      return this.orderSubscriptionItem.color;
+      return this.orderSubscriptionItem.meta.color;
     },
 
     sales() {
@@ -82,7 +82,10 @@ export default defineComponent({
    * 组件方法
    */
   methods: {
-    ...mapActions({}),
+    ...mapActions({
+      getOrderSubscriptionItem: 'order/show/getOrderSubscriptionItem',
+      pushMessage: 'notification/pushMessage',
+    }),
   },
 
   /**
