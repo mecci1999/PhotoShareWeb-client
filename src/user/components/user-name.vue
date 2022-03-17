@@ -105,6 +105,10 @@ export default defineComponent({
         }
       }
 
+      if (this.hasSubscription && subscription.status === 'expired') {
+        name = '已过期';
+      }
+
       return name;
     },
   },

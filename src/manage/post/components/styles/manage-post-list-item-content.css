@@ -1,7 +1,7 @@
 /* manage-post-list-item-content */
 .manage-post-list-item-content {
   display: grid;
-  grid-template-columns: 16px 1fr 2fr;
+  grid-template-columns: 16px 1fr 60px;
   gap: 8px;
   align-items: center;
   font-size: 12px;

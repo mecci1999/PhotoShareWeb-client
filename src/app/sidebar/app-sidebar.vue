@@ -5,6 +5,7 @@
     <AppSidebarItemPopular></AppSidebarItemPopular>
     <AppSidebarItemDashboard />
     <AppSidebarItemAdd></AppSidebarItemAdd>
+    <AppSidebarItemBan></AppSidebarItemBan>
     <AppSidebarItemTheme></AppSidebarItemTheme>
   </div>
 </template>
@@ -17,6 +18,7 @@ import AppSidebarItemAdd from '@/app/sidebar/components/app-sidebar-item-add.vue
 import AppSidebarItemTheme from '@/app/sidebar/components/app-sidebar-item-theme.vue';
 import AppSidebarItemUser from '@/app/sidebar/components/app-sidebar-item-user.vue';
 import AppSidebarItemDashboard from '@/app/sidebar/components/app-sidebar-item-dashboard.vue';
+import AppSidebarItemBan from '@/app/sidebar/components/app-sidebar-item-ban.vue';
 
 export default defineComponent({
   name: 'AppSidebar',
@@ -60,6 +62,7 @@ export default defineComponent({
     AppSidebarItemAdd,
     AppSidebarItemTheme,
     AppSidebarItemUser,
+    AppSidebarItemBan,
   },
 });
 </script>
