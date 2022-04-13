@@ -98,6 +98,11 @@ export const postSideSheetStoreModule: Module<
         await dispatch('product/show/getLicenseProduct', null, { root: true });
       }
 
+      // 获取充值产品
+      if (!rootGetters['product/show/hasRechargeProduct']) {
+        await dispatch('product/show/getRechargeProduct', null, { root: true });
+      }
+
       // 获取订阅产品
       if (!rootGetters['product/show/hasSubscriptionProducts']) {
         await dispatch('product/show/getSubscriptionProducts', null, {

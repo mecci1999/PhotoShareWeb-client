@@ -15,6 +15,10 @@ export interface LicenseProduct extends Product {
   meta: null;
 }
 
+export interface RechargeProduct extends Product {
+  meta: null;
+}
+
 export interface SubscriptionProduct extends Product {
   meta: {
     unit: string;
@@ -27,6 +31,7 @@ export interface SubscriptionProduct extends Product {
 export interface ProductShowStoreState {
   subscriptionProducts: Array<SubscriptionProduct>;
   licenseProduct: LicenseProduct | null;
+  rechargeProduct: RechargeProduct | null;
   loading: boolean;
 }
 
@@ -45,6 +50,7 @@ export const productShowStoreModule: Module<
   state: {
     subscriptionProducts: [],
     licenseProduct: null,
+    rechargeProduct: null,
     loading: false,
   } as ProductShowStoreState,
 
@@ -60,12 +66,20 @@ export const productShowStoreModule: Module<
       return state.licenseProduct;
     },
 
+    rechargeProduct(state) {
+      return state.rechargeProduct;
+    },
+
     loading(state) {
       return state.loading;
     },
 
     hasLicenseProduct(state) {
       return state.licenseProduct ? true : false;
+    },
+
+    hasRechargeProduct(state) {
+      return state.rechargeProduct ? true : false;
     },
 
     hasSubscriptionProducts(state) {
@@ -83,6 +97,10 @@ export const productShowStoreModule: Module<
 
     setLicenseProduct(state, data) {
       state.licenseProduct = data;
+    },
+
+    setRechargeProduct(state, data) {
+      state.rechargeProduct = data;
     },
 
     setLoading(state, data) {
@@ -120,6 +138,26 @@ export const productShowStoreModule: Module<
         const response = await apiHttpClient.get(`/products/subscription`);
         commit('setLoading', false);
         commit('setSubscriptionProducts', response.data);
+
+        return response;
+      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const _error = error as any;
+
+        commit('setLoading', false);
+
+        throw _error.response;
+      }
+    },
+
+    // 充值产品
+    async getRechargeProduct({ commit }) {
+      commit('setLoading', true);
+
+      try {
+        const response = await apiHttpClient.get(`/products/recharge`);
+        commit('setLoading', false);
+        commit('setRechargeProduct', response.data);
 
         return response;
       } catch (error) {

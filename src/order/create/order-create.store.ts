@@ -18,6 +18,7 @@ export interface OrderCreateStoreState {
   } | null;
   licenseOrder: Order | null;
   licenseOrderResourceId: number | null;
+  rechargeOrder: Order | null; // 充值订单
   loading: boolean;
 }
 
@@ -26,6 +27,7 @@ export interface CreateOrderData {
   productId: number;
   resourceType: string;
   resourceId?: number;
+  amount?: number;
 }
 
 export interface CreateOrderOptions {
@@ -48,6 +50,7 @@ export const orderCreateStoreModule: Module<
     subscriptionOrders: null,
     licenseOrder: null,
     licenseOrderResourceId: null,
+    rechargeOrder: null,
     loading: false,
   } as OrderCreateStoreState,
 
@@ -65,6 +68,11 @@ export const orderCreateStoreModule: Module<
 
     licenseOrderResourceId(state) {
       return state.licenseOrderResourceId;
+    },
+
+    // 充值操作的getters
+    rechargeOrder(state) {
+      return state.rechargeOrder;
     },
 
     loading(state) {
@@ -104,6 +112,11 @@ export const orderCreateStoreModule: Module<
         return getters.licenseOrder;
       }
 
+      // 充值操作
+      if (selectedProductType === 'recharge') {
+        return getters.rechargeOrder;
+      }
+
       if (selectedProductType === 'subscription') {
         if (selectedSubscriptionType === 'pro') {
           return getters.proSubscriptionOrder;
@@ -136,6 +149,11 @@ export const orderCreateStoreModule: Module<
 
     setLicenseOrderResourceId(state, data) {
       state.licenseOrderResourceId = data;
+    },
+
+    // 充值修改器
+    setRechargeOrder(state, data) {
+      state.rechargeOrder = data;
     },
 
     setLoading(state, data) {
@@ -179,6 +197,11 @@ export const orderCreateStoreModule: Module<
         commit('setLicenseOrderResourceId', resourceId);
       }
 
+      // 充值订单
+      if (resourceType === 'recharge') {
+        commit('setRechargeOrder', order);
+      }
+
       // 订阅订单
       if (resourceType === 'subscription') {
         const subscriptionProduct = rootGetters[
@@ -214,6 +237,26 @@ export const orderCreateStoreModule: Module<
       // 创建订单
       return dispatch('createOrder', {
         data: { productId, payment, resourceType, resourceId },
+      });
+    },
+
+    // 创建充值金额订单动作
+    createRechargeOrder({ rootGetters, dispatch }) {
+      // 产品 ID
+      const { id: productId } = rootGetters['product/select/selectedProduct'];
+
+      // 支付方法
+      const payment = rootGetters['payment/select/selectedPaymentName'];
+
+      // 资源类型
+      const resourceType = 'recharge';
+
+      //  充值金额
+      const amount = rootGetters['recharge/selectedAmount'];
+
+      // 创建订单
+      return dispatch('createOrder', {
+        data: { productId, payment, resourceType, amount },
       });
     },
 

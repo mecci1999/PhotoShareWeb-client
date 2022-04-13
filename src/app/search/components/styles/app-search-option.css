@@ -1,6 +1,6 @@
 /* app-search-option */
 .app-search-option {
-  margin: 0 8px;
+  margin: 0 10px;
 }
 
 .app-search-option:last-child {
@@ -13,4 +13,8 @@
 
 .app-search-option.active > .button {
   color: var(--primary-text-color) !important;
+  background-color: #c1bdbd;
+  border-radius: 3px;
+  padding: 0 3px;
+  transition: all 0.3s;
 }

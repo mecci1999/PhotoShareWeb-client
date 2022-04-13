@@ -1,0 +1,54 @@
+/* recharge-info-card */
+.recharge-info-card {
+  border: 1px solid #4cd137;
+  padding: 16px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  min-height: 170px;
+  margin-bottom: 24px;
+}
+
+.recharge-info-card > .header{
+  margin-bottom: 16px;
+  font-weight: bold;
+  color: var(--secondary-text-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.recharge-info-card > .header > .text{
+  font-weight: bold;
+  color: var(--secondary-text-color);
+}
+
+.recharge-info-card > .header > .showAmount{
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.recharge-info-card > .content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.recharge-info-card > .content > .btn {
+  width: 100px;
+  display: flex;
+  align-items: center; 
+}
+
+.recharge-info-card > .content > .btn > .button {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px !important;
+  font-size: 14px !important;
+  border-color: #4cd137 !important;
+  color: #4cd137;
+}
+
+.recharge-info-card > .content > .btn > .button.cancel{
+  background-color: #4cd137;
+  color: #fff;
+}

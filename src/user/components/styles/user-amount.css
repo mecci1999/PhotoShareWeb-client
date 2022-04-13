@@ -1,0 +1,42 @@
+/* user-amount */
+.user-amount {
+  display: flex;
+  width: 100%;
+  height: 30px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-amount > .amount {
+  margin-top: 16px;
+  font-size: 16px;
+  font-weight: 200;
+  color: var(--secondary-text-color);
+}
+
+.user-amount > .text {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 14px;
+  color: var(--secondary-text-color);
+}
+
+.user-amount > .text > .recharge{
+  padding:0 5px;
+  cursor: pointer;
+}
+
+.user-amount > .text > .recharge > .link:hover{
+  color: var(--primary-text-color);
+}
+
+.user-amount > .text > .subscription {
+  padding: 0 5px;
+  cursor: pointer;
+}
+
+.user-amount > .text > .subscription > .link:hover {
+  color: var(--primary-text-color);
+}

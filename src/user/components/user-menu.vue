@@ -3,6 +3,7 @@
     <CloseButton @click="$emit('close')"></CloseButton>
     <div class="user-menu-header">
       <UserName :user="currentUser" @click="$emit('close')"></UserName>
+      <UserAmount :user="currentUser"></UserAmount>
     </div>
     <div
       class="user-menu-items"
@@ -33,6 +34,7 @@ import { defineComponent } from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 import CloseButton from '@/app/components/close-button.vue';
 import UserName from '@/user/components/user-name.vue';
+import UserAmount from '@/user/components/user-amount.vue';
 
 export default defineComponent({
   name: 'UserMenu',
@@ -168,6 +170,7 @@ export default defineComponent({
   components: {
     CloseButton,
     UserName,
+    UserAmount,
   },
 });
 </script>

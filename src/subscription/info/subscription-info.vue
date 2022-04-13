@@ -11,7 +11,7 @@
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import SubscriptionInfoCard from '@/subscription/info/subscription-info-card.vue';
-import SubscriptionPayment from '@/subscription/components/subscription-payment';
+import SubscriptionPayment from '@/subscription/components/subscription-payment.vue';
 import { socket } from '@/app/app.service';
 
 export default defineComponent({

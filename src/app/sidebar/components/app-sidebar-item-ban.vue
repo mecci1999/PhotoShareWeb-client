@@ -1,6 +1,6 @@
 <template>
   <div class="app-sidebar-item ban" v-if="isAdmin">
-    <router-link class="link" :to="{ name: '' }">
+    <router-link class="link" :to="{ name: 'userBan' }">
       <AppIcon name="block"></AppIcon>
       <div class="text">封禁</div>
     </router-link>

@@ -30,6 +30,10 @@ import {
   productStoreModule,
   ProductStoreState,
 } from '../product/product.store';
+import {
+  rechargeStoreModule,
+  RechargeStoreState,
+} from '../recharge/recharge.store';
 import { replyStoreModule, ReplyStoreState } from '../reply/reply.store';
 import {
   subscriptionStoreModule,
@@ -75,6 +79,7 @@ export interface RootState {
   product: ProductStoreState;
   order: OrderStoreState;
   subscription: SubscriptionStoreState;
+  recharge: RechargeStoreState;
 }
 
 /**
@@ -107,6 +112,7 @@ const store = createStore({
     product: productStoreModule,
     order: orderStoreModule,
     subscription: subscriptionStoreModule,
+    recharge: rechargeStoreModule,
   },
 
   plugins: [LocalStorageStroePlugin],

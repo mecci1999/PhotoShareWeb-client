@@ -42,7 +42,6 @@ export default defineComponent({
    */
   created() {
     this.getSubscriptionHistory();
-    console.log(this.subscriptionHistory);
   },
 
   /**

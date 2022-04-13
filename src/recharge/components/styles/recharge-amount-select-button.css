@@ -1,0 +1,27 @@
+/* recharge-amount-select-button */
+.recharge-amount-select-button{
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 400px;
+}
+
+.recharge-amount-select-button > .checkbox-field{
+  width: 100px;
+  height: 30px;
+  border: 1px solid var(--line-color);
+  padding: 8px !important;
+  box-sizing: border-box;
+  border-radius: 15px;
+  margin-top: 16px;
+  margin-bottom: 0 !important;
+}
+
+.recharge-amount-select-button > .checkbox-field.active{
+  border-color: #4cd137 !important; 
+  transition: all 0.3s;
+}
+
+.recharge-amount-select-button > .checkbox-field > .text{
+  padding-left: 0 !important;
+  text-align: center;
+}

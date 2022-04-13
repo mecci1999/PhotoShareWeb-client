@@ -42,6 +42,9 @@ export const productSelectStoreModule: Module<
       // 许可产品
       const licenseProduct = rootGetters['product/show/licenseProduct'];
 
+      // 充值产品
+      const rechargeProduct = rootGetters['product/show/rechargeProduct'];
+
       // 订阅产品
       const subscriptionProducts = rootGetters[
         'product/show/subscriptionProducts'
@@ -50,6 +53,10 @@ export const productSelectStoreModule: Module<
       // 提供订阅产品
       if (state.selectedProductType === 'license') {
         return licenseProduct;
+      }
+
+      if (state.selectedProductType === 'recharge') {
+        return rechargeProduct;
       }
 
       if (state.selectedProductType === 'subscription') {

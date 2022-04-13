@@ -67,6 +67,8 @@ export default defineComponent({
       selectedPaymentName: 'payment/select/selectedPaymentName',
       currentOrder: 'order/create/currentOrder',
       prePay: 'order/pay/prePay',
+      selectedProductType: 'product/select/selectedProductType',
+      selectedAmount: 'recharge/selectedAmount',
     }),
 
     color() {
@@ -106,10 +108,15 @@ export default defineComponent({
    */
   async created() {
     await this.getPayments();
+    if (this.selectedProductType === 'recharge') {
+      const order = await this.createRechargeOrder();
 
-    const order = await this.createOrderResolver();
+      await this.payOrder(order.data.id);
+    } else {
+      const order = await this.createOrderResolver();
 
-    await this.payOrder(order.id);
+      await this.payOrder(order.id);
+    }
   },
 
   /**
@@ -120,6 +127,18 @@ export default defineComponent({
       if (oldValue) {
         await this.updateOrderResolver();
       }
+    },
+
+    async selectedAmount(value) {
+      await this.updateOrder({
+        orderId: this.currentOrder.id,
+        data: {
+          payment: this.currentOrder.payment,
+          amount: value,
+        },
+      });
+
+      console.log(this.currentOrder);
     },
   },
 
@@ -132,8 +151,10 @@ export default defineComponent({
     ...mapActions({
       getPayments: 'payment/index/getPayments',
       createOrderResolver: 'order/create/createOrderResolver',
+      createRechargeOrder: 'order/create/createRechargeOrder',
       updateOrderResolver: 'order/edit/updateOrderResolver',
       payOrder: 'order/pay/payOrder',
+      updateOrder: 'order/edit/updateOrder',
     }),
   },
 

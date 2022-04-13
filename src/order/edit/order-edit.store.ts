@@ -8,6 +8,7 @@ export interface OrderEditStoreState {
 
 export interface UpdateOrderData {
   payment?: string;
+  amount?: number;
 }
 
 export interface UpdateOrderOptions {
@@ -50,7 +51,7 @@ export const orderEditStoreModule: Module<OrderEditStoreState, RootState> = {
    * 动作
    */
   actions: {
-    async updateOrder({ commit }, options: UpdateOrderOptions) {
+    async updateOrder({ commit, rootGetters }, options: UpdateOrderOptions) {
       commit('setLoading', true);
 
       const { data, orderId } = options;
@@ -58,6 +59,14 @@ export const orderEditStoreModule: Module<OrderEditStoreState, RootState> = {
       try {
         const response = await apiHttpClient.patch(`orders/${orderId}`, data);
         commit('setLoading', false);
+
+        if (rootGetters['product/select/selectedProductType'] === 'recharge') {
+          commit(
+            'order/create/setRechargeOrder',
+            { ...response.data.newOrder },
+            { root: true },
+          );
+        }
 
         return response;
       } catch (error) {
@@ -71,53 +80,76 @@ export const orderEditStoreModule: Module<OrderEditStoreState, RootState> = {
     },
 
     async updateOrderResolver({ dispatch, rootGetters, commit }) {
-      // 订单 ID
-      const order = await dispatch('order/create/createOrderResolver', null, {
-        root: true,
-      });
+      if (rootGetters['product/select/selectedProductType'] === 'recharge') {
+        const order = await dispatch('order/create/createRechargeOrder', null, {
+          root: true,
+        });
 
-      // 支付方法
-      const payment = rootGetters['payment/select/selectedPaymentName'];
+        // 支付方法
+        const payment = rootGetters['payment/select/selectedPaymentName'];
 
-      // 防止更新同样的支付方法
-      if (order.payment === payment) return;
+        // 防止更新同样的支付方法
+        if (order.payment === payment) return;
 
-      // 产品类型
-      const selectedProductType =
-        rootGetters['product/select/selectedProductType'];
+        // 更新订单
+        await dispatch('updateOrder', {
+          orderId: order.id,
+          data: {
+            payment,
+          },
+        });
 
-      // 订阅类型
-      const selectedSubscriptionType =
-        rootGetters['product/select/selectedSubscriptionType'];
+        // 支付订单
+        await dispatch('order/pay/payOrder', order.id, { root: true });
+      } else {
+        // 订单 ID
+        const order = await dispatch('order/create/createOrderResolver', null, {
+          root: true,
+        });
 
-      // 更新许可订单
-      if (selectedProductType === 'license') {
-        commit(
-          'order/create/setLicenseOrder',
-          { ...order, payment },
-          { root: true },
-        );
+        // 支付方法
+        const payment = rootGetters['payment/select/selectedPaymentName'];
+
+        // 防止更新同样的支付方法
+        if (order.payment === payment) return;
+
+        // 产品类型
+        const selectedProductType =
+          rootGetters['product/select/selectedProductType'];
+
+        // 订阅类型
+        const selectedSubscriptionType =
+          rootGetters['product/select/selectedSubscriptionType'];
+
+        // 更新许可订单
+        if (selectedProductType === 'license') {
+          commit(
+            'order/create/setLicenseOrder',
+            { ...order, payment },
+            { root: true },
+          );
+        }
+
+        // 更新订阅订单
+        if (selectedProductType === 'subscription') {
+          commit(
+            'order/create/setSubscriptionOrders',
+            { [selectedSubscriptionType]: { ...order, payment } },
+            { root: true },
+          );
+        }
+
+        // 更新订单
+        await dispatch('updateOrder', {
+          orderId: order.id,
+          data: {
+            payment,
+          },
+        });
+
+        // 支付订单
+        await dispatch('order/pay/payOrder', order.id, { root: true });
       }
-
-      // 更新订阅订单
-      if (selectedProductType === 'subscription') {
-        commit(
-          'order/create/setSubscriptionOrders',
-          { [selectedSubscriptionType]: { ...order, payment } },
-          { root: true },
-        );
-      }
-
-      // 更新订单
-      await dispatch('updateOrder', {
-        orderId: order.id,
-        data: {
-          payment,
-        },
-      });
-
-      // 支付订单
-      await dispatch('order/pay/payOrder', order.id, { root: true });
     },
   },
 
