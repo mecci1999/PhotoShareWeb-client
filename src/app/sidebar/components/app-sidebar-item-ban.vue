@@ -1,8 +1,8 @@
 <template>
-  <div class="app-sidebar-item ban" v-if="isAdmin">
-    <router-link class="link" :to="{ name: 'userBan' }">
-      <AppIcon name="block"></AppIcon>
-      <div class="text">封禁</div>
+  <div class="app-sidebar-item ban" v-if="isLoggedIn">
+    <router-link class="link" :to="{ name: 'managePost' }">
+      <AppIcon name="gavel"></AppIcon>
+      <div class="text">审核</div>
     </router-link>
   </div>
 </template>
@@ -32,7 +32,7 @@ export default defineComponent({
    */
   computed: {
     ...mapGetters({
-      isAdmin: 'user/isAdmin',
+      isLoggedIn: 'auth/isLoggedIn',
     }),
   },
 

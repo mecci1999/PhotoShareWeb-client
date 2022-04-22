@@ -67,10 +67,18 @@ export const authGuard = (
 
       // 跳转到登录页面
       next({ name: 'login' });
-    } else {
-      // 下一步
-      next();
     }
+    // 如果不是管理员身份，则不能访问，且页面跳转到首页
+    if (!appStore.getters['user/isAdmin']) {
+      appStore.dispatch('notification/pushMessage', {
+        content: '抱歉，您没有权限访问！',
+      });
+
+      // 跳转到首页面
+      next({ name: 'home' });
+    }
+
+    next();
   } else {
     // 下一步
     next();

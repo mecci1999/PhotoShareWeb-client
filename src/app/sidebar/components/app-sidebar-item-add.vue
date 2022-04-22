@@ -1,5 +1,5 @@
 <template>
-  <div class="app-sidebar-item add">
+  <div class="app-sidebar-item add" v-if="isLoggedIn">
     <router-link class="link" :to="{ name: 'postCreate' }">
       <AppIcon name="add_a_photo"></AppIcon>
       <div class="text">发布</div>
@@ -10,6 +10,7 @@
 <script>
 import { defineComponent } from 'vue';
 import AppIcon from '@/app/components/app-icon.vue';
+import { mapGetters } from 'vuex';
 
 export default defineComponent({
   name: 'AppSidebarItemAdd',
@@ -29,7 +30,11 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {},
+  computed: {
+    ...mapGetters({
+      isLoggedIn: 'auth/isLoggedIn',
+    }),
+  },
 
   /**
    * 已创建

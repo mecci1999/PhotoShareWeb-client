@@ -6,6 +6,7 @@ import UserComments from './show/components/user-comments.vue';
 import UserReplies from './show/components/user-replies.vue';
 import UserAccount from './account/user-account.vue';
 import UserCreate from '@/user/create/user-create.vue';
+import UserBan from '@/user/ban/index/ban-index.vue';
 
 /**
  * 定义路由
@@ -82,6 +83,14 @@ const routes: Array<RouteRecordRaw> = [
     name: 'userCreate',
     path: '/register',
     component: UserCreate,
+  },
+  {
+    name: 'userBan',
+    path: '/ban',
+    component: UserBan,
+    meta: {
+      requireAuth: true,
+    },
   },
 ];
 

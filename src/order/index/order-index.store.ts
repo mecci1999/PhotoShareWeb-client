@@ -18,6 +18,7 @@ export interface OrderListItem {
   };
   product: {
     id: number;
+    // eslint-disable-next-line
     meta: any;
     type: string;
     title: string;

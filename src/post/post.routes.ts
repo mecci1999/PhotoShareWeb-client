@@ -39,6 +39,9 @@ const routes: Array<RouteRecordRaw> = [
     name: 'postCreate',
     path: '/create',
     component: PostCreate,
+    meta: {
+      requireAuth: true,
+    },
   },
 ];
 

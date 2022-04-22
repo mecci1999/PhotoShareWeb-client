@@ -62,6 +62,7 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       currentUser: 'user/currentUser',
+      isAdmin: 'user/isAdmin',
     }),
 
     menu() {
@@ -92,7 +93,7 @@ export default defineComponent({
           },
           {
             linkTo: {
-              name: 'managePost',
+              name: this.isAdmin ? 'userBan' : 'managePost',
               params: { userId: this.currentUser.id },
             },
             text: '管理',

@@ -16,7 +16,10 @@ import {
   userCreateStoreModule,
 } from '@/user/create/user-create.store';
 
+import { UserBanStoreState, userBanStoreModule } from '@/user/ban/user-ban.store';
+
 export interface UserStoreState {
+  ban: UserBanStoreState;
   socketId: string;
   create: UserCreateStoreState;
   useAdmin: boolean;
@@ -116,6 +119,7 @@ export const userStoreModule: Module<UserStoreState, RootState> = {
   },
 
   modules: {
+    ban: userBanStoreModule,
     create: userCreateStoreModule,
     show: userShowStoreModule,
     account: userAccountStoreModule,

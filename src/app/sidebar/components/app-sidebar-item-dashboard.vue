@@ -1,5 +1,5 @@
 <template>
-  <div class="app-sidebar-item dashboard">
+  <div class="app-sidebar-item dashboard" v-if="isLoggedIn">
     <router-link class="link" :to="dashboardLinkTo">
       <AppIcon name="analytics"></AppIcon>
       <div class="text">数据</div>
@@ -10,6 +10,7 @@
 <script>
 import { defineComponent } from 'vue';
 import AppIcon from '@/app/components/app-icon.vue';
+import { mapGetters } from 'vuex';
 
 export default defineComponent({
   name: 'AppSidebarItemDashboard',
@@ -35,6 +36,10 @@ export default defineComponent({
         name: 'dashboardAccessCount',
       };
     },
+
+    ...mapGetters({
+      isLoggedIn: 'auth/isLoggedIn',
+    }),
   },
 
   /**

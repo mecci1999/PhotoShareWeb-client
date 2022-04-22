@@ -10,6 +10,9 @@ const routes: Array<RouteRecordRaw> = [
     name: 'doshboard',
     path: '/dashboard',
     component: Dashboard,
+    meta: {
+      requireAuth: true,
+    },
     props: true,
     children: [
       {

@@ -44,3 +44,8 @@ export const ORDERS_PER_PAGE = parseInt(
   process.env.VUE_APP_ORDERS_PER_PAGE,
   10,
 );
+
+/**
+ * 用户
+ */
+export const USERS_PER_PAGE = parseInt(process.env.VUE_APP_USERS_PER_PAGE, 10);

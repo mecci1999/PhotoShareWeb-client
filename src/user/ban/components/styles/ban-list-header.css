@@ -1,0 +1,31 @@
+/* ban-list-header */
+.ban-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--secondary-text-color);
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line-color);
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.ban-list-header > .id {
+  min-width: 100px;
+}
+
+.ban-list-header > .user {
+  min-width: 200px;
+}
+
+.ban-list-header > .postAmount {
+  min-width: 100px;
+}
+
+.ban-list-header > .commentAmount {
+  min-width: 100px;
+}
+
+.ban-list-header > .status {
+  min-width: 100px;
+}
