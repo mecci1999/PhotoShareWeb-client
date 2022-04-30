@@ -15,17 +15,17 @@
 }
 
 .ban-list-header > .user {
-  min-width: 200px;
+  min-width: 160px;
 }
 
 .ban-list-header > .postAmount {
-  min-width: 100px;
+  min-width: 120px;
 }
 
 .ban-list-header > .commentAmount {
-  min-width: 100px;
+  min-width: 120px;
 }
 
 .ban-list-header > .status {
-  min-width: 100px;
+  min-width: 130px;
 }

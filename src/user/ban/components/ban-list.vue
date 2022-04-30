@@ -50,8 +50,6 @@ export default defineComponent({
     // 组件初始化完成请求动作
     this.getUsers();
 
-    console.log(this.users);
-
     // 监听窗口滚动条事件
     if (window) {
       window.addEventListener('scroll', this.onScrollWindow);

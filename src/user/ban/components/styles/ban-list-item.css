@@ -1,6 +1,5 @@
 /* ban-list-item */
 .ban-list-item {
-  cursor: pointer;
   border-bottom: 1px solid var(--line-color);
 }
 
@@ -34,7 +33,42 @@
 }
 
 .ban-list-item > .content > .status {
-  min-width: 100px;
+  min-width: 130px;
+  font-size: 12px;
+}
+
+.ban-list-item > .content > .status > .userStatusButton.normal {
+  cursor: pointer;
+  display: block;
+  width: 32px;
+  line-height: 16px;
+  text-align: center;
+  background-color: #409EFF;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.ban-list-item > .content > .status > .normal:hover{
+  opacity: 0.8;
+}
+
+.ban-list-item > .content > .status > .userStatusButton.ban {
+  cursor: pointer;
+  display: block;
+  width: 48px;
+  line-height: 16px;
+  text-align: center;
+  background-color: #F56C6C;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.ban-list-item > .content > .status > .ban:hover{
+  opacity: 0.8;
 }
 
 .ban-list-item > .content > .user > .user-avatar {
@@ -45,4 +79,56 @@
 
 .ban-list-item > .content > .user > .user-name .link {
   color: var(--secondary-text-color);
+}
+
+.ban-list-item > .content > .status > .hideButton.ban{
+  cursor: pointer;
+  display: block;
+  width: 32px;
+  line-height: 16px;
+  text-align: center;
+  background-color: #F56C6C;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin: 0 10px;
+}
+
+.ban-list-item > .content > .status > .hideButton.unseal{
+  cursor: pointer;
+  display: block;
+  width: 32px;
+  line-height: 16px;
+  text-align: center;
+  background-color: #409EFF;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin: 0 10px;
+}
+
+.ban-list-item > .content > .status >.hideButton:hover{
+  opacity: 0.8;
+}
+
+.ban-list-item > .content > .status {
+  display: flex;
+}
+
+.hide-button-enter-active {
+  transform: translateX(100px);
+  transition: 0.25s;
+}
+
+.hide-button-enter-to {
+  transform: translateX(0);
+}
+
+.hide-button-leave-active {
+  transform: translateX(0);
+  transition: 0.25s;
+}
+
+.hide-button-leave-to {
+  transform: translateX(100px);
 }
