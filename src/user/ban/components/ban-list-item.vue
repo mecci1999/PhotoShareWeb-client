@@ -13,7 +13,11 @@
           {{ item.status === 'normal' ? '正常' : '封禁中' }}
         </div>
         <transition name="hide-button">
-          <div :class="hideButtonClasses" v-if="showHideButton">
+          <div
+            :class="hideButtonClasses"
+            v-show="showHideButton"
+            @click="onClickHideButton"
+          >
             {{ item.status === 'normal' ? '封禁' : '解封' }}
           </div>
         </transition>
@@ -24,6 +28,7 @@
 
 <script>
 import { defineComponent } from 'vue';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 import UserName from '@/user/components/user-name.vue';
 import UserAvatar from '@/user/components/user-avatar.vue';
 
@@ -68,6 +73,17 @@ export default defineComponent({
         { unseal: this.item.status === 'banned' },
       ];
     },
+
+    ...mapGetters({
+      userStatus: 'user/ban/userStatus',
+    }),
+  },
+
+  /**
+   * 监视
+   */
+  watch: {
+    //
   },
 
   /**
@@ -81,8 +97,36 @@ export default defineComponent({
    * 组件方法
    */
   methods: {
+    ...mapMutations({
+      setUserStatus: 'user/ban/setUserStatus',
+    }),
+
+    ...mapActions({
+      changeUserStatus: 'user/ban/changeUserStatus',
+    }),
+
     onClickUserStatusButton() {
       this.showHideButton = !this.showHideButton;
+    },
+
+    async onClickHideButton() {
+      this.setUserStatus(this.item.status);
+
+      const userId = this.item.user.id;
+
+      let status;
+      switch (this.item.status) {
+        case 'normal':
+          status = 'banned';
+          break;
+        case 'banned':
+          status = 'normal';
+          break;
+      }
+
+      await this.changeUserStatus({ userId, status });
+
+      this.showHideButton = false;
     },
   },
 
