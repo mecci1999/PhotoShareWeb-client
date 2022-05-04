@@ -68,6 +68,13 @@ export const authGuard = (
       // 跳转到登录页面
       next({ name: 'login' });
     }
+
+    // 下一步
+    next();
+  }
+
+  // 进行判断是否需要验证管理员身份
+  if (to.matched.some(record => record.meta.authManagerGuard)) {
     // 如果不是管理员身份，则不能访问，且页面跳转到首页
     if (!appStore.getters['user/isAdmin']) {
       appStore.dispatch('notification/pushMessage', {
@@ -78,9 +85,10 @@ export const authGuard = (
       next({ name: 'home' });
     }
 
-    next();
-  } else {
     // 下一步
     next();
   }
+
+  // 下一步
+  next();
 };

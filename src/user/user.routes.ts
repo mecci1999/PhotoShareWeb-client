@@ -89,7 +89,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/ban',
     component: UserBan,
     meta: {
-      requireAuth: true,
+      authManagerGuard: true,
     },
   },
 ];
