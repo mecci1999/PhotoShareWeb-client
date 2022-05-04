@@ -16,7 +16,10 @@ import {
   userCreateStoreModule,
 } from '@/user/create/user-create.store';
 
-import { UserBanStoreState, userBanStoreModule } from '@/user/ban/user-ban.store';
+import {
+  UserBanStoreState,
+  userBanStoreModule,
+} from '@/user/ban/user-ban.store';
 
 export interface UserStoreState {
   ban: UserBanStoreState;
@@ -100,13 +103,23 @@ export const userStoreModule: Module<UserStoreState, RootState> = {
    * 动作
    */
   actions: {
-    async getCurrentUser({ commit, dispatch }, userId) {
+    async getCurrentUser({ commit, dispatch, getters }, userId) {
       try {
         const response = await dispatch('user/show/getUserById', userId, {
           root: true,
         });
 
         commit('setCurrentUser', response.data);
+
+        if (getters.currentUser && getters.currentUser.status === 'banned') {
+          dispatch(
+            'notification/pushMessage',
+            { content: '您因发布违规内容，当前账号处于封禁状态。' },
+            {
+              root: true,
+            },
+          );
+        }
 
         return response;
       } catch (error) {

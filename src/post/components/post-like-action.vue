@@ -47,6 +47,7 @@ export default defineComponent({
 
     ...mapGetters({
       isLoggedIn: 'auth/isLoggedIn',
+      currentUser: 'user/currentUser',
     }),
   },
 
@@ -70,6 +71,13 @@ export default defineComponent({
     onClickLikeButton() {
       if (!this.isLoggedIn) {
         return this.pushMessage({ content: '请先登录' });
+      }
+
+      // 用户封禁状态时，不能发布作品
+      if (this.currentUser && this.currentUser.status === 'banned') {
+        return this.pushMessage({
+          content: '当前账号处于封禁状态，无法点赞他人作品。',
+        });
       }
 
       if (this.post.liked) {

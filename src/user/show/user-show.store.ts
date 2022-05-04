@@ -10,6 +10,8 @@ export interface User {
     type: string;
     status: string;
   } | null;
+  amount: string;
+  status: string;
 }
 
 export interface UserShowStoreState {

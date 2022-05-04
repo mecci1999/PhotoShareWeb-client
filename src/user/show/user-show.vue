@@ -2,6 +2,9 @@
   <div class="user-show" v-if="user">
     <div class="user-show-header">
       <UserAvatar :user="user" size="large"></UserAvatar>
+      <div class="ban-text" v-if="user.status === 'banned'">
+        <span>封禁中</span>
+      </div>
       <UserName class="vertical" :user="user" size="large"></UserName>
     </div>
     <UserShowMenu :user="user"></UserShowMenu>

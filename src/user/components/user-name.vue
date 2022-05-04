@@ -9,7 +9,9 @@
       <router-link class="link" :to="subscriptionIconLinkTo">
         <SubscriptionIcon :color="subscriptionIconColor"></SubscriptionIcon>
       </router-link>
-      <div class="name">{{ subscriptionIconName }}</div>
+      <div class="name" :style="subscriptionIconNameStyles">
+        {{ subscriptionIconName }}
+      </div>
     </div>
   </div>
 </template>
@@ -110,6 +112,16 @@ export default defineComponent({
       }
 
       return name;
+    },
+
+    subscriptionIconNameStyles() {
+      const { subscription } = this.user;
+
+      if (this.hasSubscription && subscription.status === 'expired') {
+        return;
+      }
+
+      return { background: this.subscriptionIconColor, color: '#FFFFFF' };
     },
   },
 

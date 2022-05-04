@@ -99,6 +99,13 @@ export default defineComponent({
         return;
       }
 
+      // 用户封禁状态时，不能发布作品
+      if (this.currentUser && this.currentUser.status === 'banned') {
+        return this.pushMessage({
+          content: '当前账号处于封禁状态，无法发布评论。',
+        });
+      }
+
       try {
         await this.createComment({
           postId: this.sideSheetProps.filter.post,

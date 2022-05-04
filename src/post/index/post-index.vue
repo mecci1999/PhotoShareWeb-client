@@ -8,7 +8,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 import PostList from './components/post-list.vue';
 import PostListFilters from './components/post-list-filters.vue';
 import { socket } from '@/app/app.service';
@@ -27,10 +27,17 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       filterItems: 'post/index/filterItems',
+      currentUser: 'user/currentUser',
     }),
   },
 
   created() {
+    // 用户封禁状态
+    if (this.currentUser && this.currentUser.status === 'banned') {
+      // 提示用户已被封禁
+      this.pushMessage({ content: '您因发布违规内容，当前账号处于封禁状态。' });
+    }
+
     socket.on('userLikePostCreated', this.onUserLikePostCreated);
     socket.on('userLikePostDeleted', this.onUserLikePostDeleted);
     socket.on('commentCreated', this.onCommentCreated);
@@ -61,6 +68,10 @@ export default defineComponent({
     ...mapMutations({
       setPostItemTotalLikes: 'post/index/setPostItemTotalLikes',
       setPostItemTotalComments: 'post/index/setPostItemTotalComments',
+    }),
+
+    ...mapActions({
+      pushMessage: 'notification/pushMessage',
     }),
 
     onUserLikePostCreated({ postId, socketId }) {

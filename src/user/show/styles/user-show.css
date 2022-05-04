@@ -10,3 +10,15 @@
 .user-show-header > .user-avatar {
   margin-bottom: 16px;
 }
+
+.user-show > .user-show-header > .ban-text{
+  color: #FFF;
+  width: 72px;
+  height: 24px;
+  background: #F56C6C;
+  border-radius: 4px;
+  text-align: center;
+}
+.user-show > .user-show-header > .ban-text > span{
+  line-height: 24px;
+}

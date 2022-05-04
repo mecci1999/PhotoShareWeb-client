@@ -6,7 +6,7 @@
 
 <script>
 import AppLayout from '@/app/layout/app-layout';
-import { mapActions, mapMutations } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 import { getStroage, socket, apiHttpClient } from './app.service';
 
 export default {
@@ -14,6 +14,12 @@ export default {
     return {
       layout: 'AppLayout',
     };
+  },
+
+  computed: {
+    ...mapGetters({
+      currentUser: 'user/currentUser',
+    }),
   },
 
   created() {
@@ -25,11 +31,11 @@ export default {
       this.configApiHttpClientAuthHeader(token);
     }
 
-    // 当前用户
-    const currentUser = getStroage('uid');
+    // 当前用户Id
+    const currentUserId = getStroage('uid');
 
-    if (currentUser) {
-      this.getCurrentUser(currentUser);
+    if (currentUserId) {
+      this.getCurrentUser(currentUserId);
     }
 
     // 设置请求头部
@@ -37,6 +43,12 @@ export default {
       apiHttpClient.defaults.headers.common['X-Socket-Id'] = socket.id;
       this.setSocketId(socket.id);
     });
+
+    // 用户封禁状态
+    if (this.currentUser && this.currentUser.status === 'banned') {
+      // 提示用户已被封禁
+      this.pushMessage({ content: '您因发布违规内容，当前账号处于封禁状态。' });
+    }
   },
 
   methods: {
@@ -48,6 +60,7 @@ export default {
     ...mapActions({
       configApiHttpClientAuthHeader: 'auth/configApiHttpClientAuthHeader',
       getCurrentUser: 'user/getCurrentUser',
+      pushMessage: 'notification/pushMessage',
     }),
   },
 

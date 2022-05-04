@@ -64,6 +64,7 @@ export default defineComponent({
       isLoggedIn: 'auth/isLoggedIn',
       status: 'post/create/status',
       audit: 'post/create/audit',
+      currentUser: 'user/currentUser',
     }),
   },
 
@@ -139,6 +140,13 @@ export default defineComponent({
     async submitCreatePost() {
       if (!this.isLoggedIn) {
         return this.pushMessage({ content: '请先登录' });
+      }
+
+      // 用户封禁状态时，不能发布作品
+      if (this.currentUser && this.currentUser.status === 'banned') {
+        return this.pushMessage({
+          content: '当前账号处于封禁状态，无法发布作品。',
+        });
       }
 
       try {
@@ -251,6 +259,13 @@ export default defineComponent({
     async submitCreateFile() {
       if (!this.isLoggedIn) {
         return this.pushMessage({ content: '请先登录' });
+      }
+
+      // 用户封禁状态时，不能发布作品
+      if (this.currentUser && this.currentUser.status === 'banned') {
+        return this.pushMessage({
+          content: '当前账号处于封禁状态，无法发布作品。',
+        });
       }
 
       try {

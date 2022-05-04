@@ -3,8 +3,14 @@
     <div class="content">
       <div class="id">{{ item.user.id }}</div>
       <div class="user">
-        <UserAvatar :user="item.user"></UserAvatar>
+        <UserAvatar :user="item.user" link="user"></UserAvatar>
         <UserName :user="item.user"></UserName>
+        <div class="icon" v-if="hasSubscription">
+          <SubscriptionIcon :color="subscriptionIconColor"></SubscriptionIcon>
+          <div class="name" :style="subscriptionIconNameStyles">
+            {{ subscriptionIconName }}
+          </div>
+        </div>
       </div>
       <div class="postAmount">{{ item.postAmount }}</div>
       <div class="commentAmount">{{ item.commentAmount }}</div>
@@ -31,6 +37,11 @@ import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import UserName from '@/user/components/user-name.vue';
 import UserAvatar from '@/user/components/user-avatar.vue';
+import SubscriptionIcon from '@/subscription/components/subscription-icon.vue';
+import {
+  STANDARD_SUBSCRIPTION_COLOR,
+  PRO_SUBSCRIPTION_COLOR,
+} from '@/app/app.config';
 
 export default defineComponent({
   name: 'BanListItem',
@@ -77,6 +88,62 @@ export default defineComponent({
     ...mapGetters({
       userStatus: 'user/ban/userStatus',
     }),
+
+    hasSubscription() {
+      return this.item.subscription ? true : false;
+    },
+
+    subscriptionIconColor() {
+      let color;
+
+      const { subscription } = this.item;
+
+      if (this.hasSubscription && subscription.status === 'valid') {
+        switch (subscription.type) {
+          case 'standard':
+            color = STANDARD_SUBSCRIPTION_COLOR;
+            break;
+          case 'pro':
+            color = PRO_SUBSCRIPTION_COLOR;
+            break;
+        }
+      }
+
+      return color;
+    },
+
+    subscriptionIconName() {
+      let name;
+
+      const { subscription } = this.item;
+
+      if (this.hasSubscription && subscription.status === 'valid') {
+        switch (subscription.type) {
+          case 'standard':
+            name = '标准版';
+            break;
+          case 'pro':
+            name = '专业版';
+            break;
+        }
+      }
+
+      if (this.hasSubscription && subscription.status === 'expired') {
+        name = '已过期';
+      }
+
+      return name;
+    },
+
+    subscriptionIconNameStyles() {
+      const { subscription } = this.item;
+
+      if (this.hasSubscription && subscription.status === 'expired') {
+        return;
+      }
+
+      return { background: this.subscriptionIconColor, color: '#FFFFFF' };
+    },
   },
 
   /**
@@ -136,6 +203,7 @@ export default defineComponent({
   components: {
     UserAvatar,
     UserName,
+    SubscriptionIcon,
   },
 });
 </script>

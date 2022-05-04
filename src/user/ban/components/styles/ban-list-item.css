@@ -22,6 +22,28 @@
 .ban-list-item > .content > .user {
   min-width: 200px;
   display: flex;
+  align-items: center;
+}
+
+.ban-list-item > .content > .user > .icon {
+  display: flex;
+  align-items: center;
+  margin-left: 4px;
+  line-height: 0.9;
+  color: var(--secondary-text-color);
+}
+
+.ban-list-item > .content > .user > .icon > .name{
+  border: 1px solid var(--line-color);
+  font-size: 6px;
+  margin-left: 4px;
+  font-weight: 100;
+  border-radius: 3px;
+  transform: scale(0.8);
+  background: var(--skeleton-background);
+  display: flex;
+  align-items: center;
+  padding: 2px;
 }
 
 .ban-list-item > .content > .postAmount {
