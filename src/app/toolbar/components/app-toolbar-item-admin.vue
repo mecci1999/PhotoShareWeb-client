@@ -59,15 +59,24 @@ export default defineComponent({
     onClickAdminButton() {
       this.setUseAdmin(!this.useAdmin);
 
-      const query = { ...this.$route.query };
-
-      if (this.useAdmin) {
-        query.admin = true;
+      // 在数据页面点击管理员按钮情况
+      if (this.$route.path === '/dashboard') {
+        // 跳转至管理员数据页面
+        this.$router.replace({ name: 'dashboardAdmin' });
+      } else if (this.$route.path === '/dashboard/admin') {
+        // 跳转至用户数据页面
+        this.$router.replace({ name: 'dashboardAccessCount' });
       } else {
-        delete query.admin;
-      }
+        const query = { ...this.$route.query };
 
-      this.$router.replace({ query });
+        if (this.useAdmin) {
+          query.admin = true;
+        } else {
+          delete query.admin;
+        }
+
+        this.$router.replace({ query });
+      }
     },
   },
 

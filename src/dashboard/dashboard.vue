@@ -1,11 +1,12 @@
 <template>
   <div class="dashboard">
-    <router-view></router-view>
+    <router-view />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import { mapGetters } from 'vuex';
 
 export default defineComponent({
   name: 'Dashboard',
@@ -30,9 +31,30 @@ export default defineComponent({
   },
 
   /**
+   * 监听
+   */
+  watch: {
+    canUseAdmin(value) {
+      if (value) {
+        this.dashboardType = 'dashboardAdmin';
+      } else {
+        this.dashboardType = 'dashboard';
+      }
+    },
+  },
+
+  /**
    * 计算属性
    */
-  computed: {},
+  computed: {
+    ...mapGetters({
+      canUseAdmin: 'user/canUseAdmin',
+    }),
+
+    dashboardType() {
+      return this.canUseAdmin ? 'dashboardAdmin' : 'dashboard';
+    },
+  },
 
   /**
    * 已创建

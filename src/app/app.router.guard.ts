@@ -34,6 +34,12 @@ export const appToolbarItemGuard = (
       showSideSheetItem = true;
       showAdminItem = true;
       break;
+    case 'dashboardAccessCount':
+      showAdminItem = true;
+      break;
+    case 'dashboardAdmin':
+      showAdminItem = true;
+      break;
   }
 
   appStore.commit(
