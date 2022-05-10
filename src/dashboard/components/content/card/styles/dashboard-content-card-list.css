@@ -1,0 +1,7 @@
+/* dashboard-content-card-list */
+.dashboard-content-card-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -1,0 +1,17 @@
+/* dashboard-filter-datetime */
+.dashboard-filter-datetime {
+  color: var(--secondary-text-color);
+  display: flex;
+}
+
+.dashboard-filter-datetime > .label {
+  margin-right: 8px;
+}
+
+.dashboard-filter-datetime > .label > .button {
+  color: var(--secondary-text-color);
+}
+
+.dashboard-filter-datetime > .fields {
+  display: flex;
+}

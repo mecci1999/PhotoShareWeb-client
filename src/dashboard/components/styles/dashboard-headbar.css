@@ -1,0 +1,98 @@
+/* dashboard-headbar */
+.dashboard-headbar {
+  display: flex;
+  width: 100%;
+  height: 48px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashboard-headbar > .dashboard-headbar-select {
+  display: flex;
+}
+
+.dashboard-headbar > .dashboard-headbar-select > .dashboard-headbar-global {
+  width: 48px;
+  height: 24px;
+  font-size: 14px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+  line-height: 24px;
+  color: var(--secondary-text-color);
+  cursor: pointer;
+  margin-right: 16px;
+  background-color: var(--page-aside-background);
+  position: relative;
+  user-select: none;
+}
+
+.dashboard-headbar > .dashboard-headbar-select > .dashboard-headbar-global.select{
+  color: #4cd137;
+}
+
+.dashboard-headbar > .dashboard-headbar-select > .dashboard-headbar-person{
+  width: 48px;
+  height: 24px;
+  font-size: 14px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+  line-height: 24px;
+  color: var(--secondary-text-color);
+  cursor: pointer;
+  background-color: var(--page-aside-background);
+  user-select: none;
+}
+
+.dashboard-headbar > .dashboard-headbar-select > .dashboard-headbar-person.select{
+  color: #4cd137;
+}
+
+.dashboard-headbar > .dashboard-headbar-select > .dashboard-headbar-global > .type-menu{
+  display: flex;
+  width: 60px;
+  flex-direction: column;
+  align-items: center;
+  background: var(--page-aside-background);
+  padding: 4px;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  position: absolute;
+  top: 30px;
+  user-select: none;
+  z-index: 999;
+}
+
+.dashboard-headbar > .dashboard-headbar-select > .dashboard-headbar-global > .type-menu > .type-menu-item{
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--secondary-text-color);
+  border-radius: 6px;
+}
+
+.dashboard-headbar > .dashboard-headbar-select > .dashboard-headbar-global > .type-menu > .type-menu-item:hover{
+  background: #f1f3f7;
+}
+
+.type-menu-list-enter-active {
+  transform: translateX(-100px);
+  transition: 0.25s;
+}
+
+.type-menu-list-enter-to {
+  transform: translateX(0);
+}
+
+.type-menu-list-leave-active {
+  transform: translateX(0);
+  transition: 0.25s;
+}
+
+.type-menu-list-leave-to {
+  transform: translateX(-100px);
+  height: 0;
+}

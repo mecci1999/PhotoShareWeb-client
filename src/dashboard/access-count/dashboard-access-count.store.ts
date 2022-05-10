@@ -8,6 +8,18 @@ export interface AccessCountListItem {
   value: number;
 }
 
+export interface ResultType {
+  data: {
+    title?: string;
+    icon?: string;
+    value?: number;
+    sumCount?: number;
+  };
+}
+
+// 定义后端响应数据类型
+export type ResponseType = Array<ResultType>;
+
 export interface AccessCount {
   title: string;
   action: string;
@@ -17,18 +29,22 @@ export interface AccessCount {
 export interface DashboardAccessCountStoreState {
   currentAction: string;
   dateTimeRange: string;
+  currentRange: string;
   accessCount: AccessCount | null;
   accessCountList: Array<AccessCountListItem>;
+  adminDataList: ResponseType;
   loading: boolean;
 }
 
 export interface GetAccessCountsOptions {
   dateTimeRange?: string;
+  range?: string;
 }
 
 export interface GetAccessCountByActionOptions {
   dateTimeRange?: string;
   action?: string;
+  range?: string;
 }
 
 export const dashboardAccessCountStoreModule: Module<
@@ -46,8 +62,10 @@ export const dashboardAccessCountStoreModule: Module<
   state: {
     currentAction: 'getPosts',
     dateTimeRange: '1-day',
+    currentRange: 'global',
     accessCount: null,
     accessCountList: [],
+    adminDataList: [],
     loading: false,
   } as DashboardAccessCountStoreState,
 
@@ -61,6 +79,10 @@ export const dashboardAccessCountStoreModule: Module<
 
     dateTimeRange(state) {
       return state.dateTimeRange;
+    },
+
+    currentRange(state) {
+      return state.currentRange;
     },
 
     accessCount(state) {
@@ -82,6 +104,10 @@ export const dashboardAccessCountStoreModule: Module<
     loading(state) {
       return state.loading;
     },
+
+    adminDataList(state) {
+      return state.adminDataList;
+    },
   },
 
   /**
@@ -94,6 +120,10 @@ export const dashboardAccessCountStoreModule: Module<
 
     setDateTimeRange(state, data) {
       state.dateTimeRange = data;
+    },
+
+    setCurrentRange(state, data) {
+      state.currentRange = data;
     },
 
     setAccessCount(state, data) {
@@ -128,6 +158,10 @@ export const dashboardAccessCountStoreModule: Module<
           dateset: [datetimeArray, valueArray],
         };
       }
+    },
+
+    setAdminDataList(state, data) {
+      state.adminDataList = data;
     },
   },
 
@@ -188,6 +222,53 @@ export const dashboardAccessCountStoreModule: Module<
 
         commit('setLoading', false);
 
+        throw _error.response;
+      }
+    },
+
+    // 获取不同范围下的访问次数
+    async getAdminDataByRange(
+      { commit },
+      options: GetAccessCountsOptions = {},
+    ) {
+      // 改变loading
+      commit('setLoading', true);
+
+      // 处理请求接口查询符
+      const { dateTimeRange = '1-year', range = 'global' } = options;
+      const getAccessCountsQueryStringOnlyDate = queryStringProcess({
+        dateTimeRange,
+      });
+      const getAccessCountsQueryString = queryStringProcess({
+        dateTimeRange,
+        range,
+      });
+
+      // 向后端发送请求，得到数据
+      try {
+        // 拿到不同range下的数据
+        const adminData = await apiHttpClient.get(
+          `dashboard/admin/access-counts?${getAccessCountsQueryString}`,
+        );
+
+        // 如果range为全站，需要将收益push到数组中
+        if (range === 'global') {
+          const incomeData = await apiHttpClient.get(
+            `dashboard/admin/income?${getAccessCountsQueryStringOnlyDate}`,
+          );
+
+          const result = adminData.data as ResponseType;
+          result.push(incomeData.data);
+          commit('setLoading', false);
+          commit('setAdminDataList', result);
+        } else {
+          commit('setLoading', false);
+          commit('setAdminDataList', adminData.data);
+        }
+      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const _error = error as any;
+        commit('setLoading', false);
         throw _error.response;
       }
     },

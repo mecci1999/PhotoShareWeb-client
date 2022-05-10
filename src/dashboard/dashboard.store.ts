@@ -1,8 +1,24 @@
 import { Module } from 'vuex';
 import { RootState } from '@/app/app.store';
-import { DashboardAccessCountStoreState, dashboardAccessCountStoreModule } from '@/dashboard/access-count/dashboard-access-count.store';
+import {
+  DashboardAccessCountStoreState,
+  dashboardAccessCountStoreModule,
+} from '@/dashboard/access-count/dashboard-access-count.store';
+import {
+  dashboardAdminStoreModule,
+  DashboardAdminStoreState,
+} from './admin/dashboard-admin.store';
+
+//定义仪表盘内容卡片数据类型
+export interface DashboardContentCardItem {
+  icon?: string;
+  title: string;
+  amount: number;
+  sum?: number;
+}
 
 export interface DashboardStoreState {
+  admin: DashboardAdminStoreState;
   accessCount: DashboardAccessCountStoreState;
   name: string;
 }
@@ -23,28 +39,23 @@ export const dashboardStoreModule: Module<DashboardStoreState, RootState> = {
   /**
    * 获取器
    */
-  getters: {
-   
-  },
+  getters: {},
 
   /**
    * 修改器
    */
-  mutations: {
-
-  },
+  mutations: {},
 
   /**
    * 动作
    */
-  actions: {
-
-  },
+  actions: {},
 
   /**
    * 模块
    */
   modules: {
     accessCount: dashboardAccessCountStoreModule,
+    admin: dashboardAdminStoreModule,
   },
 };
