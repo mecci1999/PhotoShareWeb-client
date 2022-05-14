@@ -55,7 +55,7 @@ export default defineComponent({
     ...mapGetters({
       accessCountList: 'dashboard/accessCount/accessCountList',
       dateTimeRange: 'dashboard/accessCount/dateTimeRange',
-      currentAction: 'dashboard/accessCount/currentAction',
+      currentActionAdmin: 'dashboard/accessCount/currentActionAdmin',
       currentRange: 'dashboard/accessCount/currentRange',
     }),
   },
@@ -86,7 +86,7 @@ export default defineComponent({
     }
 
     if (action) {
-      this.setCurrentAction(action);
+      this.setCurrentActionAdmin(action);
     }
   },
 
@@ -96,7 +96,7 @@ export default defineComponent({
       this.submitGetAccessCounts();
     },
 
-    currentAction() {
+    currentActionAdmin() {
       this.updateRouterQuery();
     },
 
@@ -128,7 +128,7 @@ export default defineComponent({
     ...mapMutations({
       setUseAdmin: 'user/setUseAdmin',
       setDateTimeRange: 'dashboard/accessCount/setDateTimeRange',
-      setCurrentAction: 'dashboard/accessCount/setCurrentAction',
+      setCurrentActionAdmin: 'dashboard/accessCount/setCurrentActionAdmin',
       setCurrentRange: 'dashboard/accessCount/setCurrentRange',
     }),
 
@@ -152,7 +152,7 @@ export default defineComponent({
       this.$router.replace({
         query: {
           dateTimeRange: this.dateTimeRange,
-          action: this.currentAction,
+          action: this.currentActionAdmin,
           range: this.currentRange,
         },
       });

@@ -54,6 +54,14 @@ export default defineComponent({
           value: '3-month',
           text: '三个月',
         },
+        {
+          value: '6-month',
+          text: '六个月',
+        },
+        {
+          value: '1-year',
+          text: '一年',
+        },
       ],
     };
   },

@@ -1,5 +1,8 @@
 <template>
-  <div class="dashboard-content-card-list-item">
+  <div
+    class="dashboard-content-card-list-item"
+    @click="onClickDashboartContentCard"
+  >
     <div class="header">
       <div class="icon">
         <AppIcon :name="item.icon" :color="'#FFFFFF'" :size="20"></AppIcon>
@@ -8,7 +11,8 @@
     </div>
     <div class="text">
       <div class="amount">
-        {{ this.item.title === '新增收益' ? '¥ ' : '' }}{{ item.value }}
+        {{ this.item.title === '新增收益' ? '¥ ' : ''
+        }}{{ item.value === 0 ? '暂无新增' : item.value }}
       </div>
       <AppIcon name="trending_up" :color="'#FFFFFF'" :size="20"></AppIcon>
     </div>
@@ -20,6 +24,7 @@
 
 <script>
 import { defineComponent } from 'vue';
+import { mapMutations } from 'vuex';
 import AppIcon from '@/app/components/app-icon.vue';
 
 export default defineComponent({
@@ -50,13 +55,21 @@ export default defineComponent({
    * 已创建
    */
   created() {
-    console.log(this.item);
+    //
   },
 
   /**
    * 组件方法
    */
-  methods: {},
+  methods: {
+    ...mapMutations({
+      setCurrentActionAdmin: 'dashboard/accessCount/setCurrentActionAdmin',
+    }),
+
+    onClickDashboartContentCard() {
+      this.setCurrentActionAdmin(this.item.action);
+    },
+  },
 
   /**
    * 使用组件

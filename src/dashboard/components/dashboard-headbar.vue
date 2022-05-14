@@ -2,7 +2,7 @@
   <div class="dashboard-headbar">
     <div class="dashboard-headbar-select">
       <div :class="dashboardGlobalClasses" @click="onClickGlobalRange">
-        全站
+        {{ headerButtonText }}
         <transition name="type-menu-list">
           <div class="type-menu" v-show="showTypeMenu">
             <div
@@ -56,6 +56,7 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       selectedRange: 'dashboard/admin/selectedRange',
+      currentRange: 'dashboard/accessCount/currentRange',
     }),
 
     dashboardGlobalClasses() {
@@ -70,6 +71,24 @@ export default defineComponent({
         'dashboard-headbar-person',
         { select: this.selectedRange === 'person' },
       ];
+    },
+
+    headerButtonText() {
+      let text;
+
+      switch (this.currentRange) {
+        case 'global':
+          text = '全站';
+          break;
+        case 'user':
+          text = '用户';
+          break;
+        case 'post':
+          text = '素材';
+          break;
+      }
+
+      return text;
     },
   },
 

@@ -46,7 +46,6 @@
   top: 0;
   height: 100vh;
   z-index: 9999;
-
   background: var(--page-aside-background);
 }
 
@@ -55,4 +54,5 @@
   padding: 32px;
   padding-bottom: 0;
   background: var(--primary-background);
+  /* min-height: 100vh; */
 }

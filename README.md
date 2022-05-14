@@ -1,4 +1,4 @@
-# ninghao-vue
+# 摄影素材分享与管理平台前端
 
 ## Project setup
 ```

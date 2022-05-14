@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-filter-datetime">
     <div class="label">
-      <button class="button basic" @click="onClickLabelButton">最近：</button>
+      <!-- <button class="button basic" @click="onClickLabelButton"></button> -->
     </div>
     <div class="fields">
       <CheckboxField
@@ -54,6 +54,14 @@ export default defineComponent({
           value: '3-month',
           text: '三个月',
         },
+        {
+          value: '6-month',
+          text: '六个月',
+        },
+        {
+          value: '1-year',
+          text: '一年',
+        },
       ],
     };
   },
@@ -94,9 +102,9 @@ export default defineComponent({
 
     ...mapActions({}),
 
-    onClickLabelButton() {
-      this.setDateTimeRange('1-day');
-    },
+    // onClickLabelButton() {
+    //   this.setDateTimeRange('1-day');
+    // },
   },
 
   /**
