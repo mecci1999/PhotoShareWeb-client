@@ -18,6 +18,7 @@
 
 <script>
 import { defineComponent } from 'vue';
+import { mapGetters } from 'vuex';
 import SubscriptionIcon from '@/subscription/components/subscription-icon.vue';
 import {
   STANDARD_SUBSCRIPTION_COLOR,
@@ -53,6 +54,10 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
+    ...mapGetters({
+      currentUser: 'user/currentUser',
+    }),
+
     userNameClasses() {
       return ['user-name', this.size];
     },
@@ -94,7 +99,7 @@ export default defineComponent({
     subscriptionIconName() {
       let name;
 
-      const { subscription } = this.user;
+      const { subscription, id } = this.user;
 
       if (this.hasSubscription && subscription.status === 'valid') {
         switch (subscription.type) {
@@ -107,7 +112,12 @@ export default defineComponent({
         }
       }
 
-      if (this.hasSubscription && subscription.status === 'expired') {
+      // 只有当前用户能看到自己的订阅是否过期
+      if (
+        this.hasSubscription &&
+        subscription.status === 'expired' &&
+        this.currentUser.id === id
+      ) {
         name = '已过期';
       }
 
