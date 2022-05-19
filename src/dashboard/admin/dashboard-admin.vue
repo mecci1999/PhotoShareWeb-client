@@ -54,9 +54,9 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       accessCountList: 'dashboard/accessCount/accessCountList',
-      dateTimeRange: 'dashboard/accessCount/dateTimeRange',
+      dateTimeRangeAdmin: 'dashboard/accessCount/dateTimeRangeAdmin',
       currentActionAdmin: 'dashboard/accessCount/currentActionAdmin',
-      currentRange: 'dashboard/accessCount/currentRange',
+      currentRangeAdmin: 'dashboard/accessCount/currentRangeAdmin',
     }),
   },
 
@@ -66,6 +66,7 @@ export default defineComponent({
   async created() {
     // 刷新后给UseAdmin赋值
     this.setUseAdmin(true);
+
     // 给路由添加range参数
     const {
       query: { dateTimeRange, range, action },
@@ -74,13 +75,13 @@ export default defineComponent({
     this.updateRouterQuery();
 
     if (range && range !== 'global') {
-      this.setCurrentRange(range);
+      this.setCurrentRangeAdmin(range);
     } else {
       await this.submitGetAccessCounts();
     }
 
     if (dateTimeRange && dateTimeRange !== '1-day') {
-      this.setDateTimeRange(dateTimeRange);
+      this.setDateTimeRangeAdmin(dateTimeRange);
     } else {
       await this.submitGetAccessCounts();
     }
@@ -91,7 +92,7 @@ export default defineComponent({
   },
 
   watch: {
-    dateTimeRange() {
+    dateTimeRangeAdmin() {
       this.updateRouterQuery();
       this.submitGetAccessCounts();
     },
@@ -100,7 +101,7 @@ export default defineComponent({
       this.updateRouterQuery();
     },
 
-    currentRange() {
+    currentRangeAdmin() {
       this.updateRouterQuery();
       this.submitGetAccessCounts();
     },
@@ -112,11 +113,11 @@ export default defineComponent({
       } = value;
 
       if (name === 'dashboardAdmin' && !dateTimeRange) {
-        this.setDateTimeRange('1-day');
+        this.setDateTimeRangeAdmin('1-day');
       }
 
       if (name === 'dashboardAdmin' && !range) {
-        this.setCurrentRange('global');
+        this.setCurrentRangeAdmin('global');
       }
     },
   },
@@ -127,9 +128,9 @@ export default defineComponent({
   methods: {
     ...mapMutations({
       setUseAdmin: 'user/setUseAdmin',
-      setDateTimeRange: 'dashboard/accessCount/setDateTimeRange',
+      setDateTimeRangeAdmin: 'dashboard/accessCount/setDateTimeRange',
       setCurrentActionAdmin: 'dashboard/accessCount/setCurrentActionAdmin',
-      setCurrentRange: 'dashboard/accessCount/setCurrentRange',
+      setCurrentRangeAdmin: 'dashboard/accessCount/setCurrentRangeAdmin',
     }),
 
     ...mapActions({
@@ -140,8 +141,8 @@ export default defineComponent({
     async submitGetAccessCounts() {
       try {
         await this.getAdminDataByRange({
-          dateTimeRange: this.dateTimeRange,
-          range: this.currentRange,
+          dateTimeRange: this.dateTimeRangeAdmin,
+          range: this.currentRangeAdmin,
         });
       } catch (error) {
         this.pushMessage({ content: error.data.message });
@@ -151,9 +152,9 @@ export default defineComponent({
     updateRouterQuery() {
       this.$router.replace({
         query: {
-          dateTimeRange: this.dateTimeRange,
+          dateTimeRange: this.dateTimeRangeAdmin,
           action: this.currentActionAdmin,
-          range: this.currentRange,
+          range: this.currentRangeAdmin,
         },
       });
     },

@@ -29,14 +29,13 @@ export interface AccessCount {
   dateset: [DatetimeArray, ValueArray];
 }
 
-export interface DashboardAccessCountStoreState {
+export interface DashboardUserStoreState {
   currentAction: string;
-  currentActionAdmin: string;
-  dateTimeRangeAdmin: string;
-  currentRangeAdmin: string;
+  dateTimeRange: string;
+  currentRange: string;
   accessCount: AccessCount | null;
   accessCountList: Array<AccessCountListItem>;
-  adminDataList: ResponseType;
+  userDataList: ResponseType;
   sumAccessCount: AccessCount | null;
   loading: boolean;
 }
@@ -52,8 +51,8 @@ export interface GetAccessCountByActionOptions {
   range?: string;
 }
 
-export const dashboardAccessCountStoreModule: Module<
-  DashboardAccessCountStoreState,
+export const dashboardUserStoreModule: Module<
+  DashboardUserStoreState,
   RootState
 > = {
   /**
@@ -65,16 +64,15 @@ export const dashboardAccessCountStoreModule: Module<
    * 数据
    */
   state: {
-    currentAction: 'getPosts',
-    currentActionAdmin: 'createUser',
-    dateTimeRangeAdmin: '1-day',
-    currentRangeAdmin: 'global',
+    currentAction: 'getPostById',
+    dateTimeRange: '1-day',
+    currentRange: 'post',
     accessCount: null,
     accessCountList: [],
-    adminDataList: [],
+    userDataList: [],
     loading: false,
     sumAccessCount: null,
-  } as DashboardAccessCountStoreState,
+  } as DashboardUserStoreState,
 
   /**
    * 获取器
@@ -84,16 +82,12 @@ export const dashboardAccessCountStoreModule: Module<
       return state.currentAction;
     },
 
-    currentActionAdmin(state) {
-      return state.currentActionAdmin;
+    dateTimeRange(state) {
+      return state.dateTimeRange;
     },
 
-    dateTimeRangeAdmin(state) {
-      return state.dateTimeRangeAdmin;
-    },
-
-    currentRangeAdmin(state) {
-      return state.currentRangeAdmin;
+    currentRange(state) {
+      return state.currentRange;
     },
 
     accessCount(state) {
@@ -134,8 +128,8 @@ export const dashboardAccessCountStoreModule: Module<
       return state.loading;
     },
 
-    adminDataList(state) {
-      return state.adminDataList;
+    userDataList(state) {
+      return state.userDataList;
     },
   },
 
@@ -147,16 +141,12 @@ export const dashboardAccessCountStoreModule: Module<
       state.currentAction = data;
     },
 
-    setCurrentActionAdmin(state, data) {
-      state.currentActionAdmin = data;
+    setDateTimeRange(state, data) {
+      state.dateTimeRange = data;
     },
 
-    setDateTimeRangeAdmin(state, data) {
-      state.dateTimeRangeAdmin = data;
-    },
-
-    setCurrentRangeAdmin(state, data) {
-      state.currentRangeAdmin = data;
+    setCurrentRange(state, data) {
+      state.currentRange = data;
     },
 
     setAccessCount(state, data) {
@@ -197,8 +187,8 @@ export const dashboardAccessCountStoreModule: Module<
       }
     },
 
-    setAdminDataList(state, data) {
-      state.adminDataList = data;
+    setUserDataList(state, data) {
+      state.userDataList = data;
     },
   },
 
@@ -210,16 +200,19 @@ export const dashboardAccessCountStoreModule: Module<
     async getAccessCounts({ commit }, options: GetAccessCountsOptions = {}) {
       commit('setLoading', true);
 
-      const { dateTimeRange = '1-day' } = options;
-      const getAccessCountsQueryString = queryStringProcess({ dateTimeRange });
+      const { dateTimeRange = '1-day', range = 'post' } = options;
+      const getAccessCountsQueryString = queryStringProcess({
+        dateTimeRange,
+        range,
+      });
 
       try {
         const response = await apiHttpClient.get(
-          `dashboard/access-counts?${getAccessCountsQueryString}`,
+          `dashboard/user/access-counts?${getAccessCountsQueryString}`,
         );
 
         commit('setLoading', false);
-        commit('setAccessCountList', response.data);
+        commit('setUserDataList', response.data);
 
         return response;
       } catch (error) {
@@ -246,7 +239,7 @@ export const dashboardAccessCountStoreModule: Module<
 
       try {
         const response = await apiHttpClient.get(
-          `dashboard/access-counts/${action}?${getAccessCountByActionQueryString}`,
+          `dashboard/user/access-counts/${action}?${getAccessCountByActionQueryString}`,
         );
 
         commit('setLoading', false);
@@ -306,80 +299,6 @@ export const dashboardAccessCountStoreModule: Module<
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const _error = error as any;
         commit('setLoading', false);
-        throw _error.response;
-      }
-    },
-
-    // 按动作分时段的访问次数
-    async getAccessCountAdmin(
-      { commit },
-      options: GetAccessCountByActionOptions = {},
-    ) {
-      commit('setLoading', true);
-
-      const { dateTimeRange = '1-day', action } = options;
-      const getAccessCountByActionAdminQueryString = queryStringProcess({
-        dateTimeRange,
-      });
-
-      try {
-        // 如果动作是新增收益
-        if (action === 'addIncome') {
-          const response = await apiHttpClient.get(
-            `dashboard/admin/income/access-counts?${getAccessCountByActionAdminQueryString}`,
-          );
-
-          commit('setLoading', false);
-          commit('setAccessCount', response.data);
-          return response;
-        } else {
-          const response = await apiHttpClient.get(
-            `dashboard/admin/access-counts/${action}?${getAccessCountByActionAdminQueryString}`,
-          );
-
-          commit('setLoading', false);
-          commit('setAccessCount', response.data);
-          console.log(response.data);
-
-          return response;
-        }
-      } catch (error) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const _error = error as any;
-
-        commit('setLoading', false);
-
-        throw _error.response;
-      }
-    },
-
-    // 根据不同时间段获取数据总数
-    async getSumAccessCount(
-      { commit },
-      options: GetAccessCountByActionOptions = {},
-    ) {
-      commit('setLoading', true);
-
-      const { dateTimeRange = '1-day', action } = options;
-      const getAccessCountByActionQueryString = queryStringProcess({
-        dateTimeRange,
-      });
-
-      try {
-        const response = await apiHttpClient.get(
-          `dashboard/admin/access-counts/sum/${action}?${getAccessCountByActionQueryString}`,
-        );
-
-        commit('setLoading', false);
-        commit('setSumAccessCount', response.data);
-
-        return response;
-      } catch (error) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const _error = error as any;
-
-        commit('setLoading', false);
-
         throw _error.response;
       }
     },

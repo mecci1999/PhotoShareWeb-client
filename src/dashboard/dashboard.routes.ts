@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import Dashboard from '@/dashboard/dashboard.vue';
-import DashboardAccessCount from './access-count/dashboard-access-count.vue';
 import DashboardAdmin from './admin/dashboard-admin.vue';
+import DashboardUser from './user/dashboard-user.vue';
 
 /**
  * 定义路由
@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         name: 'dashboardAccessCount',
         path: '',
-        component: DashboardAccessCount,
+        component: DashboardUser,
       },
     ],
   },

@@ -24,7 +24,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import AppIcon from '@/app/components/app-icon.vue';
 
 export default defineComponent({
@@ -49,7 +49,11 @@ export default defineComponent({
   /**
    * 计算属性
    */
-  computed: {},
+  computed: {
+    ...mapGetters({
+      useAdmin: 'user/useAdmin',
+    }),
+  },
 
   /**
    * 已创建
@@ -64,10 +68,15 @@ export default defineComponent({
   methods: {
     ...mapMutations({
       setCurrentActionAdmin: 'dashboard/accessCount/setCurrentActionAdmin',
+      setCurrentAction: 'dashboard/user/setCurrentAction',
     }),
 
     onClickDashboartContentCard() {
-      this.setCurrentActionAdmin(this.item.action);
+      if (this.useAdmin) {
+        this.setCurrentActionAdmin(this.item.action);
+      } else {
+        this.setCurrentAction(this.item.action);
+      }
     },
   },
 

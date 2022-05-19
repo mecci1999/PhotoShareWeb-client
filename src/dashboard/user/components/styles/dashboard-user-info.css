@@ -1,0 +1,156 @@
+/* dashboard-user-info */
+.dashboard-user-info {
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 24px 32px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 99;
+}
+
+.dashboard-user-info > .header{
+   display: flex;
+   align-items: center;
+}
+
+.dashboard-user-info > .header > .user-name {
+  margin-left: 32px;
+}
+
+.dashboard-user-info > .subScription-info{
+  display: flex;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 32px;
+  border-bottom: 1px solid var(--line-color);
+}
+
+.dashboard-user-info > .subScription-info > .title {
+  color: var(--secondary-text-color);
+}
+
+.dashboard-user-info > .subScription-info > .text {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: var(--primary-text-color);
+}
+
+.dashboard-user-info > .post-amount {
+  display: flex;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+  border-bottom: 1px solid var(--line-color);
+}
+
+.dashboard-user-info > .post-amount > .title {
+  color: var(--secondary-text-color);
+}
+
+.dashboard-user-info > .post-amount > .text{
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: var(--primary-text-color);
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.dashboard-user-info > .comment-amount {
+  display: flex;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+  border-bottom: 1px solid var(--line-color);
+}
+
+.dashboard-user-info > .comment-amount > .title {
+  color: var(--secondary-text-color);
+}
+
+.dashboard-user-info > .comment-amount > .text{
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: var(--primary-text-color);
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.dashboard-user-info > .like-amount {
+  display: flex;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+  border-bottom: 1px solid var(--line-color);
+}
+
+.dashboard-user-info > .like-amount > .title {
+  color: var(--secondary-text-color);
+}
+
+.dashboard-user-info > .like-amount > .text{
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: var(--primary-text-color);
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.dashboard-user-info > .download-amount {
+  display: flex;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+  border-bottom: 1px solid var(--line-color);
+}
+
+.dashboard-user-info > .download-amount > .title {
+  color: var(--secondary-text-color);
+}
+
+.dashboard-user-info > .download-amount > .text{
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: var(--primary-text-color);
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.dashboard-user-info > .registry-time {
+  display: flex;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+  border-bottom: 1px solid var(--line-color);
+}
+
+.dashboard-user-info > .registry-time > .title {
+  color: var(--secondary-text-color);
+}
+
+.dashboard-user-info > .registry-time > .text{
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: var(--primary-text-color);
+  font-size: 18px;
+  font-weight: 300;
+}

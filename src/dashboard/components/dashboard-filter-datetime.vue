@@ -71,16 +71,27 @@ export default defineComponent({
    */
   computed: {
     ...mapGetters({
-      dateTimeRange: 'dashboard/accessCount/dateTimeRange',
+      dateTimeRangeAdmin: 'dashboard/accessCount/dateTimeRangeAdmin',
+      dateTimeRange: 'dashboard/user/dateTimeRange',
+      isAdmin: 'user/isAdmin',
+      useAdmin: 'user/useAdmin',
     }),
 
     accessCountDateTimeRange: {
       get() {
-        return this.dateTimeRange;
+        if (this.useAdmin) {
+          return this.dateTimeRangeAdmin;
+        } else {
+          return this.dateTimeRange;
+        }
       },
 
       set(value) {
-        this.setDateTimeRange(value);
+        if (this.useAdmin) {
+          this.setDateTimeRangeAdmin(value);
+        } else {
+          this.setDateTimeRange(value);
+        }
       },
     },
   },
@@ -97,7 +108,8 @@ export default defineComponent({
    */
   methods: {
     ...mapMutations({
-      setDateTimeRange: 'dashboard/accessCount/setDateTimeRange',
+      setDateTimeRangeAdmin: 'dashboard/accessCount/setDateTimeRangeAdmin',
+      setDateTimeRange: 'dashboard/user/setDateTimeRange',
     }),
 
     ...mapActions({}),

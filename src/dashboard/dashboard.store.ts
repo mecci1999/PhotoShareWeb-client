@@ -8,6 +8,10 @@ import {
   dashboardAdminStoreModule,
   DashboardAdminStoreState,
 } from './admin/dashboard-admin.store';
+import {
+  dashboardUserStoreModule,
+  DashboardUserStoreState,
+} from './user/dashboard-user.store';
 
 //定义仪表盘内容卡片数据类型
 export interface DashboardContentCardItem {
@@ -20,6 +24,7 @@ export interface DashboardContentCardItem {
 export interface DashboardStoreState {
   admin: DashboardAdminStoreState;
   accessCount: DashboardAccessCountStoreState;
+  user: DashboardUserStoreState;
   name: string;
 }
 
@@ -57,5 +62,6 @@ export const dashboardStoreModule: Module<DashboardStoreState, RootState> = {
   modules: {
     accessCount: dashboardAccessCountStoreModule,
     admin: dashboardAdminStoreModule,
+    user: dashboardUserStoreModule,
   },
 };

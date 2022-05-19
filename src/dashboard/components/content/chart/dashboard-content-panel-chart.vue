@@ -46,9 +46,10 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       accessCount: 'dashboard/accessCount/accessCount',
-      dateTimeRange: 'dashboard/accessCount/dateTimeRange',
+      currentRangeAdmin: 'dashboard/accessCount/currentRangeAdmin',
       currentActionAdmin: 'dashboard/accessCount/currentActionAdmin',
       sumAccessCount: 'dashboard/accessCount/sumAccessCount',
+      dateTimeRangeAdmin: 'dashboard/accessCount/dateTimeRangeAdmin',
     }),
 
     dataNameBlueClasses() {
@@ -100,7 +101,7 @@ export default defineComponent({
           break;
       }
 
-      switch (this.dateTimeRange) {
+      switch (this.dateTimeRangeAdmin) {
         case '1-day':
           xTitle = '小时';
           break;
@@ -172,7 +173,7 @@ export default defineComponent({
       this.updateChart();
     },
 
-    dateTimeRange() {
+    dateTimeRangeAdmin() {
       this.submitGetAccessCountByAction();
     },
 
@@ -220,12 +221,12 @@ export default defineComponent({
     async submitGetAccessCountByAction() {
       try {
         await this.getAccessCountAdmin({
-          dateTimeRange: this.dateTimeRange,
+          dateTimeRange: this.dateTimeRangeAdmin,
           action: this.currentActionAdmin,
         });
 
         await this.getSumAccessCount({
-          dateTimeRange: this.dateTimeRange,
+          dateTimeRange: this.dateTimeRangeAdmin,
           action: this.currentActionAdmin,
         });
       } catch (error) {
@@ -264,21 +265,7 @@ export default defineComponent({
         legend: {
           display: false,
         },
-        // elements: {
-        //   line: {
-        //     tension: 0, // 禁用贝塞尔曲线
-        //   },
-        // },
         scales: {
-          // xAxes: [
-          //   {
-          //     type: 'time',
-          //     time: {
-          //       unit: '',
-          //     },
-          //   },
-          // ],
-
           yAxes: [
             {
               ticks: {

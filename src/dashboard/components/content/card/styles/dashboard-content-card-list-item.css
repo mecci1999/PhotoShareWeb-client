@@ -1,6 +1,6 @@
 /* dashboard-content-card-list-item */
 .dashboard-content-card-list-item {
-  width: 290px;
+  width: 250px;
   height: 160px;
   display: flex;
   flex-direction: column;
@@ -58,7 +58,7 @@
 .dashboard-content-card-list-item > .header > .title{
   flex: 1;
   font-size: 20px;
-  padding-left: 30px;
+  padding-left: 16px;
 }
 
 .dashboard-content-card-list-item > .text{

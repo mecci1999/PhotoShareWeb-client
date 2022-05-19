@@ -1,1 +1,4 @@
 /* dashboard-admin */
+.dashboard-admin .dashboard-content-card-list-item {
+  width: 290px !important;
+}

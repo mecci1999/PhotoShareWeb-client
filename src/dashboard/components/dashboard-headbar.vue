@@ -16,7 +16,11 @@
           </div>
         </transition>
       </div>
-      <div :class="dashboardPersonClasses" @click="onClickPersonRange">
+      <div
+        :class="dashboardPersonClasses"
+        @click="onClickPersonRange"
+        v-if="useAdmin"
+      >
         个人
       </div>
     </div>
@@ -56,7 +60,9 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       selectedRange: 'dashboard/admin/selectedRange',
-      currentRange: 'dashboard/accessCount/currentRange',
+      currentRangeAdmin: 'dashboard/accessCount/currentRangeAdmin',
+      currentRange: 'dashboard/user/currentRange',
+      useAdmin: 'user/useAdmin',
     }),
 
     dashboardGlobalClasses() {
@@ -75,17 +81,27 @@ export default defineComponent({
 
     headerButtonText() {
       let text;
-
-      switch (this.currentRange) {
-        case 'global':
-          text = '全站';
-          break;
-        case 'user':
-          text = '用户';
-          break;
-        case 'post':
-          text = '素材';
-          break;
+      if (this.useAdmin) {
+        switch (this.currentRangeAdmin) {
+          case 'global':
+            text = '全站';
+            break;
+          case 'user':
+            text = '用户';
+            break;
+          case 'post':
+            text = '素材';
+            break;
+        }
+      } else {
+        switch (this.currentRange) {
+          case 'other':
+            text = '其它';
+            break;
+          case 'post':
+            text = '作品';
+            break;
+        }
       }
 
       return text;
@@ -106,8 +122,8 @@ export default defineComponent({
     ...mapMutations({
       setSelectedRange: 'dashboard/admin/setSelectedRange',
       setDateTimeRange: 'dashboard/accessCount/setDateTimeRange',
-      setCurrentAction: 'dashboard/accessCount/setCurrentAction',
-      setCurrentRange: 'dashboard/accessCount/setCurrentRange',
+      setCurrentRangeAdmin: 'dashboard/accessCount/setCurrentRangeAdmin',
+      setCurrentRange: 'dashboard/user/setCurrentRange',
     }),
 
     onClickGlobalRange() {
@@ -125,16 +141,30 @@ export default defineComponent({
     },
 
     onClickTypeMenuItem(name) {
-      switch (name) {
-        case 'global':
-          this.setCurrentRange('global');
-          break;
-        case 'user':
-          this.setCurrentRange('user');
-          break;
-        case 'post':
-          this.setCurrentRange('post');
-          break;
+      if (this.useAdmin) {
+        switch (name) {
+          case 'global':
+            this.setCurrentRangeAdmin('global');
+            break;
+          case 'user':
+            this.setCurrentRangeAdmin('user');
+            break;
+          case 'post':
+            this.setCurrentRangeAdmin('post');
+            break;
+          case 'income':
+            this.setCurrentRange('income');
+            break;
+        }
+      } else {
+        switch (name) {
+          case 'post':
+            this.setCurrentRange('post');
+            break;
+          case 'other':
+            this.setCurrentRange('other');
+            break;
+        }
       }
 
       // 关闭菜单
