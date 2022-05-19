@@ -16,6 +16,19 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  width: 190px;
+}
+
+.post-list-item-content > .header > .text > a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.post-list-item-content > .header > .text > .post-show-tags {
+  margin-left: 8px;
 }
 
 .post-list-item-content > .header .link {

@@ -8,6 +8,12 @@
         <router-link class="link" :to="itemLinkTo">{{
           item.title
         }}</router-link>
+        <PostShowTags
+          :tags="tags"
+          size="small"
+          :hasMoreTag="hasTwoMoreTag"
+          :postId="item.id"
+        />
       </div>
       <div class="meta">
         <UserName :user="item.user"></UserName>
@@ -30,6 +36,7 @@ import UserAvatar from '@/user/components/user-avatar.vue';
 import UserName from '@/user/components/user-name.vue';
 import PostLikeAction from '@/post/components/post-like-action.vue';
 import PostCommentAction from '@/post/components/post-comment-action.vue';
+import PostShowTags from '@/post/show/components/post-show-tags.vue';
 
 export default defineComponent({
   name: 'PostListItemContent',
@@ -57,6 +64,18 @@ export default defineComponent({
     itemLinkTo() {
       return { name: 'postShow', params: { postId: this.item.id } };
     },
+
+    hasTwoMoreTag() {
+      return this.item.tags && this.item.tags.length >= 2;
+    },
+
+    tags() {
+      if (this.hasTwoMoreTag) {
+        return [this.item.tags[1], { name: '...' }];
+      } else {
+        return this.item.tags;
+      }
+    },
   },
 
   /**
@@ -79,6 +98,7 @@ export default defineComponent({
     UserAvatar,
     UserName,
     PostCommentAction,
+    PostShowTags,
   },
 });
 </script>

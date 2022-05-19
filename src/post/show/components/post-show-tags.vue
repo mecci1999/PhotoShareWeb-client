@@ -1,6 +1,13 @@
 <template>
   <div class="post-show-tags">
-    <PostTag v-for="tag in tags" :key="tag.id" :tag="tag"></PostTag>
+    <PostTag
+      v-for="tag in tags"
+      :key="tag.name"
+      :tag="tag"
+      :size="size"
+      :hasMoreTag="hasMoreTag"
+      :postId="postId"
+    ></PostTag>
   </div>
 </template>
 
@@ -17,6 +24,20 @@ export default defineComponent({
   props: {
     tags: {
       type: Array,
+    },
+
+    size: {
+      type: String,
+      default: 'normal',
+    },
+
+    hasMoreTag: {
+      type: Boolean,
+      default: false,
+    },
+
+    postId: {
+      type: Number,
     },
   },
 

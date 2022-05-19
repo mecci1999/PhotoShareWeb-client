@@ -1,5 +1,5 @@
 <template>
-  <div class="post-tag">
+  <div :class="postTagClasses">
     <div class="text">
       <router-link class="link" :to="tagNameLinkTo">
         {{ tag.name }}
@@ -32,6 +32,20 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+
+    size: {
+      type: String,
+      default: 'normal',
+    },
+
+    hasMoreTag: {
+      type: Boolean,
+      default: false,
+    },
+
+    postId: {
+      type: Number,
+    },
   },
 
   /**
@@ -48,7 +62,15 @@ export default defineComponent({
    */
   computed: {
     tagNameLinkTo() {
-      return { name: 'postIndexPopular', query: { tag: this.tag.name } };
+      if (this.tag.name === '...') {
+        return { name: 'postShow', params: { postId: this.postId } };
+      } else {
+        return { name: 'postIndexPopular', query: { tag: this.tag.name } };
+      }
+    },
+
+    postTagClasses() {
+      return ['post-tag', this.size, { more: this.tag.name === '...' }];
     },
   },
 
