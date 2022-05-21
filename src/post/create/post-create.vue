@@ -135,6 +135,7 @@ export default defineComponent({
       updatePost: 'post/edit/updatePost',
       deletePost: 'post/destroy/deletePost',
       createFile: 'file/create/createFile',
+      createAudit: 'audit/create/createAudit',
     }),
 
     async submitCreatePost() {
@@ -213,6 +214,13 @@ export default defineComponent({
     async submitUpdatePost() {
       const status = this.status ? this.status : 'draft';
 
+      // 用户封禁状态时，不能发布作品
+      if (this.currentUser && this.currentUser.status === 'banned') {
+        return this.pushMessage({
+          content: '当前账号处于封禁状态，无法更新作品。',
+        });
+      }
+
       try {
         await this.updatePost({
           postId: this.postId,
@@ -224,7 +232,16 @@ export default defineComponent({
           file: this.selectedFile,
         });
 
-        this.pushMessage({ content: '内容更新完成' });
+        // 创建新的审核日志，以及审核状态
+        await this.createAudit({
+          data: {
+            resourceId: this.postId,
+            resourceType: 'post',
+            status: 'pending',
+          },
+        });
+
+        this.pushMessage({ content: '内容更新完成,请等待管理员完成审核' });
 
         this.setUnsaved(false);
 
