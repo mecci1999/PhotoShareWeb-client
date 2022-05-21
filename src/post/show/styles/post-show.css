@@ -5,6 +5,9 @@
   transition-property: width, margin, transform;
   transition-duration: 0.5s;
   margin-bottom: 32px;
+  padding: 16px 16px 6px;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
 .post-show.aside {

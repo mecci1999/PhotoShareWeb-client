@@ -115,6 +115,7 @@ export default defineComponent({
       // 只有当前用户能看到自己的订阅是否过期
       if (
         this.hasSubscription &&
+        this.currentUser &&
         subscription.status === 'expired' &&
         this.currentUser.id === id
       ) {

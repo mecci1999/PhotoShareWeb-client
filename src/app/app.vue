@@ -1,11 +1,11 @@
 <template>
   <component :is="layout">
-    <router-view></router-view>
+    <router-view />
   </component>
 </template>
 
 <script>
-import AppLayout from '@/app/layout/app-layout';
+import AppLayout from '@/app/layout/app-layout.vue';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import { getStroage, socket, apiHttpClient } from './app.service';
 

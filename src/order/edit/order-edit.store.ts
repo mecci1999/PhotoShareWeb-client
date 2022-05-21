@@ -144,6 +144,7 @@ export const orderEditStoreModule: Module<OrderEditStoreState, RootState> = {
           orderId: order.id,
           data: {
             payment,
+            amount: order.totalAmount,
           },
         });
 

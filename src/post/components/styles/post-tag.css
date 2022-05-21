@@ -48,6 +48,7 @@
 
 .post-tag.more > .text {
   height: 20px;
+  padding-bottom: 8px;
 }
 
 .post-tag.more > .text > .link {

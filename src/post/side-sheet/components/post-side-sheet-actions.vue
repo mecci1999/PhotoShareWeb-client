@@ -1,13 +1,13 @@
 <template>
   <div class="post-side-sheet-actions">
-    <PaymentSelect v-if="!canDownload" />
+    <PaymentSelect isUseAmountPayment="true" v-if="!canDownload" />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
-import PaymentSelect from '@/payment/select/payment-select';
+import PaymentSelect from '@/payment/select/payment-select.vue';
 
 export default defineComponent({
   name: 'PostSideSheetActions',

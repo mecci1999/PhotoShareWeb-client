@@ -48,8 +48,8 @@ export default defineComponent({
   /**
    * 已创建
    */
-  created() {
-    //
+  async created() {
+    await this.getDownloadPermission();
   },
 
   /**
@@ -57,7 +57,9 @@ export default defineComponent({
    */
   methods: {
     ...mapMutations({}),
-    ...mapActions({}),
+    ...mapActions({
+      getDownloadPermission: 'download/getDownloadPermission',
+    }),
   },
 
   /**

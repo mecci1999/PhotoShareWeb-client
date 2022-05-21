@@ -33,6 +33,10 @@ export default defineComponent({
     },
   },
 
+  created() {
+    console.log(this.item);
+  },
+
   components: {
     PostListItemMedia,
     PostListItemContent,

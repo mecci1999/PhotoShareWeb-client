@@ -70,6 +70,7 @@ export default defineComponent({
 
     onClickLikeButton() {
       if (!this.isLoggedIn) {
+        this.$router.replace({ name: 'login' });
         return this.pushMessage({ content: '请先登录' });
       }
 

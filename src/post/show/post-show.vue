@@ -38,10 +38,12 @@ export default defineComponent({
     postId: String,
   },
 
-  created() {
-    this.getPostById(this.postId);
-
-    this.getPosts({});
+  async created() {
+    // 获取作品ID
+    await this.getPostById(this.postId);
+    // 获取作品列表
+    await this.getPosts({});
+    // 获取支付方法列表
 
     this.setShowPostShowNavigator(true);
 
@@ -100,6 +102,8 @@ export default defineComponent({
     ...mapActions({
       getPostById: 'post/show/getPostById',
       getPosts: 'post/index/getPosts',
+      closeSideSheet: 'layout/closeSideSheet',
+      getPayments: 'payment/index/getPayments',
     }),
 
     ...mapMutations({

@@ -1,5 +1,5 @@
 <template>
-  <div class="app-sidebar-item brand">
+  <div class="app-sidebar-item brand" @click="onClickLogo">
     <router-link to="/" class="link">
       <AppLogo></AppLogo>
     </router-link>
@@ -8,6 +8,7 @@
 
 <script>
 import { defineComponent } from 'vue';
+import { mapActions } from 'vuex';
 import AppLogo from '@/app/components/app-logo.vue';
 
 export default defineComponent({
@@ -40,7 +41,15 @@ export default defineComponent({
   /**
    * 组件方法
    */
-  methods: {},
+  methods: {
+    ...mapActions({
+      closeSideSheet: 'layout/closeSideSheet',
+    }),
+
+    onClickLogo() {
+      this.closeSideSheet();
+    },
+  },
 
   /**
    * 使用组件

@@ -101,6 +101,10 @@ export default defineComponent({
     paymentLink() {
       return this.prePay ? this.prePay.offSiteUrl : '';
     },
+
+    isNotShowAmountPayment() {
+      return this.selectedPayment.name === 'amount';
+    },
   },
 
   /**

@@ -16,7 +16,12 @@
         {{ subscription.title }}
       </template>
       <template #description>
-        至 <AppDatetime :date="validSubscription.expired" /> 到期
+        <div class="expireTime" v-if="!validSubscription.isExpired">
+          至 <AppDatetime :date="validSubscription.expired" /> 到期
+        </div>
+        <div class="text" v-if="validSubscription.isExpired">
+          已过期，请重新续订
+        </div>
       </template>
       <template #meta>
         <div class="item" v-for="(item, index) in metaItems" :key="index">

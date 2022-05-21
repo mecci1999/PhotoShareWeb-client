@@ -339,7 +339,6 @@ export const dashboardAccessCountStoreModule: Module<
 
           commit('setLoading', false);
           commit('setAccessCount', response.data);
-          console.log(response.data);
 
           return response;
         }

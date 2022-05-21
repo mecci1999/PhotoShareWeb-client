@@ -1,7 +1,21 @@
 <template>
-  <div class="payment-select">
+  <div class="payment-select" v-if="isUseAmountPayment">
     <CheckboxField
       v-for="{ name, meta: { buttonText, color } } in payments"
+      :key="name"
+      :class="['outline', color]"
+      :value="name"
+      :text="buttonText"
+      name="status"
+      type="radio"
+      v-model="currentPayment"
+    >
+      <PaymentIcon class="extra" :name="name"></PaymentIcon>
+    </CheckboxField>
+  </div>
+  <div class="payment-select" v-if="!isUseAmountPayment">
+    <CheckboxField
+      v-for="{ name, meta: { buttonText, color } } in onlyWeiAndAliPay"
       :key="name"
       :class="['outline', color]"
       :value="name"
@@ -27,7 +41,12 @@ export default defineComponent({
   /**
    * 属性
    */
-  props: {},
+  props: {
+    isUseAmountPayment: {
+      type: Boolean,
+      default: false,
+    },
+  },
 
   /**
    * 数据
@@ -43,6 +62,7 @@ export default defineComponent({
     ...mapGetters({
       payments: 'payment/index/payments',
       selectedPaymentName: 'payment/select/selectedPaymentName',
+      onlyWeiAndAliPay: 'payment/index/onlyWeiAndAliPay',
     }),
 
     currentPayment: {
@@ -58,8 +78,8 @@ export default defineComponent({
   /**
    * 已创建
    */
-  created() {
-    //
+  async created() {
+    await this.getPayments();
   },
 
   /**
@@ -70,7 +90,9 @@ export default defineComponent({
       setSelectedPaymentName: 'payment/select/setSelectedPaymentName',
     }),
 
-    ...mapActions({}),
+    ...mapActions({
+      getPayments: 'payment/index/getPayments',
+    }),
   },
 
   /**

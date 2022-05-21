@@ -15,7 +15,7 @@ export default defineComponent({
   props: {
     content: {
       type: String,
-      default: 'https://ninghao.net',
+      default: 'http://localhost:8080',
     },
 
     padding: {

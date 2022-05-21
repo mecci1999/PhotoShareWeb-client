@@ -34,7 +34,9 @@ export default defineComponent({
    * 计算属性
    */
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      isLoggedIn: 'auth/isLoggedIn',
+    }),
   },
 
   /**
@@ -55,9 +57,17 @@ export default defineComponent({
 
     ...mapActions({
       openSideSheet: 'layout/openSideSheet',
+      pushMessage: 'notification/pushMessage',
     }),
 
     onClickDownloadButton() {
+      // 判断当前用户是否登录
+      if (!this.isLoggedIn) {
+        // 跳转至登录页面
+        this.$router.replace({ name: 'login' });
+        return this.pushMessage({ content: '请先登录' });
+      }
+
       // 设置页面侧板组件
       this.setSideSheetComponent('PostSideSheet');
 

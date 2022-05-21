@@ -41,6 +41,8 @@ export default defineComponent({
       sideSheetProps: 'layout/sideSheetProps',
       selectedProduct: 'product/select/selectedProduct',
       selectedPaymentName: 'payment/select/selectedPaymentName',
+      post: 'post/show/post',
+      currentUser: 'user/currentUser',
     }),
   },
 
@@ -49,6 +51,11 @@ export default defineComponent({
    */
   async created() {
     await this.initialize();
+
+    // 检查啊当前用户是否为当前作品的作者
+    if (this.currentUser.id === this.post.user.id) {
+      this.setCanDownload(true);
+    }
 
     socket.on('licenseStatusChanged', this.onLicenseStatusChanged);
     socket.on('subscriptionStatusChanged', this.onSubscriptionStatusChanged);
@@ -68,6 +75,11 @@ export default defineComponent({
   watch: {
     async sideSheetProps() {
       await this.initialize();
+
+      // 检查啊当前用户是否为当前作品的作者
+      if (this.currentUser.id === this.post.user.id) {
+        this.setCanDownload(true);
+      }
     },
 
     async selectedProduct(value, oldValue) {

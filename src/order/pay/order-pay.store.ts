@@ -1,6 +1,7 @@
 import { Module } from 'vuex';
 import { RootState } from '@/app/app.store';
 import { apiHttpClient } from '@/app/app.service';
+import { Order } from '../create/order-create.store';
 
 export interface PrePay {
   codeUrl?: string;
@@ -73,6 +74,24 @@ export const orderPayStoreModule: Module<OrderPayStoreState, RootState> = {
 
         commit('setLoading', false);
 
+        throw _error.response;
+      }
+    },
+
+    // 使用余额完成订单支付
+    async useAccountAmountPayOrder({ commit }, order: Order) {
+      commit('setLoading', true);
+
+      try {
+        const response = await apiHttpClient.post(`payments/accountpay`, {
+          order,
+        });
+        commit('setLoading', false);
+        return response;
+      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const _error = error as any;
+        commit('setLoading', false);
         throw _error.response;
       }
     },

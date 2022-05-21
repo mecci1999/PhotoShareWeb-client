@@ -12,6 +12,7 @@
 .post-list.stackable,
 .post-list.stackable-minimal {
   grid-template-columns: 1fr 1fr;
+  padding: 16px;
 }
 
 @media (max-width: 838px) {

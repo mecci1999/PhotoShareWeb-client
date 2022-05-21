@@ -84,6 +84,14 @@
   border-color: #06b4fd;
 }
 
+.checkbox-field.outline.active.orange,
+.checkbox-field.outline.active.orange > .icon,
+.checkbox-field.outline.active.orange > .text,
+.checkbox-field.outline.active.orange > .icon::after {
+  color: #f9ca24;
+  border-color: #f9ca24;
+}
+
 .checkbox-field > .text {
   flex-grow: 2;
 }

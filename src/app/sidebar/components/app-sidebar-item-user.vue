@@ -64,6 +64,9 @@ export default defineComponent({
     onClickUserAvatar() {
       if (this.currentUser) {
         this.showUserMenu = !this.showUserMenu;
+      } else {
+        // 跳转到登录页面
+        this.$router.replace({ name: 'login' });
       }
     },
   },

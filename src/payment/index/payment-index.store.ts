@@ -58,6 +58,11 @@ export const paymentIndexStoreModule: Module<
     hasPayments(state) {
       return state.payments.length ? true : false;
     },
+
+    // 只有微信支付和支付宝支付
+    onlyWeiAndAliPay(state) {
+      return [state.payments[0], state.payments[1]];
+    },
   },
 
   /**
@@ -77,7 +82,7 @@ export const paymentIndexStoreModule: Module<
    * 动作
    */
   actions: {
-    async getPayments({ commit }, options: GetPaymentsOptions = {}) {
+    async getPayments({ commit }) {
       commit('setLoading', true);
 
       try {

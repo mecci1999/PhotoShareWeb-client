@@ -4,6 +4,7 @@
       <UserAvatar :user="currentUser" size="medium" />
       <UserName :user="currentUser" size="large" />
     </div>
+    <div></div>
     <div class="subScription-info">
       <div class="title">订阅状态</div>
       <div class="text">{{ subscriptionInfo }}</div>
