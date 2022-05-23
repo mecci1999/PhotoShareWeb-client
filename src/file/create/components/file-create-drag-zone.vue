@@ -9,7 +9,7 @@
     <FileField
       name="file"
       @change="onChangeFile"
-      fileType="image/jpg,image/jpeg"
+      fileType="image/jpg,image/jpeg,video/*"
       :text="fileFieldText"
     ></FileField>
     <div class="description">直接把图像文件拖放到这里</div>
@@ -46,6 +46,7 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       previewImage: 'file/create/previewImage',
+      previewVideo: 'file/create/previewVideo',
     }),
 
     fileFieldText() {
@@ -56,7 +57,7 @@ export default defineComponent({
       return [
         'file-create-drag-zone',
         { overlay: this.isOverlay },
-        { active: this.previewImage },
+        { active: this.previewImage || this.previewVideo },
       ];
     },
   },
@@ -82,7 +83,7 @@ export default defineComponent({
 
     onDropDragZone(event) {
       // 规定的上传类型
-      const allowedFileTypes = ['image/jpg', 'image/jpeg'];
+      const allowedFileTypes = ['image/jpg', 'image/jpeg', 'video/*'];
 
       // 上传的文件
       const selectedFile = event.dataTransfer.files[0];

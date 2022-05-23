@@ -1,6 +1,7 @@
 /* file-create-media */
 .file-create-media > .image {
   width: 100%;
+  height: 100%;
 }
 
 .file-create-media.loading {
@@ -8,6 +9,19 @@
 }
 
 .file-create-media.loading > .image {
+  position: absolute;
+  top: 0;
+}
+
+.file-create-media > .video {
+  width: 100%;
+}
+
+.file-create-media.loading {
+  padding-top: 66.66%;
+}
+
+.file-create-media.loading > .video {
   position: absolute;
   top: 0;
 }

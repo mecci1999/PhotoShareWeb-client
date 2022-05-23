@@ -15,6 +15,7 @@ export interface FileCreateStoreState {
   previewImage: string;
   selectedFile: File | null;
   loading: boolean;
+  previewVideo: string;
 }
 
 export interface CreateFileOptions {
@@ -36,6 +37,7 @@ export const fileCreateStoreModule: Module<FileCreateStoreState, RootState> = {
     previewImage: '',
     selectedFile: null,
     loading: false,
+    previewVideo: '',
   } as FileCreateStoreState,
 
   /**
@@ -63,6 +65,10 @@ export const fileCreateStoreModule: Module<FileCreateStoreState, RootState> = {
         ? true
         : false;
     },
+
+    previewVideo(state) {
+      return state.previewVideo;
+    },
   },
 
   /**
@@ -83,6 +89,10 @@ export const fileCreateStoreModule: Module<FileCreateStoreState, RootState> = {
 
     setLoading(state, data) {
       state.loading = data;
+    },
+
+    setPreviewVideo(state, data) {
+      state.previewVideo = data;
     },
   },
 
@@ -113,7 +123,7 @@ export const fileCreateStoreModule: Module<FileCreateStoreState, RootState> = {
               if (uploadProgress === 100) {
                 dispatch(
                   'notification/pushMessage',
-                  { content: '上传成功，开始处理照片...' },
+                  { content: '上传成功，开始处理素材...' },
                   { root: true },
                 );
               }
@@ -127,7 +137,7 @@ export const fileCreateStoreModule: Module<FileCreateStoreState, RootState> = {
 
         dispatch(
           'notification/pushMessage',
-          { content: '照片处理完成' },
+          { content: '素材处理完成' },
           { root: true },
         );
 

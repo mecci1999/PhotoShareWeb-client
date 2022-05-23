@@ -1,6 +1,6 @@
 <template>
   <div class="post-side-sheet-actions">
-    <PaymentSelect isUseAmountPayment="true" v-if="!canDownload" />
+    <PaymentSelect :isUseAmountPayment="true" v-if="!canDownload" />
   </div>
 </template>
 

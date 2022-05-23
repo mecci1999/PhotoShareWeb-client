@@ -1,6 +1,14 @@
 <template>
   <div :class="fileCreateMediaClasses">
-    <img class="image" :src="previewImage" @load="onLoadImage" />
+    <img
+      class="image"
+      :src="previewImage"
+      @load="onLoadImage"
+      v-if="isShowImage"
+    />
+    <video class="video" v-if="isShowVideo" controls>
+      <source :src="previewVideo" @load="onLoadVideo" type="video/mp4" />
+    </video>
   </div>
 </template>
 
@@ -14,7 +22,16 @@ export default defineComponent({
   /**
    * 属性
    */
-  props: {},
+  props: {
+    isShowImage: {
+      type: Boolean,
+      default: false,
+    },
+    isShowVideo: {
+      type: Boolean,
+      default: false,
+    },
+  },
 
   /**
    * 数据
@@ -31,6 +48,7 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       previewImage: 'file/create/previewImage',
+      previewVideo: 'file/create/previewVideo',
     }),
 
     fileCreateMediaClasses() {
@@ -50,6 +68,10 @@ export default defineComponent({
    */
   methods: {
     onLoadImage() {
+      this.loaded = true;
+    },
+
+    onLoadVideo() {
       this.loaded = true;
     },
   },
